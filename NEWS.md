@@ -13,6 +13,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+* correction in internal functions when filtering series with NA and the beginning and not and the end of the series.
 
 ## [2.2.0] - 2025-03-01
 
