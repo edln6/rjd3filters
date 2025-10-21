@@ -13,7 +13,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-* correction in internal functions when filtering series with NA and the beginning and not and the end of the series.
+* Correction in internal functions when filtering series with NA and the beginning and not and the end of the series.
+
+* For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for H-13).
 
 ## [2.2.0] - 2025-03-01
 
