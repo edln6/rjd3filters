@@ -30,6 +30,8 @@ The underlying forecast \eqn{y_{1}^*,\dots y_h^*} induced by \eqn{w^0,\dots w^{h
 Note that this is solved numerically: the solution isn't exact.
 }
 \examples{
+\dontrun{
+
 x <- retailsa$AllOtherGenMerchandiseStores
 ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
@@ -42,4 +44,5 @@ lines(ts(c(tail(x,1), f_ql), frequency = frequency(x), start = end(x)),
       col = "red", lty = 2)
 lines(ts(c(tail(x,1), f_lc), frequency = frequency(x), start = end(x)),
       col = "blue", lty = 2)
+}
 }

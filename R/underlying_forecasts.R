@@ -14,8 +14,9 @@
 #' =\sum_{i=-h}^q w_i^qy_{i-q}.
 #' }
 #' Note that this is solved numerically: the solution isn't exact.
-#' @inheritParams implicit_forecast
-#' @examples
+#' @inheritParams implicit_forecasts
+#' @examples \dontrun{
+#'
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
@@ -28,6 +29,7 @@
 #'       col = "red", lty = 2)
 #' lines(ts(c(tail(x,1), f_lc), frequency = frequency(x), start = end(x)),
 #'       col = "blue", lty = 2)
+#'}
 #' @importFrom stats time
 #' @export
 underlying_forecasts <- function(x, coefs) {
