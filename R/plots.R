@@ -294,7 +294,7 @@ remove_bound_NA <- function(x) {
     remove_i_last <- c(i, remove_i_last)
     i <- i - 1
   }
-  while (is.na(x[j]) && i < length(x)) {
+  while (is.na(x[j]) && j < length(x)) {
     remove_i_first <- c(j, remove_i_first)
     j <- j + 1
   }
