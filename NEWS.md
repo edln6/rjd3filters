@@ -8,12 +8,21 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+* New method `underlying_forecasts()`.
+
+### Changed
+
+* Correction in internal functions when filtering series with NA and the beginning and not and the end of the series.
+
+* For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for H-13).
+
 ## [2.3.0] - 2025-04-24
 
 ### Changed
 
 * New JARS v2.3.0
-
 
 ## [2.2.0] - 2025-03-01
 
