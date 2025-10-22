@@ -18,6 +18,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for H-13).
 
+* `implicit_forecast()` function renamed to `implicit_forecasts()`.
+
+
 ## [2.3.0] - 2025-04-24
 
 ### Changed

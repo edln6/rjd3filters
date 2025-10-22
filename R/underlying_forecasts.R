@@ -14,7 +14,7 @@
 #' =\sum_{i=-h}^q w_i^qy_{i-q}.
 #' }
 #' Note that this is solved numerically: the solution isn't exact.
-#' @inheritParams implicit_forecast
+#' @inheritParams implicit_forecasts
 #' @examples \dontrun{
 #'
 #' x <- retailsa$AllOtherGenMerchandiseStores

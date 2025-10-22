@@ -306,3 +306,10 @@ cross_validation <- function(x, coef, ...) {
   .Deprecated("cve")
   cve(x, coef, ...)
 }
+#' @name deprecated-rjd3filters
+#' @rdname deprecated-rjd3filters
+#' @export
+implicit_forecast <- function(x, coefs) {
+    .Deprecated("implicit_forecasts")
+    implicit_forecasts(x, coef, ...)
+}

@@ -3,9 +3,12 @@
 \name{deprecated-rjd3filters}
 \alias{deprecated-rjd3filters}
 \alias{cross_validation}
+\alias{implicit_forecast}
 \title{Deprecated function}
 \usage{
 cross_validation(x, coef, ...)
+
+implicit_forecast(x, coefs)
 }
 \arguments{
 \item{x}{input time series.}

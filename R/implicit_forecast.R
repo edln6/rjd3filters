@@ -23,8 +23,8 @@
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
-#' f_ql <- implicit_forecast(x, ql)
-#' f_lc <- implicit_forecast(x, lc)
+#' f_ql <- implicit_forecasts(x, ql)
+#' f_lc <- implicit_forecasts(x, lc)
 #'
 #' plot(window(x, start = 2007),
 #'      xlim = c(2007,2012))
@@ -34,12 +34,12 @@
 #'       col = "blue", lty = 2)
 #' @importFrom stats time
 #' @export
-implicit_forecast <- function(x, coefs) {
-  UseMethod("implicit_forecast", x)
+implicit_forecasts <- function(x, coefs) {
+  UseMethod("implicit_forecasts", x)
 }
 #' @importFrom stats deltat
 #' @export
-implicit_forecast.default <- function(x, coefs) {
+implicit_forecasts.default <- function(x, coefs) {
   if (!inherits(coefs, "finite_filters")) {
     coefs <- finite_filters(coefs)
   }
@@ -59,8 +59,8 @@ implicit_forecast.default <- function(x, coefs) {
   prev
 }
 #' @export
-implicit_forecast.matrix <- function(x, coefs) {
-  result <- do.call(cbind, lapply(seq_len(ncol(x)), function(i) implicit_forecast(x[,i], coefs = coefs)))
+implicit_forecasts.matrix <- function(x, coefs) {
+  result <- do.call(cbind, lapply(seq_len(ncol(x)), function(i) implicit_forecasts(x[,i], coefs = coefs)))
   colnames(result) <- colnames(x)
   result
 }
