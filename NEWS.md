@@ -18,6 +18,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for H-13).
 
+## [2.3.0] - 2025-04-24
+
+### Changed
+
+* New JARS v2.3.0
+
 ## [2.2.0] - 2025-03-01
 
 ### Added
@@ -73,7 +79,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * New Jars
 
 
-[Unreleased]: https://github.com/rjdverse/rjd3filters/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/rjdverse/rjd3filters/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/rjdverse/rjd3filters/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/rjdverse/rjd3filters/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/rjdverse/rjd3filters/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/rjdverse/rjd3filters/compare/v2.0.0...v2.1.0
