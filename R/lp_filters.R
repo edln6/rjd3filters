@@ -21,13 +21,14 @@ NULL
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 #' @seealso [lp_filter()].
 #' @export
-localpolynomials<-function(x,
-                           horizon = 6,
-                           degree = 3,
-                           kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
-                           endpoints = c("LC", "QL", "CQ", "CC", "DAF"),
-                           ic = 4.5,
-                           tweight = 0, passband = pi/12) {
+localpolynomials<-function(
+        x,
+        horizon = 6,
+        degree = 3,
+        kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
+        endpoints = c("LC", "QL", "CQ", "CC", "DAF"),
+        ic = 3.5,
+        tweight = 0, passband = pi/12) {
     if (2*horizon < degree)
         stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
 
@@ -73,11 +74,12 @@ localpolynomials<-function(x,
 #' plot_coef(henderson_f)
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 #' @export
-lp_filter <- function(horizon = 6, degree = 3,
-                      kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
-                      endpoints = c("LC", "QL", "CQ", "CC", "DAF", "CN"),
-                      ic = 4.5,
-                      tweight = 0, passband = pi/12) {
+lp_filter <- function(
+        horizon = 6, degree = 3,
+        kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
+        endpoints = c("LC", "QL", "CQ", "CC", "DAF", "CN"),
+        ic = 3.5,
+        tweight = 0, passband = pi/12) {
     if (2*horizon < degree)
         stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
 
