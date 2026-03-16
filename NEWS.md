@@ -15,9 +15,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 * Correction in internal functions when filtering series with NA and the beginning and not and the end of the series.
-
 * For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for H-13).
-
 * `implicit_forecast()` function renamed to `implicit_forecasts()`.
 
 
@@ -25,18 +23,16 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-* New JARS v2.3.0
+* New JARS related to version [2.3.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.3.0)
+
 
 ## [2.2.0] - 2025-03-01
 
 ### Added
 
 * New function `polynomial_matrix()` to create a matrix of polynomial terms.
-
 * New function `mmsre_filter()` to compute the general Proietti and Luati (2008) filter with extension for non symmetric filters and with Timeliness criterion.
-
 * New parameter to `confint_filter()` to specify if the variance should be estimated for each asymmetric filters (default) instead of using the variance associated the symmetric estimates.
-
 
 ### Changed
 
@@ -46,11 +42,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2.1.1] - 2024-07-12
 
-### Changed
-
-* `cross_validation()` function renamed to `cve()`, `cross_validation()` is now deprecated.
-* New .jar files added (related to [v2.2.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.2.0))
-
 ### Added
 
 * New functions to compute functions to compute diagnostics and goodness of fit of filtered series: cross validation (`cv()`) and cross validate estimate (`cve()`), leave-one-out cross validation estimate (`loocve`), CP statistic (`cp()`) and Rice's T statistics (`rt()`).
@@ -58,13 +49,18 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 * New function `is.finite_filters()`.
 * New parameter `zero_as_na` in `cbind.moving_average`, boolean indicating if trealing and leading zeros added to have a matrix form should be replaced by `NA`.
 
+### Changed
+
+* `cross_validation()` function renamed to `cve()`, `cross_validation()` is now deprecated.
+* New JARS related to version [2.2.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.2.0)
+
 
 ## [2.1.0] - 2024-04-18
 
 ### Changed
 
 * Merge pull request #22 from rjdemetra/develop
-* v2.1.0 - last improvements
+* New JARS related to version [2.1.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.1.0)
 
 
 ## [2.0.0] - 2023-12-12
@@ -73,13 +69,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * Merge pull request #12 from rjdemetra/develop
 * Merge pull request #11 from rjdemetra/main
+* New JARS related to version [2.0.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.0.0)
 
 
 ## [1.0.0] - 2023-07-06
 
 ### Added
 
-* New Jars
+* Initial JARS related to version [1.0.0](https://github.com/jdemetra/jdplus-incubator/releases/tag/v1.0.0)
 
 
 [Unreleased]: https://github.com/rjdverse/rjd3filters/compare/v2.3.0...HEAD
