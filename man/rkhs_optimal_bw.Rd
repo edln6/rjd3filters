@@ -35,6 +35,8 @@ rkhs_optimal_bw(
 Function to export the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness")
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness", optimal.minBandwidth = 6.2)
 }

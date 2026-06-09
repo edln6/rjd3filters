@@ -221,6 +221,8 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #' Local regression and likelihood.
 #' New York: Springer-Verlag.
 #'
+#'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' x <- retailsa$DrinkingPlaces
 #' coef <- lp_filter(6)
@@ -311,5 +313,5 @@ cross_validation <- function(x, coef, ...) {
 #' @export
 implicit_forecast <- function(x, coefs) {
     .Deprecated("implicit_forecasts")
-    implicit_forecasts(x, coef, ...)
+    implicit_forecasts(x, coef)
 }

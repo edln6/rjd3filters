@@ -33,6 +33,8 @@ the first and last 6 points cannot be computed.
 \code{impute_last_obs()} allows to impute the first/last points using the \code{nperiod} previous filtered data. With \code{nperiod = 1}, the last filtered data is used for the imputation, with \code{nperiod = 12} and monthly data, the last year filtered data is used for the imputation, etc.
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
 M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3

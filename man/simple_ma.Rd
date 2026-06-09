@@ -15,6 +15,8 @@ simple_ma(order, lags = -trunc((order - 1)/2))
 A simple moving average is a moving average whose coefficients are all equal and whose sum is 1
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 # The M2X12 moving average is computed as
 (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 # The M3X3 moving average is computed as

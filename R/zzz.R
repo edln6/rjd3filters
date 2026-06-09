@@ -5,19 +5,30 @@
 NULL
 
 .onLoad <- function(libname, pkgname) {
-    if (!requireNamespace("rjd3toolkit", quietly = TRUE)) stop("Loading rjd3 libraries failed")
-    # For debugts_ging: to see if Jars are effectively loaded
-    # options(java.parameters = "-verbose:class")
+    jar_dir <- file.path(libname, pkgname, "inst", "java")
+    jars <- list.files(jar_dir, pattern = "\\.jar$", full.names = TRUE, all.files = TRUE)
+    rJava::.jaddClassPath(jars)
+    result <- rJava::.jpackage(pkgname, lib.loc = libname)
+    if (!result) stop("Loading java packages failed", call. = FALSE)
 
-    # TODO : devtools will look only in RJDemetra3\java for JAR files so copied them there too
-    result <- .jpackage(pkgname, lib.loc=libname)
-    if (!result) stop("Loading java packages failed")
-
-    # what's your java  version?  Need > 1.5.0.
-    jversion <- .jcall('java.lang.System','S','getProperty','java.version')
-    if (jversion < "1.8.0") {
-        stop("Your java version is ", jversion, ".  Need 1.8.0 or higher.")
+    current_java_version <- rjd3toolkit::get_java_version()
+    if (current_java_version >= rjd3toolkit::minimal_java_version) {
+        rjd3toolkit::reload_dictionaries()
     }
+    #
+    # if (!requireNamespace("rjd3toolkit", quietly = TRUE)) stop("Loading rjd3 libraries failed")
+    # # For debugts_ging: to see if Jars are effectively loaded
+    # # options(java.parameters = "-verbose:class")
+    #
+    # # TODO : devtools will look only in RJDemetra3\java for JAR files so copied them there too
+    # result <- .jpackage(pkgname, lib.loc=libname)
+    # if (!result) stop("Loading java packages failed")
+    #
+    # # what's your java  version?  Need > 1.5.0.
+    # jversion <- .jcall('java.lang.System','S','getProperty','java.version')
+    # if (jversion < "1.8.0") {
+    #     stop("Your java version is ", jversion, ".  Need 1.8.0 or higher.")
+    # }
 
 }
 

@@ -40,6 +40,8 @@ the target signal
 Apply Local Polynomials Filters
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 x <- retailsa$AllOtherGenMerchandiseStores
 trend <- localpolynomials(x, horizon = 6)
 plot(x)

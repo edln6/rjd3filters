@@ -14,6 +14,7 @@ setClass("finite_filters",
 #' @param object `finite_filters` object.
 #' @param x object to test the class.
 #'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' ff_lp <- lp_filter()
 #' ff_simple_ma <- finite_filters(moving_average(c(1, 1, 1), lags = -1)/3,
@@ -512,6 +513,7 @@ to_seasonal.finite_filters <- function(x, s) {
 #' `impute_last_obs()` allows to impute the first/last points using the `nperiod` previous filtered data. With `nperiod = 1`, the last filtered data is used for the imputation, with `nperiod = 12` and monthly data, the last year filtered data is used for the imputation, etc.
 #'
 #'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
 #' M3 <- moving_average(rep(1/3, 3), lags = -1)

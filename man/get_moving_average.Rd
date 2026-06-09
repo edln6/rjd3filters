@@ -15,6 +15,8 @@ get_moving_average(x, ...)
 Get Moving Averages from ARIMA model
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 fit <- stats::arima(log10(AirPassengers), c(0, 1, 1),
 seasonal = list(order = c(0, 1, 1), period = 12))
 get_moving_average(fit)

@@ -22,6 +22,8 @@ The values of the 3 criteria, the gain and phase of the associated filter.
 Compute the Fidelity, Smoothness and Timeliness (FST) criteria
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 fst(filter[, "q=0"])
 # To compute the statistics on all filters:
