@@ -296,22 +296,3 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, asymmetric_va
   colnames(res) <- c("filtered", sprintf("%.1f%%", c * 100))
   res
 }
-
-
-#' Deprecated function
-#'
-#' @inheritParams diagnostics-fit
-#' @name deprecated-rjd3filters
-#' @rdname deprecated-rjd3filters
-#' @export
-cross_validation <- function(x, coef, ...) {
-  .Deprecated("cve")
-  cve(x, coef, ...)
-}
-#' @name deprecated-rjd3filters
-#' @rdname deprecated-rjd3filters
-#' @export
-implicit_forecast <- function(x, coefs) {
-    .Deprecated("implicit_forecasts")
-    implicit_forecasts(x, coef)
-}
