@@ -43,7 +43,3 @@ reference:
 - title: Data
   contents:
   - '`retailsa`'
-
-- title: Deprecated functions
-  contents:
-  - '`deprecated-rjd3filters`'

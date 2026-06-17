@@ -34,6 +34,8 @@ which is equivalent to
 Note that this is solved numerically: the solution isn't exact.
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 x <- retailsa$AllOtherGenMerchandiseStores
 ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")

@@ -40,6 +40,7 @@ NULL
 #' M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{+f}\theta_kB^{-ks}\right)X_{t}
 #' }
 #'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' y <- retailsa$AllOtherGenMerchandiseStores
 #' e1 <- moving_average(rep(1,12), lags = -6)
@@ -405,6 +406,7 @@ setMethod("^",
 #' @param order number of terms of the moving_average
 #' @inheritParams moving_average
 #'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' # The M2X12 moving average is computed as
 #' (simple_ma(12, -6) + simple_ma(12, -5)) / 2

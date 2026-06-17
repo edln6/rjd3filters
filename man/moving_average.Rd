@@ -66,6 +66,8 @@ M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{
 }
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 y <- retailsa$AllOtherGenMerchandiseStores
 e1 <- moving_average(rep(1,12), lags = -6)
 e1 <- e1/sum(e1)

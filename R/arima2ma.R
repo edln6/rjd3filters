@@ -2,6 +2,7 @@
 #'
 #' @param x the object.
 #' @param ... unused parameters
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' fit <- stats::arima(log10(AirPassengers), c(0, 1, 1),
 #' seasonal = list(order = c(0, 1, 1), period = 12))

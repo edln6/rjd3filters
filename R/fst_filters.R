@@ -59,6 +59,7 @@
 #' }
 #'
 #'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' filter <- fst_filter(lags = 6, leads = 0)
 #' filter
@@ -86,6 +87,7 @@ fst_filter<-function(lags = 6, leads = 0, pdegree = 2,
 #' @param ... other unused arguments.
 #'
 #' @return The values of the 3 criteria, the gain and phase of the associated filter.
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' fst(filter[, "q=0"])
@@ -152,6 +154,7 @@ fst.finite_filters<-function(weights, lags, passband=pi/6,
 #' @param ... other unused arguments.
 #'
 #' @return The criteria
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' sweights <- filter[, "q=6"]

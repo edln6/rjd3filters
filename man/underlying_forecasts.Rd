@@ -30,6 +30,8 @@ The underlying forecast \eqn{y_{1}^*,\dots y_h^*} induced by \eqn{w^0,\dots w^{h
 Note that this is solved numerically: the solution isn't exact.
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 \dontrun{
 
 x <- retailsa$AllOtherGenMerchandiseStores
