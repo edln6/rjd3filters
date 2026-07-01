@@ -58,6 +58,8 @@ When \code{coef} (or \code{coef_var}) is a finite filter, the last points of the
 computed using the corresponding asymmetric filters
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 x <- retailsa$DrinkingPlaces
 coef <- lp_filter(6)
 confint <- confint_filter(x, coef)

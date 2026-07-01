@@ -47,6 +47,8 @@ a \code{\link[=finite_filters]{finite_filters()}} object.
 Estimation of a filter using Reproducing Kernel Hilbert Space (RKHS)
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 plot_coef(rkhs)
 }

@@ -12,6 +12,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 * New method `underlying_forecasts()`.
 
+* New JARS related to version [3.7.1](https://github.com/jdemetra/jdplus-main/releases/tag/v3.7.1) of JDemetra+.
+
+
 ### Changed
 
 * Correction in internal functions when filtering series with NA and the beginning and not and the end of the series.

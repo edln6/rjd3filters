@@ -15,6 +15,7 @@
 #' }
 #' Note that this is solved numerically: the solution isn't exact.
 #' @inheritParams implicit_forecasts
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples \dontrun{
 #'
 #' x <- retailsa$AllOtherGenMerchandiseStores

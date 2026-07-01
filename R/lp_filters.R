@@ -13,6 +13,7 @@ NULL
 #' @param ic ic ratio.
 #'
 #' @return the target signal
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' trend <- localpolynomials(x, horizon = 6)
@@ -69,6 +70,7 @@ localpolynomials<-function(
 #'
 #' @return a [finite_filters()] object.
 #' @seealso [mmsre_filter()] [localpolynomials()].
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 #' plot_coef(henderson_f)

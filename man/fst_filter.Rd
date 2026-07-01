@@ -86,6 +86,8 @@ a=\begin{pmatrix}
 }
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 filter <- fst_filter(lags = 6, leads = 0)
 filter
 }

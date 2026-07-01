@@ -47,6 +47,8 @@ Local Polynomials Filters
 }
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 plot_coef(henderson_f)
 }

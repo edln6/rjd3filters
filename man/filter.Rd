@@ -36,6 +36,8 @@ time series \eqn{y[n-1]} (one future point known)...
 }
 }
 \examples{
+\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{\}) # examplesIf}
 x <- retailsa$DrinkingPlaces
 
 lags <- 6

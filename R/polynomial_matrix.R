@@ -16,6 +16,7 @@
 #' \end{pmatrix}
 #' }
 #'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' # For example to reproduce DAF filters
 #' daf <- lp_filter(horizon = 6, endpoints = "DAF")

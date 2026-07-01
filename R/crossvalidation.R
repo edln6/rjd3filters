@@ -221,6 +221,8 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #' Local regression and likelihood.
 #' New York: Springer-Verlag.
 #'
+#'
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' x <- retailsa$DrinkingPlaces
 #' coef <- lp_filter(6)
@@ -293,23 +295,4 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, asymmetric_va
   res <- ts.union(filtered, inf, sup)
   colnames(res) <- c("filtered", sprintf("%.1f%%", c * 100))
   res
-}
-
-
-#' Deprecated function
-#'
-#' @inheritParams diagnostics-fit
-#' @name deprecated-rjd3filters
-#' @rdname deprecated-rjd3filters
-#' @export
-cross_validation <- function(x, coef, ...) {
-  .Deprecated("cve")
-  cve(x, coef, ...)
-}
-#' @name deprecated-rjd3filters
-#' @rdname deprecated-rjd3filters
-#' @export
-implicit_forecast <- function(x, coefs) {
-    .Deprecated("implicit_forecasts")
-    implicit_forecasts(x, coef, ...)
 }

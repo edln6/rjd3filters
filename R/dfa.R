@@ -16,6 +16,7 @@
 #' The three criteria are:
 #'
 #' @export
+#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
 #' @examples
 #' dfa_filter(horizon = 6, degree = 0)
 #' dfa_filter(horizon = 6, degree = 2)
