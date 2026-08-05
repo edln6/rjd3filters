@@ -29,6 +29,8 @@ Imports:
   MASS,
   graphics,
   stats,
+  utils,
+  rjd3jars (>= 0.0.5),
   rjd3toolkit (>= 3.7.1)
 SystemRequirements: Java (>= 21)
 License: file LICENSE

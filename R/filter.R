@@ -41,11 +41,13 @@
 #' fst_ma <- filter(x, fst_coef)
 #' lpp_ma <- filter(x, lpp_coef[,"q=2"])
 #'
-#' plot(ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","blue"))
+#' graphics::plot(stats::ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","blue"))
 #'
 #' trend <- filter(x, lpp_coef)
 #' # This is equivalent to:
 #' trend <- localpolynomials(x, horizon = 6)
+#' @importFrom stats ts.union
+#' @importFrom graphics plot
 #' @export
 filter <- function(x, coefs, remove_missing = TRUE) {
   UseMethod("filter", x)
@@ -67,7 +69,9 @@ filter.matrix <- function(x, coefs, remove_missing = TRUE) {
   result
 }
 
-#' @importFrom stats is.ts start
+#' @importFrom stats frequency
+#' @importFrom stats is.ts
+#' @importFrom stats start
 filter_ma <- function(x, coefs) {
   # if (!is.moving_average(coefs)) {
   #   coefs <- moving_average(coefs, -abs(lags))
@@ -98,11 +102,15 @@ filter_ma <- function(x, coefs) {
               result,
               rep(NA, abs(max(ub, 0))))
 
-  if (is.ts(x))
-    result <- ts(result,start = start(x), frequency = frequency(x))
+  if (stats::is.ts(x))
+    result <- stats::ts(result,start = stats::start(x), frequency = stats::frequency(x))
   result
 }
 
+#' @importFrom stats frequency
+#' @importFrom stats ts
+#' @importFrom stats is.ts
+#' @importFrom stats start
 ff_ma <- function(x, coefs, remove_missing = TRUE) {
   if (!inherits(coefs, "finite_filters")) {
     coefs <- finite_filters(coefs)
@@ -132,8 +140,8 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
     result <- c(rep(NA, data_clean$leading), result,
                rep(NA, data_clean$trailing))
   }
-  if (is.ts(x))
-    result <- ts(result,start = start(x), frequency = frequency(x))
+  if (stats::is.ts(x))
+    result <- stats::ts(result,start = stats::start(x), frequency = stats::frequency(x))
   result
 }
 

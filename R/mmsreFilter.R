@@ -91,6 +91,7 @@ mmsre_filter <- function(
   return(.jd2ma(jf))
 }
 
+#' @importFrom rjd3toolkit .r2jd_matrix
 .r2jd_fast_matrix <- function(s) {
   if (is.null(s))
     return(.jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"))

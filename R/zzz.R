@@ -1,7 +1,4 @@
-#' @import rJava
-#' @importFrom graphics axis lines plot matplot
-#' @importFrom stats frequency ts
-#' @importFrom rjd3toolkit .proc_data .proc_dictionary .jd2r_matrix .r2jd_matrix
+#' @importFrom rJava .jcall .jarray .jcast is.jnull J .jnull
 NULL
 
 #' @importFrom rjd3jars check_java_version
@@ -10,6 +7,9 @@ NULL
     rjd3jars::check_java_version(silent = FALSE, startup = TRUE)
 }
 
+#' @importFrom rjd3jars check_java_version
+#' @importFrom rjd3jars reload_dictionaries
+#' @importFrom rJava .jpackage
 .onLoad <- function(libname, pkgname) {
     # Loading dependencies
     if (!requireNamespace("rjd3jars", quietly = TRUE)) {
@@ -42,11 +42,3 @@ NULL
         rjd3jars::reload_dictionaries()
     }
 }
-
-#' Seasonally Adjusted Retail Sales
-#'
-#' A dataset containing monthly seasonally adjusted retailed sales
-#'
-#' @docType data
-#' @format A \code{list} of \code{ts} objects from january 1992 to december 2010.
-"retailsa"

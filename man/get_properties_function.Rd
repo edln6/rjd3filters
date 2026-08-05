@@ -25,6 +25,6 @@ Get properties of filters
 \dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 filter <- lp_filter(3, kernel = "Henderson")
 sgain <- get_properties_function(filter, "Symmetric Gain")
-plot(sgain, xlim= c(0, pi/12))
+graphics::plot(sgain, xlim= c(0, pi/12))
 \dontshow{\}) # examplesIf}
 }

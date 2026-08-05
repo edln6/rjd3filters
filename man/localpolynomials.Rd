@@ -43,8 +43,8 @@ Apply Local Polynomials Filters
 \dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 x <- retailsa$AllOtherGenMerchandiseStores
 trend <- localpolynomials(x, horizon = 6)
-plot(x)
-lines(trend, col = "red")
+graphics::plot(x)
+graphics::lines(trend, col = "red")
 \dontshow{\}) # examplesIf}
 }
 \references{

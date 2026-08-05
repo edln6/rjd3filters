@@ -98,6 +98,7 @@ fst_filter<-function(lags = 6, leads = 0, pdegree = 2,
 fst <- function(weights, lags, passband=pi/6, ...) {
   UseMethod("fst", weights)
 }
+
 #' @export
 fst.default<-function(weights, lags, passband=pi/6, ...) {
   jobj<-.jcall("jdplus/filters/base/core/AdvancedFiltersToolkit", "Ljdplus/filters/base/core/AdvancedFiltersToolkit$FSTResult;", "fst",
@@ -106,12 +107,15 @@ fst.default<-function(weights, lags, passband=pi/6, ...) {
   names(criteria) <- c("Fidelity", "Smoothness", "Timeliness")
   return(criteria)
 }
+
+#' @importFrom stats coef
 #' @export
 fst.moving_average<-function(weights, lags, passband=pi/6, ...) {
   lags <- lower_bound(weights)
-  weights <- coef(weights)
+  weights <- stats::coef(weights)
   fst(weights, lags, passband)
 }
+
 #' @export
 fst.finite_filters<-function(weights, lags, passband=pi/6,
                              sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, ...) {
@@ -163,17 +167,19 @@ fst.finite_filters<-function(weights, lags, passband=pi/6,
 mse<-function(aweights, sweights, density=c("uniform", "rw"), passband = pi/6, ...) {
   UseMethod("mse", aweights)
 }
+
+#' @importFrom stats coef
 #' @export
 mse.default<-function(aweights, sweights, density=c("uniform", "rw"), passband = pi/6, ...) {
   if (is.moving_average(aweights))
-    aweights <- coef(aweights)
+    aweights <- stats::coef(aweights)
 
   if (is.moving_average(sweights)) {
     if (lower_bound(sweights) < 0) {
       # we asume sweights were specify from [-n to n] instead of [0,n]
-      sweights <- coef(sweights)[seq(lower_bound(sweights), -1)]
+      sweights <- stats::coef(sweights)[seq(lower_bound(sweights), -1)]
     } else {
-      sweights <- coef(sweights)
+      sweights <- stats::coef(sweights)
     }
   } else if (length(sweights)>length(aweights)) {
     # we asume sweights were specify from [-n to n] instead of [0,n]
@@ -185,6 +191,7 @@ mse.default<-function(aweights, sweights, density=c("uniform", "rw"), passband =
                sweights, aweights, spectral, passband)
   return(c(accuracy=rslt[1], smoothness=rslt[2], timeliness=rslt[3], residual=rslt[4]))
 }
+
 #' @export
 mse.finite_filters<-function(aweights, sweights = aweights@sfilter, density=c("uniform", "rw"), passband = pi/6,
                             sfilter = TRUE, rfilters = TRUE, lfilters = FALSE, ...) {

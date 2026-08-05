@@ -22,12 +22,15 @@
 #' plot_phase(filter, q = c(0,3), legend = TRUE)
 #' @name plot_filters
 #' @rdname plot_filters
-#' @importFrom MASS fractions
 #' @export
 plot_coef <- function(x, nxlab = 7, add = FALSE, ..., xlab = "", ylab = "coefficient") {
   UseMethod("plot_coef", x)
 }
+
 #' @rdname plot_filters
+#' @importFrom graphics matplot
+#' @importFrom graphics axis
+#' @importFrom graphics plot
 #' @export
 plot_coef.default <- function(x, nxlab = 7, add = FALSE,
                               zero_as_na = TRUE, q = 0, legend = FALSE,
@@ -39,32 +42,35 @@ plot_coef.default <- function(x, nxlab = 7, add = FALSE,
   horizon <- (nrow(x)-1)/2
   if (length(col_to_plot) == 0) {
     if (!add) {
-      plot(1, type="n",xaxt = "n", xlab = xlab,
+      graphics::plot(1, type="n",xaxt = "n", xlab = xlab,
            ylab = ylab, xlim=c(-horizon, horizon), ylim=c(0, 1),
            ...)
-      axis(1, at=seq(-horizon, horizon, by = 1), labels = rownames(x))
+      graphics::axis(1, at=seq(-horizon, horizon, by = 1), labels = rownames(x))
     }
     return(invisible(0))
   }
-  matplot(seq(-horizon, horizon, by = 1),x[,col_to_plot],
+  graphics::matplot(seq(-horizon, horizon, by = 1),x[,col_to_plot],
           xaxt = "n", xlab = xlab, type = "o", pch = 20,
           ylab = ylab, add = add, ...)
   if (legend)
     legend(legend.pos,col_to_plot,
            col = seq_along(col_to_plot), lty=seq_along(col_to_plot), lwd=2)
   if (!add)
-    axis(1, at=seq(-horizon, horizon, by = 1), labels = rownames(x))
+    graphics::axis(1, at=seq(-horizon, horizon, by = 1), labels = rownames(x))
 }
 
 #' @rdname plot_filters
+#' @importFrom graphics matplot
+#' @importFrom graphics axis
+#' @importFrom stats coef
 #' @export
 plot_coef.moving_average <- function(x, nxlab = 7, add = FALSE, ..., xlab = "", ylab = "coefficient") {
-  x_plot <- coef(x)
-  matplot(seq(lower_bound(x), upper_bound(x), by = 1), x_plot,
+  x_plot <- stats::coef(x)
+  graphics::matplot(seq(lower_bound(x), upper_bound(x), by = 1), x_plot,
           xaxt = "n", xlab = xlab, type = "o", pch = 20,
           ylab = ylab, add = add, ...)
   if (!add)
-    axis(1, at=seq(lower_bound(x), upper_bound(x), by = 1), labels = names(x_plot))
+    graphics::axis(1, at=seq(lower_bound(x), upper_bound(x), by = 1), labels = names(x_plot))
 }
 
 #' @rdname plot_filters
@@ -85,19 +91,26 @@ plot_gain <- function(x, nxlab = 7, add = FALSE,
                       xlim = c(0, pi), ..., xlab = "", ylab = "gain") {
   UseMethod("plot_gain", x)
 }
+
 #' @rdname plot_filters
+#' @importFrom graphics axis
+#' @importFrom graphics plot
 #' @export
 plot_gain.moving_average<- function(x, nxlab = 7, add = FALSE,
                                     xlim = c(0, pi), ..., xlab = "", ylab = "gain") {
   g <- get_properties_function(x, "Symmetric Gain")
-  plot(g, type = "l",
+  graphics::plot(g, type = "l",
        xaxt = "n", xlab = xlab,
        ylab = ylab, add = add, xlim = xlim, ...)
   if (!add) {
     x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
-    axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
+    graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
   }
 }
+
+#' @importFrom graphics matplot
+#' @importFrom graphics axis
+#' @importFrom graphics plot
 #' @rdname plot_filters
 #' @export
 plot_gain.finite_filters <- function(x, nxlab = 7, add = FALSE,
@@ -115,15 +128,15 @@ plot_gain.finite_filters <- function(x, nxlab = 7, add = FALSE,
   y_val <- sapply(all_g_f, function(f) f(x_values))
   if (length(col_to_plot) == 0) {
     if (!add) {
-      plot(1, type="n",xaxt = "n", xlab = xlab,
+      graphics::plot(1, type="n",xaxt = "n", xlab = xlab,
            ylab = ylab, xlim=xlim, ylim=c(0, 1),
            ...)
       x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
-      axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
+      graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
     }
     return(invisible(0))
   }
-  matplot(x_values, y_val[, col_to_plot], type = "l",
+  graphics::matplot(x_values, y_val[, col_to_plot], type = "l",
           xaxt = "n", xlab = xlab,
           ylab = ylab, add = add, xlim = xlim, ...)
 
@@ -132,7 +145,7 @@ plot_gain.finite_filters <- function(x, nxlab = 7, add = FALSE,
            col = seq_along(col_to_plot), lty=seq_along(col_to_plot), lwd=2)
   if (!add) {
     x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
-    axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
+    graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
   }
 }
 
@@ -142,6 +155,9 @@ plot_phase <- function(x, nxlab = 7, add = FALSE,
                        xlim = c(0, pi), normalized = FALSE, ..., xlab = "", ylab = "phase") {
   UseMethod("plot_phase", x)
 }
+
+#' @importFrom graphics axis
+#' @importFrom graphics plot
 #' @rdname plot_filters
 #' @export
 plot_phase.moving_average<- function(x, nxlab = 7, add = FALSE,
@@ -157,16 +173,18 @@ plot_phase.moving_average<- function(x, nxlab = 7, add = FALSE,
     p_plot <- p
   }
 
-  plot(p_plot, type = "l",
+  graphics::plot(p_plot, type = "l",
        xaxt = "n", xlab = xlab,
        ylab = ylab, add = add, xlim = xlim, ...)
   if (!add) {
     x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
-    axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
+    graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
   }
 }
 
-
+#' @importFrom graphics matplot
+#' @importFrom graphics plot
+#' @importFrom graphics axis
 #' @rdname plot_filters
 #' @export
 plot_phase.finite_filters <- function(x, nxlab = 7, add = FALSE,
@@ -189,15 +207,15 @@ plot_phase.finite_filters <- function(x, nxlab = 7, add = FALSE,
   }
   if (length(col_to_plot) == 0) {
     if (!add) {
-      plot(1, type="n",xaxt = "n", xlab = xlab,
+      graphics::plot(1, type="n",xaxt = "n", xlab = xlab,
            ylab = ylab, xlim=xlim, ylim=c(0, 1),
            ...)
       x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
-      axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
+      graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
     }
     return(invisible(0))
   }
-  matplot(x_values, y_val[, col_to_plot], type = "l",
+  graphics::matplot(x_values, y_val[, col_to_plot], type = "l",
           xaxt = "n", xlab = xlab,
           ylab = ylab, add = add, xlim = xlim, ...)
 
@@ -206,9 +224,11 @@ plot_phase.finite_filters <- function(x, nxlab = 7, add = FALSE,
            col = seq_along(col_to_plot), lty=seq_along(col_to_plot), lwd=2)
   if (!add) {
     x_lab_at <- seq(xlim[1]/pi, xlim[2]/pi, length.out = nxlab)
-    axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
+    graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
   }
 }
+
+#' @importFrom MASS fractions
 xlabel <- function(x, symbol = "pi") {
   fracs <- strsplit(attr(MASS::fractions(x), "fracs"), "/")  # convert to fractions
   labels <- sapply(
@@ -234,7 +254,7 @@ trailingzero_as_na <- function(x) {
   }
   x
   # if (x[length(x)]==0)
-  #   x [seq(from = tail(which(!sapply(x, function(y) isTRUE(all.equal(y,0)))),1)+1,
+  #   x [seq(from = utils::tail(which(!sapply(x, function(y) isTRUE(all.equal(y,0)))),1)+1,
   #          to = length(x),
   #          by = 1)] <- NA
   # x

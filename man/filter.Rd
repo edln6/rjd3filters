@@ -47,7 +47,7 @@ lpp_coef <- lp_filter(horizon = lags, kernel = "Henderson", endpoints = "LC")
 fst_ma <- filter(x, fst_coef)
 lpp_ma <- filter(x, lpp_coef[,"q=2"])
 
-plot(ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","blue"))
+graphics::plot(stats::ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","blue"))
 
 trend <- filter(x, lpp_coef)
 # This is equivalent to:

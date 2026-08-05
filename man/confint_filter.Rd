@@ -62,7 +62,7 @@ computed using the corresponding asymmetric filters
 x <- retailsa$DrinkingPlaces
 coef <- lp_filter(6)
 confint <- confint_filter(x, coef)
-plot(confint, plot.type = "single",
+graphics::plot(confint, plot.type = "single",
      col = c("red", "black", "black"),
      lty = c(1, 2, 2))
 \dontshow{\}) # examplesIf}

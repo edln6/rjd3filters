@@ -1,6 +1,3 @@
-#' @import rJava
-NULL
-
 #' Apply Local Polynomials Filters
 #'
 #' @param x input time-series.
@@ -13,13 +10,21 @@ NULL
 #' @param ic ic ratio.
 #'
 #' @return the target signal
+#'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' trend <- localpolynomials(x, horizon = 6)
-#' plot(x)
-#' lines(trend, col = "red")
+#' graphics::plot(x)
+#' graphics::lines(trend, col = "red")
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 #' @seealso [lp_filter()].
+#'
+#' @importFrom stats frequency
+#' @importFrom stats ts
+#' @importFrom stats is.ts
+#' @importFrom stats start
+#' @importFrom graphics lines
+#' @importFrom graphics plot
 #' @export
 localpolynomials<-function(
         x,
@@ -51,8 +56,8 @@ localpolynomials<-function(
     result <- .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "[D", "filter",
                      as.numeric(x), as.integer(horizon), as.integer(degree), kernel, endpoints, d,
                      tweight, passband)
-    if (is.ts(x))
-        result <- ts(result,start = start(x), frequency = frequency(x))
+    if (stats::is.ts(x))
+        result <- stats::ts(result,start = stats::start(x), frequency = stats::frequency(x))
     result
 }
 

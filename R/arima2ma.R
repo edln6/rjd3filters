@@ -2,10 +2,13 @@
 #'
 #' @param x the object.
 #' @param ... unused parameters
+#'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' fit <- stats::arima(log10(AirPassengers), c(0, 1, 1),
 #' seasonal = list(order = c(0, 1, 1), period = 12))
 #' get_moving_average(fit)
+#'
+#' @importFrom stats arima
 #' @export
 get_moving_average <- function(x, ...) {
   UseMethod("get_moving_average", x)
@@ -25,7 +28,7 @@ get_moving_average.Arima <- function(x, ...) {
 
   ar_mm <- ma_mm <- sar_mm <-
     sma_mm <- moving_average(1, lags = 0)
-  coef <- coefficients(x)
+  coef <- stats::coefficients(x)
   if (ar > 0) {
     ar_mm <- moving_average(coef[sprintf("ar%i", seq(ar, 1))],
                             lags = - ar)

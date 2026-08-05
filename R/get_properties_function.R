@@ -7,7 +7,8 @@
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' filter <- lp_filter(3, kernel = "Henderson")
 #' sgain <- get_properties_function(filter, "Symmetric Gain")
-#' plot(sgain, xlim= c(0, pi/12))
+#' graphics::plot(sgain, xlim= c(0, pi/12))
+#' @importFrom graphics plot
 #' @export
 get_properties_function <- function(x,
                                     component = c("Symmetric Gain",
@@ -129,14 +130,16 @@ get_properties_function.finite_filters <- function(x,
 #' @references Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment.
 #'
 #' Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+#'
+#' @importFrom stats coef
 #' @export
 diagnostic_matrix <- function(x, lags, passband = pi/6,
                                sweights, ...) {
   if (!is.moving_average(x))
     x <- moving_average(x, lags = lags)
 
-  results <- c(sum(x)-1, sum(coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)),
-               sum(coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)^2),
+  results <- c(sum(x)-1, sum(stats::coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)),
+               sum(stats::coef(x) * seq(lower_bound(x), upper_bound(x), by = 1)^2),
                fst(x, lags, passband = passband))
   if (!missing(sweights)) {
     results <- c(results,

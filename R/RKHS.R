@@ -55,22 +55,22 @@ rkhs_filter <- function(horizon = 6, degree = 2,
 #' @inheritParams rkhs_filter
 #' @inheritParams fst_filter
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' plot(rkhs_optimization_fun(horizon = 6, leads = 0,degree = 3, asymmetricCriterion = "Timeliness"),
+#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 0,degree = 3, asymmetricCriterion = "Timeliness"),
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X0 filter")
-#' plot(rkhs_optimization_fun(horizon = 6, leads = 1,degree = 3, asymmetricCriterion = "Timeliness"),
+#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 1,degree = 3, asymmetricCriterion = "Timeliness"),
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X1 filter")
-#' plot(rkhs_optimization_fun(horizon = 6, leads = 2,degree = 3, asymmetricCriterion = "Timeliness"),
+#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 2,degree = 3, asymmetricCriterion = "Timeliness"),
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X2 filter")
-#' plot(rkhs_optimization_fun(horizon = 6, leads = 3,degree = 3, asymmetricCriterion = "Timeliness"),
+#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 3,degree = 3, asymmetricCriterion = "Timeliness"),
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X3 filter")
-#' plot(rkhs_optimization_fun(horizon = 6, leads = 4,degree = 3, asymmetricCriterion = "Timeliness"),
+#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 4,degree = 3, asymmetricCriterion = "Timeliness"),
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X4 filter")
-#' plot(rkhs_optimization_fun(horizon = 6, leads = 5,degree = 3, asymmetricCriterion = "Timeliness"),
+#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 5,degree = 3, asymmetricCriterion = "Timeliness"),
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X5 filter")
 #' @export

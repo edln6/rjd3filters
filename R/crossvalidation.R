@@ -70,6 +70,9 @@
 #' Cleveland, W. S. and S. J. Devlin (1988).
 #' Locally weighted regression: An approach to regression analysis by local fitting.
 #' Journal of the American Statistical Association 83, 596–610.
+#'
+#' @importFrom stats coef
+#'
 #' @name diagnostics-fit
 #' @rdname diagnostics-fit
 #' @export
@@ -78,14 +81,17 @@ cve <- function(x, coef, ...) {
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
-  coef0 <- coef(coef)["t"]
+  coef0 <- stats::coef(coef)["t"]
   (x-sc) / (1-coef0)
 }
+
 #' @rdname diagnostics-fit
 #' @export
 cv <- function(x, coef, ...) {
   mean(cve(x, coef, ...)^2, na.rm = TRUE)
 }
+
+#' @importFrom stats coef
 #' @rdname diagnostics-fit
 #' @export
 loocve <- function(x, coef, ...) {
@@ -93,10 +99,11 @@ loocve <- function(x, coef, ...) {
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
-  coef0 <- coef(coef)["t"]
+  coef0 <- stats::coef(coef)["t"]
   (sc - coef0 * x) / (1 - coef0)
 }
 
+#' @importFrom stats coef
 #' @rdname diagnostics-fit
 #' @export
 rt <- function(x, coef, ...) {
@@ -104,10 +111,11 @@ rt <- function(x, coef, ...) {
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
-  coef0 <- coef(coef)["t"]
+  coef0 <- stats::coef(coef)["t"]
   mean((x-sc)^2, na.rm = TRUE) / (1 - 2 * coef0)
 }
 
+#' @importFrom stats coef
 #' @rdname diagnostics-fit
 #' @export
 cp <- function(x, coef, var, ...) {
@@ -116,7 +124,7 @@ cp <- function(x, coef, var, ...) {
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
-  coef0 <- coef(coef)["t"]
+  coef0 <- stats::coef(coef)["t"]
   mse <- (x-sc)^2
   nb_obs <- sum(!is.na(mse))
   (1 / var) * sum(mse, na.rm = TRUE) - nb_obs * (1 - 2 * coef0)
@@ -140,16 +148,18 @@ cp <- function(x, coef, var, ...) {
 #' Local regression and likelihood.
 #' New York: Springer-Verlag.
 #' @seealso [df_var()].
+#'
+#' @importFrom stats coefficients
 #' @export
 var_estimator <- function(x, coef, ...) {
   coef <- moving_average(coef, ...)
   if (lower_bound(coef) > 0 || upper_bound(coef) < 0)
     return(NA)
   sc <- filter(x, coef)
-  coef0 <- coefficients(coef)["t"]
+  coef0 <- stats::coefficients(coef)["t"]
   sigma2 <-  mean((x - sc)^2,
                   na.rm = TRUE)
-  sigma2 <- sigma2 / (1- 2 * coef0 + sum(coefficients(coef)^2))
+  sigma2 <- sigma2 / (1- 2 * coef0 + sum(stats::coefficients(coef)^2))
   names(sigma2) <- NULL
   sigma2
 }
@@ -159,9 +169,11 @@ var_estimator <- function(x, coef, ...) {
 #' @param n number of observations
 #' @param coef moving average ([moving_average()]) used to filter the series.
 #' @inheritParams confint_filter
+#'
 #' @seealso [var_estimator()].
+#' @importFrom stats coefficients
 df_var <- function(n, coef, exact_df = FALSE) {
-    value_coef <- coefficients(coef)
+    value_coef <- stats::coefficients(coef)
     coef0 <- value_coef["t"]
     p <- abs(lower_bound(coef))
     f <- upper_bound(coef)
@@ -226,55 +238,63 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #' x <- retailsa$DrinkingPlaces
 #' coef <- lp_filter(6)
 #' confint <- confint_filter(x, coef)
-#' plot(confint, plot.type = "single",
+#' graphics::plot(confint, plot.type = "single",
 #'      col = c("red", "black", "black"),
 #'      lty = c(1, 2, 2))
 #' @export
+#' @importFrom stats frequency
+#' @importFrom stats ts
+#' @importFrom stats start
+#' @importFrom stats qt
+#' @importFrom stats qnorm
+#' @importFrom stats end
+#' @importFrom stats ts.union
+#' @importFrom stats coefficients
 confint_filter <- function(x, coef, coef_var = coef, level = 0.95, asymmetric_var = TRUE, gaussian_distribution = FALSE, exact_df = TRUE, ...) {
   filtered <- filter(x, coef)
   c <- (1 - level) / 2
   c <- c(c, 1 - c)
   n <- length(filtered)
   if (is.moving_average(coef)) {
-    corr_f <- sqrt(sum(coefficients(coef)^2))
+    corr_f <- sqrt(sum(stats::coefficients(coef)^2))
     if (gaussian_distribution) {
-      quantile <- matrix(qnorm(c), ncol = 2)
+      quantile <- matrix(stats::qnorm(c), ncol = 2)
     } else {
-      quantile <- matrix(qt(c, df = df_var(n = n, coef = coef, exact_df = exact_df)), ncol = 2)
+      quantile <- matrix(stats::qt(c, df = df_var(n = n, coef = coef, exact_df = exact_df)), ncol = 2)
     }
   } else if (is.finite_filters(coef)) {
-    corr_f <- ts(sqrt(sum(coefficients(coef@sfilter)^2)),
-                 start = start(filtered), end = end(filtered),
-                 frequency = frequency(filtered))
+    corr_f <- stats::ts(sqrt(sum(stats::coefficients(coef@sfilter)^2)),
+                 start = stats::start(filtered), end = stats::end(filtered),
+                 frequency = stats::frequency(filtered))
     if (gaussian_distribution) {
-      quantile <- matrix(qnorm(c), ncol = 2)
+      quantile <- matrix(stats::qnorm(c), ncol = 2)
     } else {
-      quantile <- ts(matrix(qt(c, df = df_var(n = n, coef = coef@sfilter, exact_df = exact_df)), ncol = 2),
-                     start = start(filtered), end = end(filtered),
-                     frequency = frequency(filtered))
+      quantile <- stats::ts(matrix(stats::qt(c, df = df_var(n = n, coef = coef@sfilter, exact_df = exact_df)), ncol = 2),
+                     start = stats::start(filtered), end = stats::end(filtered),
+                     frequency = stats::frequency(filtered))
     }
     lfilters <- coef@lfilters
     rfilters <- coef@rfilters
     for (i in seq_along(lfilters)) {
-      corr_f[i] <- sqrt(sum(coefficients(lfilters[[i]])^2))
+      corr_f[i] <- sqrt(sum(stats::coefficients(lfilters[[i]])^2))
       if (!gaussian_distribution)
-        quantile[i,] <- qt(c, df = df_var(n = n, coef = lfilters[[i]], exact_df = exact_df))
+        quantile[i,] <- stats::qt(c, df = df_var(n = n, coef = lfilters[[i]], exact_df = exact_df))
     }
     for (i in seq_along(rfilters)) {
       corr_f[length(corr_f) - length(rfilters) + i] <-
-        sqrt(sum(coefficients(rfilters[[i]])^2))
+        sqrt(sum(stats::coefficients(rfilters[[i]])^2))
       if (!gaussian_distribution)
         quantile[length(time(quantile)) - length(rfilters) + i,] <-
-          qt(c, df = df_var(n = n, coef = rfilters[[i]], exact_df = exact_df))
+          stats::qt(c, df = df_var(n = n, coef = rfilters[[i]], exact_df = exact_df))
     }
   }
 
   if (is.moving_average(coef_var)) {
     var <- var_estimator(x, coef_var)
   } else if (is.finite_filters(coef_var)) {
-    var <- ts(var_estimator(x, coef_var@sfilter),
-              start = start(filtered), end = end(filtered),
-              frequency = frequency(filtered))
+    var <- stats::ts(var_estimator(x, coef_var@sfilter),
+              start = stats::start(filtered), end = stats::end(filtered),
+              frequency = stats::frequency(filtered))
     if (asymmetric_var) {
         lfilters <- coef_var@lfilters
         rfilters <- coef_var@rfilters
@@ -291,7 +311,7 @@ confint_filter <- function(x, coef, coef_var = coef, level = 0.95, asymmetric_va
 
   inf <- filtered + quantile[,1] * sqrt(var) * corr_f
   sup <- filtered + quantile[,2] * sqrt(var) * corr_f
-  res <- ts.union(filtered, inf, sup)
+  res <- stats::ts.union(filtered, inf, sup)
   colnames(res) <- c("filtered", sprintf("%.1f%%", c * 100))
   res
 }

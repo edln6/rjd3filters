@@ -72,7 +72,7 @@ e1 <- moving_average(rep(1,12), lags = -6)
 e1 <- e1/sum(e1)
 e2 <- moving_average(rep(1/12, 12), lags = -5)
 M2X12 <- (e1 + e2)/2
-coef(M2X12)
+stats::coef(M2X12)
 M3 <- moving_average(rep(1/3, 3), lags = -1)
 M3X3 <- M3 * M3
 # M3X3 moving average applied to each month
@@ -97,6 +97,6 @@ s <- si * M3X3_seasonal
 # or equivalently:
 s_mm <- M3X3_seasonal * (1 - M2X12)
 s <- y * s_mm
-plot(s)
+graphics::plot(s)
 \dontshow{\}) # examplesIf}
 }

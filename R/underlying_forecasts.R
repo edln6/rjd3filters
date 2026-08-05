@@ -16,26 +16,37 @@
 #' Note that this is solved numerically: the solution isn't exact.
 #' @inheritParams implicit_forecasts
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' \dontrun{
 #' x <- retailsa$AllOtherGenMerchandiseStores
+#' \dontrun{
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' f_ql <- underlying_forecasts(x, ql)
 #' f_lc <- underlying_forecasts(x, lc)
 #'
-#' plot(window(x, start = 2007),
+#' graphics::plot(window(x, start = 2007),
 #'      xlim = c(2007,2012))
-#' lines(ts(c(tail(x,1), f_ql), frequency = frequency(x), start = end(x)),
+#' graphics::lines(stats::ts(c(utils::tail(x,1), f_ql), frequency = stats::frequency(x), start = stats::end(x)),
 #'       col = "red", lty = 2)
-#' lines(ts(c(tail(x,1), f_lc), frequency = frequency(x), start = end(x)),
+#' graphics::lines(stats::ts(c(utils::tail(x,1), f_lc), frequency = stats::frequency(x), start = stats::end(x)),
 #'       col = "blue", lty = 2)
 #'}
-#' @importFrom stats time
+#' @importFrom stats frequency
+#' @importFrom stats ts
+#' @importFrom stats end
+#' @importFrom utils tail
+#' @importFrom graphics plot
+#' @importFrom graphics lines
 #' @export
 underlying_forecasts <- function(x, coefs) {
   UseMethod("underlying_forecasts", x)
 }
+
+#' @importFrom stats frequency
+#' @importFrom stats ts
 #' @importFrom stats deltat
+#' @importFrom stats time
+#' @importFrom stats is.ts
+#' @importFrom utils tail
 #' @export
 underlying_forecasts.default <- function(x, coefs) {
   if (!inherits(coefs, "finite_filters")) {
@@ -44,19 +55,20 @@ underlying_forecasts.default <- function(x, coefs) {
   jffilters <- .finite_filters2jd(coefs)
   h <- abs(lower_bound(coefs@sfilter))
 
-  jx <- .r2jd_doubleseq(tail(x,2*h))
+  jx <- .r2jd_doubleseq(utils::tail(x,2*h))
   prev <- .jcall("jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
          "[D","underlyingForecasts",
          jffilters$jsymf,
          jffilters$jrasym,
          jx)
-  if (is.ts(x))
-    prev <- ts(prev,
-       frequency = frequency(x),
-       start = time(x)[length(time(x))] + deltat(x))
+  if (stats::is.ts(x))
+    prev <- stats::ts(prev,
+       frequency = stats::frequency(x),
+       start = stats::time(x)[length(stats::time(x))] + stats::deltat(x))
 
   prev
 }
+
 #' @export
 underlying_forecasts.matrix <- function(x, coefs) {
   result <- do.call(cbind, lapply(seq_len(ncol(x)), function(i) underlying_forecasts(x[,i], coefs = coefs)))

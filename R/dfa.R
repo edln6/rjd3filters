@@ -16,6 +16,7 @@
 #' The three criteria are:
 #'
 #' @export
+#' @importFrom stats coef
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' dfa_filter(horizon = 6, degree = 0)
 #' dfa_filter(horizon = 6, degree = 2)
@@ -32,9 +33,9 @@ dfa_filter <- function(horizon = 6, degree = 0,
   if (is.moving_average(targetfilter)) {
     if (lower_bound(targetfilter) < 0) {
       # we asume targetfilter were specify from [-n to n] instead of [0,n]
-      targetfilter <- coef(targetfilter)[seq(lower_bound(targetfilter), -1)]
+      targetfilter <- stats::coef(targetfilter)[seq(lower_bound(targetfilter), -1)]
     } else {
-      targetfilter <- coef(targetfilter)
+      targetfilter <- stats::coef(targetfilter)
     }
   }
   dfa_filter <- .jcall(
