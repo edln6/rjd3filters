@@ -370,12 +370,12 @@ Seasonal Adjustment*. URL:
 Proietti, Tommaso and Alessandra Luati (Dec. 2008). “Real time
 estimation in local polynomial regression, with application to
 trend-cycle analysis”. In: *Ann. Appl. Stat.* 2.4, pp. 1523–1553. URL:
-<https://doi.org/10.1214/08-AOAS195>.
+[https://doi.org/10.1214/08-AOAS195](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-2/issue-4/Real-time-estimation-in-local-polynomial-regression-with-application-to/10.1214/08-AOAS195.full).
 
 Wildi, Marc and Tucker McElroy (2019). “The trilemma between accuracy,
 timeliness and smoothness in real-time signal extraction”. In:
 *International Journal of Forecasting* 35.3, pp. 1072–1084. URL:
-[https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://EconPapers.repec.org/RePEc:eee:intfor:v:35:y:2019:i:3:p:1072-1084).
+[https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://econpapers.repec.org/article/eeeintfor/v_3a35_3ay_3a2019_3ai_3a3_3ap_3a1072-1084.htm).
 
 ## Package Maintenance and contributing
 
