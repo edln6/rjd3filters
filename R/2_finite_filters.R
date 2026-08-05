@@ -8,8 +8,9 @@ setClass(
 #'  a `matrix` or `list` with all the coefficients.
 #' @param rfilters the right filters (used on the last points).
 #' @param lfilters the left filters (used on the first points).
-#' @param first_to_last boolean indicating if the first element of `rfilters` is the
-#' first asymmetric filter (when only one observation is missing) or the last one (real-time estimates).
+#' @param first_to_last boolean indicating if the first element of `rfilters`
+#'   is the first asymmetric filter (when only one observation is missing) or
+#'   the last one (real-time estimates).
 #' @param object `finite_filters` object.
 #' @param x object to test the class.
 #'
@@ -97,75 +98,70 @@ is.finite_filters <- function(x) {
 #' @export
 .jd2r_finitefilters <- function(jf, first_to_last) {
     jf <- .jcast(jf, "jdplus.toolkit.base.core.math.linearfilters/IFiltering")
-    if (!is.jnull(jf)) {
-        jsfilter <- .jcall(
-            jf,
-            "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
-            "centralFilter"
-        )
-        jrfilter <- .jcall(
-            jf,
-            "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
-            "rightEndPointsFilters"
-        )
-        jlfilter <- .jcall(
-            jf,
-            "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
-            "leftEndPointsFilters"
-        )
+    if (is.jnull(jf)) {
+        #  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
+        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
+        #    jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
+        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
 
-        sfilter <- .jd2ma(jsfilter)
-        rfilters <- lapply(jrfilter, .jd2ma)
-        lfilters <- rev(lapply(jlfilter, .jd2ma))
+        #    sfilter = .jd2ma(jsfilter)
+        #    rfilters = lapply(jrfilter, .jd2ma)
+        #    lfilters = rev(lapply(jlfilter, .jd2ma))
+        #  } else if (.jinstanceof(jf, "jdplus/toolkit/base/core/math/linearfilters/FiltersToolkit$FiniteFilters")) {
+        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "getFilter")
+        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "getAfilters")
+        #    if (!first_to_last) # lp_filter
+        #      jrfilter <- rev(jrfilter)
 
-        if (missing(first_to_last)) {
-            if (all(diff(lengths(lfilters)) <= 0)) {
-                lfilters <- rev(lfilters)
-                rfilters <- rev(rfilters)
-            }
-        } else {
-            if (first_to_last) {
-                lfilters <- rev(lfilters)
-                rfilters <- rev(rfilters)
-            }
-        }
+        #    while (is.jnull(jrfilter[[length(jrfilter)]])) { # DFA
+        #      jrfilter <- jrfilter[-length(jrfilter)]
+        #    }
+        #    sfilter <- .jd2ma(jsfilter)
+        #    rfilters <- lapply(jrfilter, .jd2ma)
+        #    lfilters <- NULL
+        #  } else if (.jinstanceof(jf, "jdplus/filters/base/core/filters/Filtering")) {
+        #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
+        #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
 
-        finite_filters(
-            sfilter = sfilter,
-            rfilters = rfilters,
-            lfilters = lfilters
-        )
-    } else {
-        NULL
+        #    sfilter <- .jd2ma(jsfilter)
+        #    rfilters <- lapply(jrfilter, .jd2ma)
+        #    lfilters <- NULL
+        #  }
+        return(NULL)
     }
-    #  if (.jinstanceof(jf, "jdplus/x12plus/base/core/X11SeasonalFiltersFactory$AnyFilter")) {
-    #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "symmetricFilter")
-    #    jlfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "leftEndPointsFilters")
-    #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
+    jsfilter <- .jcall(
+        jf,
+        "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
+        "centralFilter"
+    )
+    jrfilter <- .jcall(
+        jf,
+        "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
+        "rightEndPointsFilters"
+    )
+    jlfilter <- .jcall(
+        jf,
+        "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
+        "leftEndPointsFilters"
+    )
 
-    #    sfilter = .jd2ma(jsfilter)
-    #    rfilters = lapply(jrfilter, .jd2ma)
-    #    lfilters = rev(lapply(jlfilter, .jd2ma))
-    #  } else if (.jinstanceof(jf, "jdplus/toolkit/base/core/math/linearfilters/FiltersToolkit$FiniteFilters")) {
-    #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/SymmetricFilter;", "getFilter")
-    #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "getAfilters")
-    #    if (!first_to_last) # lp_filter
-    #      jrfilter <- rev(jrfilter)
+    sfilter <- .jd2ma(jsfilter)
+    rfilters <- lapply(jrfilter, .jd2ma)
+    lfilters <- rev(lapply(jlfilter, .jd2ma))
 
-    #    while (is.jnull(jrfilter[[length(jrfilter)]])) { # DFA
-    #      jrfilter <- jrfilter[-length(jrfilter)]
-    #    }
-    #    sfilter <- .jd2ma(jsfilter)
-    #    rfilters <- lapply(jrfilter, .jd2ma)
-    #    lfilters <- NULL
-    #  } else if (.jinstanceof(jf, "jdplus/filters/base/core/filters/Filtering")) {
-    #    jsfilter <- .jcall(jf, "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "centralFilter")
-    #    jrfilter <- .jcall(jf, "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;", "rightEndPointsFilters")
+    if (missing(first_to_last) && all(diff(lengths(lfilters)) <= 0)) {
+        lfilters <- rev(lfilters)
+        rfilters <- rev(rfilters)
+    } else if (!missing(first_to_last) && first_to_last) {
+        lfilters <- rev(lfilters)
+        rfilters <- rev(rfilters)
+    }
 
-    #    sfilter <- .jd2ma(jsfilter)
-    #    rfilters <- lapply(jrfilter, .jd2ma)
-    #    lfilters <- NULL
-    #  }
+    finite_filters(
+        sfilter = sfilter,
+        rfilters = rfilters,
+        lfilters = lfilters
+    )
 }
 #' @rdname filters_operations
 #' @export
@@ -193,13 +189,8 @@ setMethod(
         new_e2 <- c(e2@lfilters, rep(list(e2@sfilter), length(e1)), e2@rfilters)
         new_e1 <- rep(list(e1), length(new_e2))
         new_e2 <- lapply(seq_along(new_e2), function(i) {
-            new_e2[[i]] *
-                moving_average(
-                    1,
-                    lags = (new_lb +
-                        (i - 1) +
-                        e1@lower_bound * (new_lb == new_lb_sym))
-                )
+            .lags <- new_lb + (i - 1) + e1@lower_bound * (new_lb == new_lb_sym)
+            return(new_e2[[i]] * moving_average(x = 1, lags = .lags))
         })
         new_e1 <- lapply(seq_along(new_e1), function(i) {
             new_e1[[i]] * moving_average(1, lags = (new_lb + (i - 1)))
@@ -576,7 +567,7 @@ setMethod(
             seq(length(res) - 1, by = -1, length.out = length(res))
         )
         res <- res[j]
-        if (length(res) == 1 & drop) {
+        if (length(res) == 1 && drop) {
             res <- res[[1]]
         }
         res
@@ -611,20 +602,28 @@ to_seasonal.finite_filters <- function(x, s) {
 #' @param n integer specifying the number of imputed periods.
 #' By default all the missing moving averages are imputed.
 #' @param nperiod integer specifying how to imput missing date.
-#' `nperiod = 1` means imputation using last filtered data (1 period backward),
-#' `nperiod = 12` with monthly data means imputation using last year filtered data, etc.
-#' @param backward,forward boolean indicating if the imputation should be done backward (on left filters), forward (on right filters).
+#'   - `nperiod = 1` means imputation using last filtered data
+#'     (1 period backward),
+#'   - `nperiod = 12` with monthly data means imputation using last year
+#'     filtered data, etc.
+#' @param backward,forward boolean indicating if the imputation should be done
+#'   backward (on left filters), forward (on right filters).
 #'
 #' @details
-#' When combining finite filters and a moving average, the first and/or the last points cannot be computed.
+#' When combining finite filters and a moving average, the first and/or the
+#' last points cannot be computed.
 #'
-#' For example, using the M2X12 moving average, that is to say the symmetric moving average with coefficients
+#' For example, using the M2X12 moving average, that is to say the symmetric
+#' moving average with coefficients
 #' \deqn{
 #' \theta = \frac{1}{24}B^{6} + \frac{1}{12}B^{5}+\dots+\frac{1}{12}B^{-5}+\frac{1}{24}B^{-6},
 #' }
 #' the first and last 6 points cannot be computed.
 #'
-#' `impute_last_obs()` allows to impute the first/last points using the `nperiod` previous filtered data. With `nperiod = 1`, the last filtered data is used for the imputation, with `nperiod = 12` and monthly data, the last year filtered data is used for the imputation, etc.
+#' `impute_last_obs()` allows to impute the first/last points using the
+#' `nperiod` previous filtered data. With `nperiod = 1`, the last filtered data
+#' is used for the imputation, with `nperiod = 12` and monthly data, the last
+#' year filtered data is used for the imputation, etc.
 #'
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)

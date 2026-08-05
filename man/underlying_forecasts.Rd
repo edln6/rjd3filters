@@ -9,8 +9,9 @@ underlying_forecasts(x, coefs)
 \arguments{
 \item{x}{a univariate or multivariate time series.}
 
-\item{coefs}{a \code{matrix} or a \code{list} that contains all the coefficients of the asymmetric and symmetric filters.
-(from the symmetric filter to the shortest). See details.}
+\item{coefs}{a \code{matrix} or a \code{list} that contains all the
+coefficients of the asymmetric and symmetric filters. (from the symmetric
+filter to the shortest). See details.}
 }
 \description{
 Function to retrieve the underlying forecasts corresponding to the asymmetric filters:

@@ -409,8 +409,12 @@ plot_phase.finite_filters <- function(
 
 #' @importFrom MASS fractions
 xlabel <- function(x, symbol = "pi") {
-    fracs <- strsplit(attr(MASS::fractions(x), "fracs"), "/") # convert to fractions
-    labels <- sapply(
+    fracs <- strsplit(
+        x = attr(x = MASS::fractions(x), which = "fracs"),
+        split = "/",
+        fixed = TRUE
+    ) # convert to fractions
+    the_labels <- sapply(
         X = fracs,
         FUN = function(i) {
             if (length(i) > 1) {
@@ -420,9 +424,9 @@ xlabel <- function(x, symbol = "pi") {
             }
         }
     )
-    labels <- sub("0 * pi", "0", labels, fixed = TRUE)
-    labels <- sub("1 * pi", " pi", labels, fixed = TRUE)
-    parse(text = labels)
+    the_labels <- sub("0 * pi", "0", the_labels, fixed = TRUE)
+    the_labels <- sub("1 * pi", " pi", the_labels, fixed = TRUE)
+    parse(text = the_labels)
 }
 
 trailingzero_as_na <- function(x) {

@@ -1,34 +1,43 @@
 #' Linear Filtering on a Time Series
 #'
-#' Applies linear filtering to a univariate time series or to each series separately of a multivariate time series using either a moving average (symmetric or asymmetric) or a combination of
-#' symmetric moving average at the center and asymmetric moving averages at the bounds.
+#' Applies linear filtering to a univariate time series or to each series
+#' separately of a multivariate time series using either a moving average
+#' (symmetric or asymmetric) or a combination of symmetric moving average at
+#' the center and asymmetric moving averages at the bounds.
 #'
 #' @param x a univariate or multivariate time series.
 #' @param coefs an object of class \code{"moving_average"} or the coefficients
-#' of a moving average. In that case the argument \code{lags} must be provided.
-#' @param coefs a \code{matrix} or a \code{list} that contains all the coefficients of the asymmetric and symmetric filters.
-#'  (from the symmetric filter to the shortest). See details.
+#'   of a moving average. In that case the argument \code{lags} must be
+#'   provided.
+#' @param coefs a \code{matrix} or a \code{list} that contains all the
+#'   coefficients of the asymmetric and symmetric filters. (from the symmetric
+#'   filter to the shortest). See details.
 #'
-#' @param remove_missing if `TRUE` (default) leading and trailing NA are removed before filtering.
+#' @param remove_missing if `TRUE` (default) leading and trailing NA are
+#'   removed before filtering.
 #'
 #' @details
 #'
 #'
-#' The functions \code{filter} extends \code{\link[stats]{filter}} allowing to apply every kind of moving averages
-#' (symmetric and asymmetric filters) or to apply aset multiple moving averages
-#' to deal with the boundaries.
+#' The functions \code{filter} extends \code{\link[stats]{filter}} allowing to
+#' apply every kind of moving averages (symmetric and asymmetric filters) or to
+#' apply aset multiple moving averages to deal with the boundaries.
 #'
 #' Let \eqn{x_t} be the input time series to filter.
 #'
-#' * If `coef` is an object [moving_average()], of length \eqn{q}, the result \eqn{y} is equal at time \eqn{t} to:
+#' * If `coef` is an object [moving_average()], of length \eqn{q}, the result
+#' \eqn{y} is equal at time \eqn{t} to:
 #' \deqn{y[t] = x[t-lags] * coef[1] + x[t-lags+1] * coef[1] + ... + x[t-lags+q] * coef[q]}.
-#' It extends the function \code{\link[stats]{filter}} that would add \code{NA} at the end of the time series.
+#' It extends the function \code{\link[stats]{filter}} that would add \code{NA}
+#' at the end of the time series.
 #'
-#' * If `coef` is a `matrix`, `list` or [finite_filters()] object,  at the center,
-#' the symmetric moving average is used (first column/element of \code{coefs}).
-#' At the boundaries, the last moving average of \code{coefs} is used to compute the filtered
-#' time series \eqn{y[n]} (no future point known), the second to last to compute the filtered
-#' time series \eqn{y[n-1]} (one future point known)...
+#' * If `coef` is a `matrix`, `list` or [finite_filters()] object,  at the
+#' center, the symmetric moving average is used (first column/element of
+#' \code{coefs}).
+#' At the boundaries, the last moving average of \code{coefs} is used to
+#' compute the filtered time series \eqn{y[n]} (no future point known), the
+#' second to last to compute the filtered time series \eqn{y[n-1]} (one future
+#' point known)...
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' x <- retailsa$DrinkingPlaces

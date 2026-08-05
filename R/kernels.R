@@ -28,16 +28,17 @@ get_kernel <- function(
     sd_gauss = 0.25
 ) {
     jkernel <- .r2jd_kernel(kernel, horizon, sd_gauss)
-    coef <- sapply(
+    the_coef <- sapply(
         as.integer(seq.int(from = 0, to = horizon, by = 1)),
         function(x) .jcall(jkernel, "D", "applyAsDouble", x)
     )
     m <- horizon
-    result <- list(coef = coef, m = m)
+    result <- list(coef = the_coef, m = m)
     attr(result, "name") <- kernel
     attr(result, "class") <- "tskernel"
     result
 }
+
 .r2jd_kernel <- function(
     kernel = c(
         "Henderson",

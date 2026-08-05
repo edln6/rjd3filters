@@ -3,13 +3,20 @@
 #' Estimation of a filter using Reproducing Kernel Hilbert Space (RKHS)
 #' @inheritParams localpolynomials
 #' @inheritParams mse
-#' @param asymmetricCriterion the criteria used to compute the optimal bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.
-#' @param optimalbw boolean indicating if the bandwith should be choosen by optimisation (between \code{optimal.minBandwidth} and
-#' \code{optimal.minBandwidth} using the criteria \code{asymmetricCriterion}).
-#' If \code{optimalbw = FALSE} then the bandwith specified in \code{bandwidth} will be  used.
-#' @param optimal.minBandwidth,optimal.maxBandwidth the range used for the optimal bandwith selection.
+#' @param asymmetricCriterion the criteria used to compute the optimal
+#'   bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.
+#' @param optimalbw boolean indicating if the bandwith should be choosen by
+#'   optimisation (between \code{optimal.minBandwidth} and
+#'   \code{optimal.minBandwidth} using the criteria \code{asymmetricCriterion}).
+#'   If \code{optimalbw = FALSE} then the bandwith specified in
+#'   \code{bandwidth} will be  used.
+#' @param optimal.minBandwidth,optimal.maxBandwidth the range used for the
+#'   optimal bandwith selection.
 #' @param bandwidth the bandwidth to use if \code{optimalbw = FALSE}.
-#' @references Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson Smoother in Reproducing Kernel Hilbert Space”. In: Journal of Business & Economic Statistics 26, pp. 536–545. URL: \url{https://ideas.repec.org/a/bes/jnlbes/v26y2008p536-545.html}.
+#' @references Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson
+#'   Smoother in Reproducing Kernel Hilbert Space”. In: Journal of Business &
+#'   Economic Statistics 26, pp. 536–545. URL:
+#'   \url{https://ideas.repec.org/a/bes/jnlbes/v26y2008p536-545.html}.
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
@@ -260,12 +267,12 @@ rkhs_kernel <- function(
     )
     kernel <- switch(
         tolower(kernel),
-        "biweight" = "BiWeight",
-        "triweight" = "TriWeight",
-        "uniform" = "Uniform",
-        "triangular" = "Triangular",
-        "epanechnikov" = "Epanechnikov",
-        "henderson" = "Henderson"
+        biweight = "BiWeight",
+        triweight = "TriWeight",
+        uniform = "Uniform",
+        triangular = "Triangular",
+        epanechnikov = "Epanechnikov",
+        henderson = "Henderson"
     )
     jfun <-
         .jcall(

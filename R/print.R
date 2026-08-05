@@ -12,7 +12,7 @@ setMethod(
 #' @export
 setMethod(
     f = "show",
-    signature = c("finite_filters"),
+    signature = "finite_filters",
     definition = function(object) {
         x <- as.matrix(object)
         print(x)

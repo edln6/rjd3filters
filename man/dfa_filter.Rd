@@ -20,7 +20,8 @@ dfa_filter(
 
 \item{degree}{degree of polynomial.}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white woise, the default) or  \code{"rw"} (= random walk).}
 
 \item{targetfilter}{the weights of the symmetric target filters (by default the Henderson filter).}
 

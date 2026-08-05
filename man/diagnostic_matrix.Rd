@@ -13,13 +13,16 @@ diagnostic_matrix(x, lags, passband = pi/6, sweights, ...)
 
 \item{passband}{passband threshold.}
 
-\item{sweights}{Weights of the symmetric filter (from 0 to lags or -lags to lags).
-If missing, the criteria from the functions \code{\link{mse}} are not computed.}
+\item{sweights}{Weights of the symmetric filter (from 0 to lags or -lags to
+lags).
+If missing, the criteria from the functions \code{\link{mse}} are not
+computed.}
 
 \item{...}{optional arguments to \code{\link{mse}}.}
 }
 \description{
-Function du compute a diagnostic matrix of quality criteria for asymmetric filters
+Function du compute a diagnostic matrix of quality criteria for asymmetric
+filters
 }
 \details{
 For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
@@ -42,7 +45,11 @@ For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
 }
 }
 \references{
-Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment.
+Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray
+(2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on
+Seasonal Adjustment.
 
-Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy,
+timeliness and smoothness in real-time signal extraction”. In: International
+Journal of Forecasting 35.3, pp. 1072–1084.
 }

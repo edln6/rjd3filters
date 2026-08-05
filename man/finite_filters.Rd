@@ -25,8 +25,9 @@ a \code{matrix} or \code{list} with all the coefficients.}
 
 \item{lfilters}{the left filters (used on the first points).}
 
-\item{first_to_last}{boolean indicating if the first element of \code{rfilters} is the
-first asymmetric filter (when only one observation is missing) or the last one (real-time estimates).}
+\item{first_to_last}{boolean indicating if the first element of \code{rfilters}
+is the first asymmetric filter (when only one observation is missing) or
+the last one (real-time estimates).}
 
 \item{x}{object to test the class.}
 

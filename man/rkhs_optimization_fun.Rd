@@ -24,9 +24,11 @@ rkhs_optimization_fun(
 
 \item{kernel}{kernel uses.}
 
-\item{asymmetricCriterion}{the criteria used to compute the optimal bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
+\item{asymmetricCriterion}{the criteria used to compute the optimal
+bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white woise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 }

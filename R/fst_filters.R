@@ -180,9 +180,12 @@ fst.finite_filters <- function(
 #' Accuracy/smoothness/timeliness criteria through spectral decomposition
 #'
 #'
-#' @param sweights `moving_average` object or weights of the symmetric filter (from 0 to n or -n to n).
-#' @param aweights `moving_average` object or weights of the asymmetric filter (from -n to m).
-#' @param density hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).
+#' @param sweights `moving_average` object or weights of the symmetric filter
+#'   (from 0 to n or -n to n).
+#' @param aweights `moving_average` object or weights of the asymmetric filter
+#'   (from -n to m).
+#' @param density hypothesis on the spectral density: \code{"uniform"}
+#'   (= white woise, the default) or  \code{"rw"} (= random walk).
 #' @param passband passband threshold.
 #' @param ... other unused arguments.
 #'
@@ -194,7 +197,10 @@ fst.finite_filters <- function(
 #' mse(aweights, sweights)
 #' # Or to compute directly the criteria on all asymmetric filters:
 #' mse(filter)
-#' @references Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+#' @references Wildi, Marc and McElroy, Tucker (2019). “The trilemma between
+#' accuracy, timeliness and smoothness in real-time signal extraction”. In:
+#' International Journal of Forecasting 35.3, pp. 1072–1084.
+#'
 #' @export
 mse <- function(
     aweights,

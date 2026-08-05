@@ -11,7 +11,9 @@ df_var(n, coef, exact_df = FALSE)
 
 \item{coef}{moving average (\code{\link[=moving_average]{moving_average()}}) used to filter the series.}
 
-\item{exact_df}{if \code{TRUE} compute the exact degrees of freedom for the t-distribution (when \code{gaussian_distribution = FALSE}), otherwise uses an approximation.}
+\item{exact_df}{if \code{TRUE} compute the exact degrees of freedom for the
+t-distribution (when \code{gaussian_distribution = FALSE}), otherwise uses an
+approximation.}
 }
 \description{
 Compute the degrees of freedom for the variance estimator

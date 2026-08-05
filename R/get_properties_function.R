@@ -123,15 +123,19 @@ get_properties_function.finite_filters <- function(
     }
 }
 
-#' Compute quality criteria for asymmetric filters
+#' @title Compute quality criteria for asymmetric filters
 #'
-#' Function du compute a diagnostic matrix of quality criteria for asymmetric filters
+#' @description
+#' Function du compute a diagnostic matrix of quality criteria for asymmetric
+#' filters
 #'
 #' @param x Weights of the asymmetric filter (from -lags to m).
 #' @param lags Lags of the filter (should be positive).
 #' @param passband passband threshold.
-#' @param sweights Weights of the symmetric filter (from 0 to lags or -lags to lags).
-#' If missing, the criteria from the functions \code{\link{mse}} are not computed.
+#' @param sweights Weights of the symmetric filter (from 0 to lags or -lags to
+#'   lags).
+#'   If missing, the criteria from the functions \code{\link{mse}} are not
+#'   computed.
 #' @param ... optional arguments to \code{\link{mse}}.
 #'
 #' @details For a moving average of coefficients \eqn{\theta=(\theta_i)_{-p\le i\le q}}
@@ -153,9 +157,13 @@ get_properties_function.finite_filters <- function(
 #' \item{\code{R_w} } Residual criterium of Wildi and McElroy (2019)
 #' }
 #'
-#' @references Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment.
+#' @references Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray
+#' (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on
+#' Seasonal Adjustment.
 #'
-#' Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+#' Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy,
+#' timeliness and smoothness in real-time signal extraction”. In: International
+#' Journal of Forecasting 35.3, pp. 1072–1084.
 #'
 #' @importFrom stats coef
 #' @export

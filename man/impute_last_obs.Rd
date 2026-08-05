@@ -13,24 +13,34 @@ impute_last_obs(x, n, nperiod = 1, backward = TRUE, forward = TRUE)
 By default all the missing moving averages are imputed.}
 
 \item{nperiod}{integer specifying how to imput missing date.
-\code{nperiod = 1} means imputation using last filtered data (1 period backward),
-\code{nperiod = 12} with monthly data means imputation using last year filtered data, etc.}
+\itemize{
+\item \code{nperiod = 1} means imputation using last filtered data
+(1 period backward),
+\item \code{nperiod = 12} with monthly data means imputation using last year
+filtered data, etc.
+}}
 
-\item{backward, forward}{boolean indicating if the imputation should be done backward (on left filters), forward (on right filters).}
+\item{backward, forward}{boolean indicating if the imputation should be done
+backward (on left filters), forward (on right filters).}
 }
 \description{
 Impute Incomplete Finite Filters
 }
 \details{
-When combining finite filters and a moving average, the first and/or the last points cannot be computed.
+When combining finite filters and a moving average, the first and/or the
+last points cannot be computed.
 
-For example, using the M2X12 moving average, that is to say the symmetric moving average with coefficients
+For example, using the M2X12 moving average, that is to say the symmetric
+moving average with coefficients
 \deqn{
 \theta = \frac{1}{24}B^{6} + \frac{1}{12}B^{5}+\dots+\frac{1}{12}B^{-5}+\frac{1}{24}B^{-6},
 }
 the first and last 6 points cannot be computed.
 
-\code{impute_last_obs()} allows to impute the first/last points using the \code{nperiod} previous filtered data. With \code{nperiod = 1}, the last filtered data is used for the imputation, with \code{nperiod = 12} and monthly data, the last year filtered data is used for the imputation, etc.
+\code{impute_last_obs()} allows to impute the first/last points using the
+\code{nperiod} previous filtered data. With \code{nperiod = 1}, the last filtered data
+is used for the imputation, with \code{nperiod = 12} and monthly data, the last
+year filtered data is used for the imputation, etc.
 }
 \examples{
 \dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}

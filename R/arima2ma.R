@@ -18,37 +18,43 @@ get_moving_average <- function(x, ...) {
 #' @export
 get_moving_average.Arima <- function(x, ...) {
     arima_mod <- x$arma
-    ar <- arima_mod[1]
-    ma <- arima_mod[2]
-    sar <- arima_mod[3]
-    sma <- arima_mod[4]
+    order_ar <- arima_mod[1]
+    order_ma <- arima_mod[2]
+    order_sar <- arima_mod[3]
+    order_sma <- arima_mod[4]
     period <- arima_mod[5]
-    diff <- arima_mod[6]
-    sdiff <- arima_mod[7]
+    order_diff <- arima_mod[6]
+    order_sdiff <- arima_mod[7]
 
     ar_mm <- ma_mm <- sar_mm <-
         sma_mm <- moving_average(1, lags = 0)
-    coef <- stats::coefficients(x)
-    if (ar > 0) {
-        ar_mm <- moving_average(coef[sprintf("ar%i", seq(ar, 1))], lags = -ar)
+    mod_coef <- stats::coefficients(x)
+    if (order_ar > 0) {
+        ar_mm <- moving_average(
+            mod_coef[sprintf("ar%i", seq(order_ar, 1))],
+            lags = -order_ar
+        )
         ar_mm <- 1 - ar_mm
     }
-    if (sar > 0) {
+    if (order_sar > 0) {
         sar_mm <- moving_average(
-            coef[sprintf("sar%i", seq(sar, 1))],
-            lags = -sar
+            mod_coef[sprintf("sar%i", seq(order_sar, 1))],
+            lags = -order_sar
         )
         sar_mm <- to_seasonal(sar_mm, period)
         sar_mm <- 1 - sar_mm
     }
-    if (ma > 0) {
-        ma_mm <- moving_average(coef[sprintf("ma%i", seq(ma, 1))], lags = -ma)
+    if (order_ma > 0) {
+        ma_mm <- moving_average(
+            mod_coef[sprintf("ma%i", seq(order_ma, 1))],
+            lags = -order_ma
+        )
         ma_mm <- 1 + ma_mm
     }
-    if (sma > 0) {
+    if (order_sma > 0) {
         sma_mm <- moving_average(
-            coef[sprintf("sma%i", seq(sma, 1))],
-            lags = -sma
+            mod_coef[sprintf("sma%i", seq(order_sma, 1))],
+            lags = -order_sma
         )
         sma_mm <- to_seasonal(sma_mm, period)
         sma_mm <- 1 + sma_mm
@@ -61,8 +67,8 @@ get_moving_average.Arima <- function(x, ...) {
     # }
     # mean_mm <- moving_average(mean_mm, 0)
 
-    diff_mm <- (1 - moving_average(1, lags = -1))^diff
-    sdiff_mm <- (1 - moving_average(1, lags = -period))^sdiff
+    diff_mm <- (1 - moving_average(1, lags = -1))^order_diff
+    sdiff_mm <- (1 - moving_average(1, lags = -period))^order_sdiff
 
     list(
         left = list(ar = ar_mm, sar = sar_mm, diff = diff_mm, sdiff = sdiff_mm),
@@ -73,57 +79,57 @@ get_moving_average.Arima <- function(x, ...) {
 #' @export
 get_moving_average.regarima <- function(x, period = 12, ...) {
     specif <- x$specification$arima$specification
-    ar <- specif$arima.p
-    ma <- specif$arima.q
-    sar <- specif$arima.bp
-    sma <- specif$arima.bq
-    diff <- specif$arima.d
-    sdiff <- specif$arima.bd
-    mean <- x$model$spec_rslt$Mean
+    order_ar <- specif$arima.p
+    order_ma <- specif$arima.q
+    order_sar <- specif$arima.bp
+    order_sma <- specif$arima.bq
+    order_diff <- specif$arima.d
+    order_sdiff <- specif$arima.bd
+    order_mean <- x$model$spec_rslt$Mean
 
     ar_mm <- ma_mm <- sar_mm <-
         sma_mm <- moving_average(1, lags = 0)
-    coef <- x$arima.coefficients[, 1]
+    mod_coef <- x$arima.coefficients[, 1]
 
-    if (ar > 0) {
+    if (order_ar > 0) {
         ar_mm <- moving_average(
-            coef[sprintf("Phi(%i)", seq(ar, 1))],
-            lags = -ar
+            mod_coef[sprintf("Phi(%i)", seq(order_ar, 1))],
+            lags = -order_ar
         )
         ar_mm <- 1 - ar_mm
     }
-    if (sar > 0) {
+    if (order_sar > 0) {
         sar_mm <- moving_average(
-            coef[sprintf("BPhi(%i)", seq(sar, 1))],
-            lags = -sar
+            mod_coef[sprintf("BPhi(%i)", seq(order_sar, 1))],
+            lags = -order_sar
         )
         sar_mm <- to_seasonal(sar_mm, period)
         sar_mm <- 1 - sar_mm
     }
-    if (ma > 0) {
+    if (order_ma > 0) {
         ma_mm <- moving_average(
-            coef[sprintf("Theta(%i)", seq(ma, 1))],
-            lags = -ma
+            mod_coef[sprintf("Theta(%i)", seq(order_ma, 1))],
+            lags = -order_ma
         )
         ma_mm <- 1 - ma_mm
     }
-    if (sma > 0) {
+    if (order_sma > 0) {
         sma_mm <- moving_average(
-            coef[sprintf("BTheta(%i)", seq(sma, 1))],
-            lags = -sma
+            mod_coef[sprintf("BTheta(%i)", seq(order_sma, 1))],
+            lags = -order_sma
         )
         sma_mm <- to_seasonal(sma_mm, period)
         sma_mm <- 1 - sma_mm
     }
-    if (mean) {
+    if (order_mean) {
         mean_mm <- x$regression.coefficients["Mean", 1]
     } else {
         mean_mm <- 0
     }
     mean_mm <- moving_average(mean_mm, 0)
 
-    diff_mm <- (1 - moving_average(1, lags = -1))^diff
-    sdiff_mm <- (1 - moving_average(1, lags = -period))^sdiff
+    diff_mm <- (1 - moving_average(1, lags = -1))^order_diff
+    sdiff_mm <- (1 - moving_average(1, lags = -period))^order_sdiff
 
     list(
         left = list(ar = ar_mm, sar = sar_mm, diff = diff_mm, sdiff = sdiff_mm),
@@ -138,38 +144,50 @@ get_moving_average.SA <- function(x, period = 12, ...) {
 
 #' @export
 get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...) {
-    ar <- x$phi
-    ma <- x$theta
-    sar <- x$bphi
-    sma <- x$btheta
-    diff <- x$d
-    sdiff <- x$bd
+    order_ar <- x$phi
+    order_ma <- x$theta
+    order_sar <- x$bphi
+    order_sma <- x$btheta
+    order_diff <- x$d
+    order_sdiff <- x$bd
     period <- x$period
 
     ar_mm <- ma_mm <- sar_mm <-
         sma_mm <- moving_average(1, lags = 0)
 
-    if (!is.null(ar)) {
-        ar_mm <- moving_average(rev(unlist(ar["value", ])), lags = -ncol(ar))
+    if (!is.null(order_ar)) {
+        ar_mm <- moving_average(
+            rev(unlist(order_ar["value", ])),
+            lags = -ncol(order_ar)
+        )
         ar_mm <- 1 - ar_mm
     }
-    if (!is.null(sar)) {
-        sar_mm <- moving_average(rev(unlist(sar["value", ])), lags = -ncol(sar))
+    if (!is.null(order_sar)) {
+        sar_mm <- moving_average(
+            rev(unlist(order_sar["value", ])),
+            lags = -ncol(order_sar)
+        )
         sar_mm <- to_seasonal(sar_mm, period)
         sar_mm <- 1 - sar_mm
     }
-    if (!is.null(ma)) {
-        ma_mm <- moving_average(rev(unlist(ma["value", ])), lags = -ncol(ma))
+    if (!is.null(order_ma)) {
+        ma_mm <- moving_average(
+            rev(unlist(order_ma["value", ])),
+            lags = -ncol(order_ma)
+        )
         ma_mm <- 1 - ma_mm
     }
-    if (!is.null(sma)) {
-        sma_mm <- moving_average(rev(unlist(sma["value", ])), lags = -ncol(sma))
+    if (!is.null(order_sma)) {
+        sma_mm <- moving_average(
+            rev(unlist(order_sma["value", ])),
+            lags = -ncol(order_sma)
+        )
         sma_mm <- to_seasonal(sma_mm, period)
         sma_mm <- 1 - sma_mm
     }
 
-    diff_mm <- (1 - moving_average(1, lags = -1))^diff
-    sdiff_mm <- (1 - moving_average(1, lags = -period))^sdiff
+    diff_mm <- (1 - moving_average(1, lags = -1))^order_diff
+    sdiff_mm <- (1 - moving_average(1, lags = -period))^order_sdiff
 
     list(
         left = list(ar = ar_mm, sar = sar_mm, diff = diff_mm, sdiff = sdiff_mm),

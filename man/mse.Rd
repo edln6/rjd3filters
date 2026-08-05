@@ -7,11 +7,14 @@
 mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 }
 \arguments{
-\item{aweights}{\code{moving_average} object or weights of the asymmetric filter (from -n to m).}
+\item{aweights}{\code{moving_average} object or weights of the asymmetric filter
+(from -n to m).}
 
-\item{sweights}{\code{moving_average} object or weights of the symmetric filter (from 0 to n or -n to n).}
+\item{sweights}{\code{moving_average} object or weights of the symmetric filter
+(from 0 to n or -n to n).}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white woise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 
@@ -34,5 +37,7 @@ mse(filter)
 \dontshow{\}) # examplesIf}
 }
 \references{
-Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+Wildi, Marc and McElroy, Tucker (2019). “The trilemma between
+accuracy, timeliness and smoothness in real-time signal extraction”. In:
+International Journal of Forecasting 35.3, pp. 1072–1084.
 }

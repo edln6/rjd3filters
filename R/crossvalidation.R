@@ -197,35 +197,48 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #' Confidence intervals
 #'
 #' @inheritParams diagnostics-fit
-#' @param coef moving-average ([moving_average()]) or finite filter ([finite_filters()]) used to filter the series.
-#' @param coef_var moving-average ([moving_average()]) or finite filter ([finite_filters()]) used compute the variance (throw [var_estimator()]).
+#' @param coef moving-average ([moving_average()]) or finite filter
+#'   ([finite_filters()]) used to filter the series.
+#' @param coef_var moving-average ([moving_average()]) or finite filter
+#'   ([finite_filters()]) used compute the variance (throw [var_estimator()]).
 #' By default equal to `coef`.
 #' @param level confidence level.
-#' @param asymmetric_var if `asymmetric_var = TRUE` then the variance is estimated for each asymmetric filters instead of using the variance associated the symmetric estimates.
-#' @param gaussian_distribution if `TRUE` use the normal distribution to compute the confidence interval, otherwise use the t-distribution.
-#' @param exact_df if `TRUE` compute the exact degrees of freedom for the t-distribution (when `gaussian_distribution = FALSE`), otherwise uses an approximation.
-#' @param ... other arguments passed to the function [moving_average()] to convert `coef` to a `"moving_average"` object.
+#' @param asymmetric_var if `asymmetric_var = TRUE` then the variance is
+#'   estimated for each asymmetric filters instead of using the variance
+#'   associated the symmetric estimates.
+#' @param gaussian_distribution if `TRUE` use the normal distribution to
+#'   compute the confidence interval, otherwise use the t-distribution.
+#' @param exact_df if `TRUE` compute the exact degrees of freedom for the
+#'   t-distribution (when `gaussian_distribution = FALSE`), otherwise uses an
+#'   approximation.
+#' @param ... other arguments passed to the function [moving_average()] to
+#'   convert `coef` to a `"moving_average"` object.
 #
 #' @details
-#' Let \eqn{(\theta_i)_{-p\leq i \leq q}} be a moving average of length \eqn{p+q+1} used
-#' to filter a time series \eqn{(y_i)_{1\leq i \leq n}}.
+#' Let \eqn{(\theta_i)_{-p\leq i \leq q}} be a moving average of length
+#' \eqn{p+q+1} used to filter a time series \eqn{(y_i)_{1\leq i \leq n}}.
 #' Let denote \eqn{\hat{\mu}_t} the filtered series computed at time \eqn{t} as:
 #' \deqn{
 #' \hat{\mu}_t = \sum_{i=-p}^q \theta_i y_{t+i}.
 #' }
-#' If \eqn{\hat{\mu}_t} is unbiased, a approximate confidence for the true mean is:
+#' If \eqn{\hat{\mu}_t} is unbiased, a approximate confidence for the true mean
+#' is:
 #' \deqn{
 #' \left[\hat{\mu}_t - z_{1-\alpha/2} \hat{\sigma} \sqrt{\sum_{i=-p}^q\theta_i^2};
 #' \hat{\mu}_t + z_{1-\alpha/2} \hat{\sigma} \sqrt{\sum_{i=-p}^q\theta_i^2}
 #' \right],
 #' }
-#' where \eqn{z_{1-\alpha/2}} is the quantile \eqn{1-\alpha/2} of the standard normal distribution.
+#' where \eqn{z_{1-\alpha/2}} is the quantile \eqn{1-\alpha/2} of the standard
+#' normal distribution.
 #'
-#' The estimate of the variance \eqn{\hat{\sigma}} is obtained using [var_estimator()] with the parameter `coef_var`.
-#' The assumption that \eqn{\hat{\mu}_t} is unbiased is rarely exactly true, so variance estimates and confidence intervals are usually computed at small bandwidths where bias is small.
+#' The estimate of the variance \eqn{\hat{\sigma}} is obtained using
+#' [var_estimator()] with the parameter `coef_var`.
+#' The assumption that \eqn{\hat{\mu}_t} is unbiased is rarely exactly true, so
+#' variance estimates and confidence intervals are usually computed at small
+#' bandwidths where bias is small.
 #'
-#' When `coef` (or `coef_var`) is a finite filter, the last points of the confidence interval are
-#' computed using the corresponding asymmetric filters
+#' When `coef` (or `coef_var`) is a finite filter, the last points of the
+#' confidence interval are computed using the corresponding asymmetric filters
 #'
 #' @references
 #' Loader, Clive. 1999.
@@ -260,17 +273,20 @@ confint_filter <- function(
     ...
 ) {
     filtered <- filter(x, coef)
-    c <- (1 - level) / 2
-    c <- c(c, 1 - c)
+    confidence_bounds <- (1 - level) / 2
+    confidence_bounds <- c(confidence_bounds, 1 - confidence_bounds)
     n <- length(filtered)
     if (is.moving_average(coef)) {
         corr_f <- sqrt(sum(stats::coefficients(coef)^2))
         if (gaussian_distribution) {
-            quantile <- matrix(stats::qnorm(c), ncol = 2)
+            confidence_quantiles <- matrix(
+                stats::qnorm(confidence_bounds),
+                ncol = 2
+            )
         } else {
-            quantile <- matrix(
+            confidence_quantiles <- matrix(
                 stats::qt(
-                    c,
+                    confidence_bounds,
                     df = df_var(n = n, coef = coef, exact_df = exact_df)
                 ),
                 ncol = 2
@@ -284,12 +300,15 @@ confint_filter <- function(
             frequency = stats::frequency(filtered)
         )
         if (gaussian_distribution) {
-            quantile <- matrix(stats::qnorm(c), ncol = 2)
+            confidence_quantiles <- matrix(
+                stats::qnorm(confidence_bounds),
+                ncol = 2
+            )
         } else {
-            quantile <- stats::ts(
+            confidence_quantiles <- stats::ts(
                 matrix(
                     stats::qt(
-                        c,
+                        confidence_bounds,
                         df = df_var(
                             n = n,
                             coef = coef@sfilter,
@@ -308,8 +327,8 @@ confint_filter <- function(
         for (i in seq_along(lfilters)) {
             corr_f[i] <- sqrt(sum(stats::coefficients(lfilters[[i]])^2))
             if (!gaussian_distribution)
-                quantile[i, ] <- stats::qt(
-                    c,
+                confidence_quantiles[i, ] <- stats::qt(
+                    confidence_bounds,
                     df = df_var(
                         n = n,
                         coef = lfilters[[i]],
@@ -321,9 +340,11 @@ confint_filter <- function(
             corr_f[length(corr_f) - length(rfilters) + i] <-
                 sqrt(sum(stats::coefficients(rfilters[[i]])^2))
             if (!gaussian_distribution)
-                quantile[length(time(quantile)) - length(rfilters) + i, ] <-
+                confidence_quantiles[
+                    length(time(confidence_quantiles)) - length(rfilters) + i,
+                ] <-
                     stats::qt(
-                        c,
+                        confidence_bounds,
                         df = df_var(
                             n = n,
                             coef = rfilters[[i]],
@@ -334,9 +355,9 @@ confint_filter <- function(
     }
 
     if (is.moving_average(coef_var)) {
-        var <- var_estimator(x, coef_var)
+        estimated_variance <- var_estimator(x, coef_var)
     } else if (is.finite_filters(coef_var)) {
-        var <- stats::ts(
+        estimated_variance <- stats::ts(
             var_estimator(x, coef_var@sfilter),
             start = stats::start(filtered),
             end = stats::end(filtered),
@@ -346,17 +367,21 @@ confint_filter <- function(
             lfilters <- coef_var@lfilters
             rfilters <- coef_var@rfilters
             for (i in seq_along(lfilters)) {
-                var[i] <- var_estimator(x, lfilters[[i]])
+                estimated_variance[i] <- var_estimator(x, lfilters[[i]])
             }
             for (i in seq_along(rfilters)) {
-                var[length(var) - length(rfilters) + i] <-
+                estimated_variance[
+                    length(estimated_variance) - length(rfilters) + i
+                ] <-
                     var_estimator(x, rfilters[[i]])
             }
         }
     }
 
-    inf <- filtered + quantile[, 1] * sqrt(var) * corr_f
-    sup <- filtered + quantile[, 2] * sqrt(var) * corr_f
+    inf <- filtered +
+        confidence_quantiles[, 1] * sqrt(estimated_variance) * corr_f
+    sup <- filtered +
+        confidence_quantiles[, 2] * sqrt(estimated_variance) * corr_f
     res <- stats::ts.union(filtered, inf, sup)
     colnames(res) <- c("filtered", sprintf("%.1f%%", c * 100))
     res
