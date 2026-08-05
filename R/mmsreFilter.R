@@ -34,7 +34,7 @@
 #'
 #'
 #' @inheritParams lp_filter
-#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' @examples
 #' QL <- lp_filter(endpoints = "QL", ic = 3.5)
 #' LC <- lp_filter(endpoints = "LC", ic = 3.5)

@@ -19,7 +19,7 @@
 #' }
 #' Note that this is solved numerically: the solution isn't exact.
 #' @inheritParams filter
-#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' @examples
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")

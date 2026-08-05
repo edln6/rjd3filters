@@ -15,7 +15,7 @@
 #' @param n number of points used to plot the functions.
 #' @param xlab,ylab labels of axis.
 #'
-#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' @examples
 #' filter <- lp_filter(6, endpoints = "DAF", kernel = "Henderson")
 #' plot_coef(filter, q = c(0,3), legend = TRUE)

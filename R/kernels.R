@@ -9,7 +9,7 @@
 #' @return \code{tskernel} object (see \link[stats]{kernel}).
 #' @export
 #'
-#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' @examples
 #' get_kernel("Henderson", horizon = 3)
 get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",

@@ -4,7 +4,7 @@
 #' @param component the component to extract.
 #' @param ... unused other arguments.
 #'
-#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' @examples
 #' filter <- lp_filter(3, kernel = "Henderson")
 #' sgain <- get_properties_function(filter, "Symmetric Gain")
