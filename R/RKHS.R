@@ -12,7 +12,6 @@
 #' @references Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson Smoother in Reproducing Kernel Hilbert Space”. In: Journal of Business & Economic Statistics 26, pp. 536–545. URL: \url{https://ideas.repec.org/a/bes/jnlbes/v26y2008p536-545.html}.
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 #' plot_coef(rkhs)
 #' @return a [finite_filters()] object.
@@ -56,7 +55,6 @@ rkhs_filter <- function(horizon = 6, degree = 2,
 #' @inheritParams rkhs_filter
 #' @inheritParams fst_filter
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' plot(rkhs_optimization_fun(horizon = 6, leads = 0,degree = 3, asymmetricCriterion = "Timeliness"),
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X0 filter")
@@ -109,7 +107,6 @@ rkhs_optimization_fun <- function(horizon = 6, leads = 0,  degree = 2,
 #' Function to export the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
 #' @inheritParams rkhs_filter
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' rkhs_optimal_bw(asymmetricCriterion = "Timeliness")
 #' rkhs_optimal_bw(asymmetricCriterion = "Timeliness", optimal.minBandwidth = 6.2)
 #' @export

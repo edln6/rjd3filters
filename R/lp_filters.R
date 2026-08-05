@@ -14,7 +14,6 @@ NULL
 #'
 #' @return the target signal
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' trend <- localpolynomials(x, horizon = 6)
 #' plot(x)
@@ -71,7 +70,6 @@ localpolynomials<-function(
 #' @return a [finite_filters()] object.
 #' @seealso [mmsre_filter()] [localpolynomials()].
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' henderson_f <- lp_filter(horizon = 6, kernel = "Henderson")
 #' plot_coef(henderson_f)
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.

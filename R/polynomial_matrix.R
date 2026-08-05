@@ -17,7 +17,6 @@
 #' }
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' # For example to reproduce DAF filters
 #' daf <- lp_filter(horizon = 6, endpoints = "DAF")
 #' q <- 0

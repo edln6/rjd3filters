@@ -36,8 +36,7 @@ time series \eqn{y[n-1]} (one future point known)...
 }
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 x <- retailsa$DrinkingPlaces
 
 lags <- 6
@@ -53,4 +52,5 @@ plot(ts.union(x, fst_ma, lpp_ma), plot.type = "single", col = c("black","red","b
 trend <- filter(x, lpp_coef)
 # This is equivalent to:
 trend <- localpolynomials(x, horizon = 6)
+\dontshow{\}) # examplesIf}
 }

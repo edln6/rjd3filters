@@ -58,14 +58,14 @@ When \code{coef} (or \code{coef_var}) is a finite filter, the last points of the
 computed using the corresponding asymmetric filters
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 x <- retailsa$DrinkingPlaces
 coef <- lp_filter(6)
 confint <- confint_filter(x, coef)
 plot(confint, plot.type = "single",
      col = c("red", "black", "black"),
      lty = c(1, 2, 2))
+\dontshow{\}) # examplesIf}
 }
 \references{
 Loader, Clive. 1999.

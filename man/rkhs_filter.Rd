@@ -47,10 +47,10 @@ a \code{\link[=finite_filters]{finite_filters()}} object.
 Estimation of a filter using Reproducing Kernel Hilbert Space (RKHS)
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 rkhs <- rkhs_filter(horizon = 6, asymmetricCriterion = "Timeliness")
 plot_coef(rkhs)
+\dontshow{\}) # examplesIf}
 }
 \references{
 Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson Smoother in Reproducing Kernel Hilbert Space”. In: Journal of Business & Economic Statistics 26, pp. 536–545. URL: \url{https://ideas.repec.org/a/bes/jnlbes/v26y2008p536-545.html}.

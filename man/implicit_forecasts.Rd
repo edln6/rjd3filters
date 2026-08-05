@@ -34,8 +34,7 @@ which is equivalent to
 Note that this is solved numerically: the solution isn't exact.
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 x <- retailsa$AllOtherGenMerchandiseStores
 ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
@@ -48,4 +47,5 @@ lines(ts(c(tail(x,1), f_ql), frequency = frequency(x), start = end(x)),
       col = "red", lty = 2)
 lines(ts(c(tail(x,1), f_lc), frequency = frequency(x), start = end(x)),
       col = "blue", lty = 2)
+\dontshow{\}) # examplesIf}
 }

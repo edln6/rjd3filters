@@ -58,9 +58,7 @@
 #' \end{pmatrix}
 #' }
 #'
-#'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' filter <- fst_filter(lags = 6, leads = 0)
 #' filter
 #' @references Grun-Rehomme, Michel, Fabien Guggemos, and Dominique Ladiray (2018). “Asymmetric Moving Averages Minimizing Phase Shift”. In: Handbook on Seasonal Adjustment,
@@ -88,7 +86,6 @@ fst_filter<-function(lags = 6, leads = 0, pdegree = 2,
 #'
 #' @return The values of the 3 criteria, the gain and phase of the associated filter.
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' fst(filter[, "q=0"])
 #' # To compute the statistics on all filters:
@@ -155,7 +152,6 @@ fst.finite_filters<-function(weights, lags, passband=pi/6,
 #'
 #' @return The criteria
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' sweights <- filter[, "q=6"]
 #' aweights <- filter[, "q=0"]

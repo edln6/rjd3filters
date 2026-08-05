@@ -41,7 +41,6 @@ NULL
 #' }
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' y <- retailsa$AllOtherGenMerchandiseStores
 #' e1 <- moving_average(rep(1,12), lags = -6)
 #' e1 <- e1/sum(e1)
@@ -407,7 +406,6 @@ setMethod("^",
 #' @inheritParams moving_average
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' # The M2X12 moving average is computed as
 #' (simple_ma(12, -6) + simple_ma(12, -5)) / 2
 #' # The M3X3 moving average is computed as

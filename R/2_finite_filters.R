@@ -15,7 +15,6 @@ setClass("finite_filters",
 #' @param x object to test the class.
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' ff_lp <- lp_filter()
 #' ff_simple_ma <- finite_filters(moving_average(c(1, 1, 1), lags = -1)/3,
 #'                rfilters = list(moving_average(c(1, 1), lags = -1)/2))
@@ -514,7 +513,6 @@ to_seasonal.finite_filters <- function(x, s) {
 #'
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' y <- window(retailsa$AllOtherGenMerchandiseStores, start = 2008)
 #' M3 <- moving_average(rep(1/3, 3), lags = -1)
 #' M3X3 <- M3 * M3

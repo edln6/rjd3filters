@@ -26,8 +26,7 @@ Create polynomial matrix used in local polynomial regression (see details).
 }
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 # For example to reproduce DAF filters
 daf <- lp_filter(horizon = 6, endpoints = "DAF")
 q <- 0
@@ -37,4 +36,5 @@ e_1 <- c(1, 0, 0, 0)
 q0 <- K \%*\% X \%*\% solve(t(X) \%*\% K \%*\% X, e_1)
 q0
 daf[, "q=0"]
+\dontshow{\}) # examplesIf}
 }

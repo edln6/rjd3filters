@@ -34,8 +34,7 @@ rkhs_optimization_fun(
 Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 plot(rkhs_optimization_fun(horizon = 6, leads = 0,degree = 3, asymmetricCriterion = "Timeliness"),
      5.5, 6*3, ylab = "Timeliness",
      main = "6X0 filter")
@@ -54,4 +53,5 @@ plot(rkhs_optimization_fun(horizon = 6, leads = 4,degree = 3, asymmetricCriterio
 plot(rkhs_optimization_fun(horizon = 6, leads = 5,degree = 3, asymmetricCriterion = "Timeliness"),
      5.5, 6*3, ylab = "Timeliness",
      main = "6X5 filter")
+\dontshow{\}) # examplesIf}
 }

@@ -3,7 +3,6 @@
 #' @param x the object.
 #' @param ... unused parameters
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' fit <- stats::arima(log10(AirPassengers), c(0, 1, 1),
 #' seasonal = list(order = c(0, 1, 1), period = 12))
 #' get_moving_average(fit)
@@ -11,6 +10,7 @@
 get_moving_average <- function(x, ...) {
   UseMethod("get_moving_average", x)
 }
+
 #' @importFrom stats coefficients
 #' @export
 get_moving_average.Arima <- function(x, ...) {
@@ -66,6 +66,7 @@ get_moving_average.Arima <- function(x, ...) {
        right = list(ma = ma_mm,
                     sma = sma_mm))
 }
+
 #' @export
 get_moving_average.regarima <- function(x, period = 12, ...) {
   specif <- x$specification$arima$specification
@@ -120,10 +121,12 @@ get_moving_average.regarima <- function(x, period = 12, ...) {
        right = list(ma = ma_mm,
                     sma = sma_mm))
 }
+
 #' @export
 get_moving_average.SA <- function(x, period = 12, ...) {
   get_moving_average(x$regarima, period = period, ...)
 }
+
 #' @export
 get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...) {
   ar <- x$phi
@@ -170,10 +173,12 @@ get_moving_average.JD3_SARIMA_ESTIMATION <- function(x, period = 12, ...) {
        right = list(ma = ma_mm,
                     sma = sma_mm))
 }
+
 #' @export
 get_moving_average.JD3_REGARIMA_OUTPUT <- function(x, ...) {
   get_moving_average(x$result, ...)
 }
+
 #' @export
 get_moving_average.JD3_REGARIMA_RSLTS <- function(x, ...) {
   get_moving_average(x$description$arima, ...)

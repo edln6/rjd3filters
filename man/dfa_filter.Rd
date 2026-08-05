@@ -42,8 +42,8 @@ Let \eqn{\boldsymbol \theta=(\theta_{-p},\dots,\theta_{f})'} be a moving average
 The three criteria are:
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 dfa_filter(horizon = 6, degree = 0)
 dfa_filter(horizon = 6, degree = 2)
+\dontshow{\}) # examplesIf}
 }

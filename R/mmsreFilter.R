@@ -30,12 +30,8 @@
 #'
 #' The matrix \eqn{\boldsymbol Z} represents the bias of the asymmetric filter: usually constraints imposed to the symmetric filter but not to the asymmetric filter.
 #'
-#'
-#'
-#'
 #' @inheritParams lp_filter
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' QL <- lp_filter(endpoints = "QL", ic = 3.5)
 #' LC <- lp_filter(endpoints = "LC", ic = 3.5)
 #' DAF <- lp_filter(endpoints = "DAF")

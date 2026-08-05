@@ -36,13 +36,12 @@ first asymmetric filter (when only one observation is missing) or the last one (
 Manipulating Finite Filters
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 ff_lp <- lp_filter()
 ff_simple_ma <- finite_filters(moving_average(c(1, 1, 1), lags = -1)/3,
                rfilters = list(moving_average(c(1, 1), lags = -1)/2))
 ff_lp
 ff_simple_ma
 ff_lp * ff_simple_ma
-
+\dontshow{\}) # examplesIf}
 }

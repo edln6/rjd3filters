@@ -5,7 +5,6 @@
 #' @param ... unused other arguments.
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' filter <- lp_filter(3, kernel = "Henderson")
 #' sgain <- get_properties_function(filter, "Symmetric Gain")
 #' plot(sgain, xlim= c(0, pi/12))

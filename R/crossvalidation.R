@@ -223,7 +223,6 @@ df_var <- function(n, coef, exact_df = FALSE) {
 #'
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' x <- retailsa$DrinkingPlaces
 #' coef <- lp_filter(6)
 #' confint <- confint_filter(x, coef)

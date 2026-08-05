@@ -10,7 +10,6 @@
 #' @export
 #'
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples
 #' get_kernel("Henderson", horizon = 3)
 get_kernel <- function(kernel = c("Henderson","Uniform", "Triangular",
                                   "Epanechnikov","Parabolic","BiWeight", "TriWeight","Tricube",

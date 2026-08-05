@@ -66,8 +66,7 @@ M_{\boldsymbol\theta'}(X_t)=\sum_{k=-p}^{+f}\theta_kX_{t+ks}=\left(\sum_{k=-p}^{
 }
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 y <- retailsa$AllOtherGenMerchandiseStores
 e1 <- moving_average(rep(1,12), lags = -6)
 e1 <- e1/sum(e1)
@@ -99,4 +98,5 @@ s <- si * M3X3_seasonal
 s_mm <- M3X3_seasonal * (1 - M2X12)
 s <- y * s_mm
 plot(s)
+\dontshow{\}) # examplesIf}
 }

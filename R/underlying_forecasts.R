@@ -16,8 +16,7 @@
 #' Note that this is solved numerically: the solution isn't exact.
 #' @inheritParams implicit_forecasts
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' @examples \dontrun{
-#'
+#' \dontrun{
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
