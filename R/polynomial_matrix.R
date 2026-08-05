@@ -30,12 +30,15 @@
 #' @importFrom rjd3toolkit .jd2r_matrix
 polynomial_matrix <- function(l, u = abs(l), d0 = 0, d1 = 3) {
     rjd3toolkit::.jd2r_matrix(
-    .jcall(
-      "jdplus/toolkit/base/core/math/linearfilters/LocalPolynomialFilters",
-      "Ljdplus/toolkit/base/core/math/matrices/FastMatrix;",
-      "z",
-      .jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"),
-      as.integer(l), as.integer(u),
-      as.integer(d0), as.integer(d1))
-  )
+        .jcall(
+            "jdplus/toolkit/base/core/math/linearfilters/LocalPolynomialFilters",
+            "Ljdplus/toolkit/base/core/math/matrices/FastMatrix;",
+            "z",
+            .jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"),
+            as.integer(l),
+            as.integer(u),
+            as.integer(d0),
+            as.integer(d1)
+        )
+    )
 }

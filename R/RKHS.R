@@ -16,38 +16,71 @@
 #' plot_coef(rkhs)
 #' @return a [finite_filters()] object.
 #' @export
-rkhs_filter <- function(horizon = 6, degree = 2,
-                        kernel = c("BiWeight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "TriWeight"),
-                        asymmetricCriterion = c("Timeliness", "FrequencyResponse", "Accuracy", "Smoothness", "Undefined"),
-                        density = c("uniform", "rw"),
-                        passband = 2*pi/12,
-                        optimalbw = TRUE,
-                        optimal.minBandwidth = horizon,
-                        optimal.maxBandwidth = 3*horizon,
-                        bandwidth = horizon + 1) {
+rkhs_filter <- function(
+    horizon = 6,
+    degree = 2,
+    kernel = c(
+        "BiWeight",
+        "Henderson",
+        "Epanechnikov",
+        "Triangular",
+        "Uniform",
+        "TriWeight"
+    ),
+    asymmetricCriterion = c(
+        "Timeliness",
+        "FrequencyResponse",
+        "Accuracy",
+        "Smoothness",
+        "Undefined"
+    ),
+    density = c("uniform", "rw"),
+    passband = 2 * pi / 12,
+    optimalbw = TRUE,
+    optimal.minBandwidth = horizon,
+    optimal.maxBandwidth = 3 * horizon,
+    bandwidth = horizon + 1
+) {
+    kernel <- match.arg(
+        tolower(kernel)[1],
+        choices = c(
+            "biweight",
+            "henderson",
+            "epanechnikov",
+            "triangular",
+            "uniform",
+            "triweight"
+        )
+    )
 
-  kernel <- match.arg(tolower(kernel)[1],
-                   choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
-                               "triweight"))
+    asymmetricCriterion <- switch(
+        tolower(asymmetricCriterion[1]),
+        timeliness = "Timeliness",
+        frequencyresponse = "FrequencyResponse",
+        accuracy = "Accuracy",
+        smoothness = "Smoothness",
+        undefined = "Undefined"
+    )
 
-  asymmetricCriterion <- switch(tolower(asymmetricCriterion[1]),
-                               timeliness = "Timeliness",
-                               frequencyresponse = "FrequencyResponse",
-                               accuracy = "Accuracy",
-                               smoothness = "Smoothness",
-                               undefined = "Undefined")
+    density <- match.arg(density)
 
-  density <- match.arg(density)
-
-  jrkhs_filter <-
-    .jcall("jdplus/filters/base/r/RKHSFilters",
-           "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
-           "filters",
-    as.integer(horizon), as.integer(degree), kernel,
-    optimalbw, asymmetricCriterion, density=="rw", passband,
-    bandwidth, optimal.minBandwidth, optimal.maxBandwidth
-  )
-  return(.jd2r_finitefilters(jrkhs_filter))
+    jrkhs_filter <-
+        .jcall(
+            "jdplus/filters/base/r/RKHSFilters",
+            "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
+            "filters",
+            as.integer(horizon),
+            as.integer(degree),
+            kernel,
+            optimalbw,
+            asymmetricCriterion,
+            density == "rw",
+            passband,
+            bandwidth,
+            optimal.minBandwidth,
+            optimal.maxBandwidth
+        )
+    return(.jd2r_finitefilters(jrkhs_filter))
 }
 #' Optimization Function of Reproducing Kernel Hilbert Space (RKHS) Filters
 #'
@@ -74,33 +107,63 @@ rkhs_filter <- function(horizon = 6, degree = 2,
 #'      5.5, 6*3, ylab = "Timeliness",
 #'      main = "6X5 filter")
 #' @export
-rkhs_optimization_fun <- function(horizon = 6, leads = 0,  degree = 2,
-                        kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "Triweight"),
-                        asymmetricCriterion = c("Timeliness", "FrequencyResponse", "Accuracy", "Smoothness"),
-                        density = c("uniform", "rw"),
-                        passband = 2*pi/12) {
-
-  kernel <- match.arg(tolower(kernel)[1],
-                   choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
-                               "triweight"))
-  asymmetricCriterion <- switch(tolower(asymmetricCriterion[1]),
-                               timeliness = "Timeliness",
-                               frequencyresponse = "FrequencyResponse",
-                               accuracy = "Accuracy",
-                               smoothness = "Smoothness",
-                               undefined = "Undefined")
-  density <- match.arg(density)
-  jfun <-
-    .jcall(
-      "jdplus/filters/base/r/RKHSFilters",
-      "Ljava/util/function/DoubleUnaryOperator;",
-      "optimalCriteria",
-      as.integer(horizon), as.integer(leads), as.integer(degree), kernel,
-      asymmetricCriterion, density=="rw", passband
+rkhs_optimization_fun <- function(
+    horizon = 6,
+    leads = 0,
+    degree = 2,
+    kernel = c(
+        "Biweight",
+        "Henderson",
+        "Epanechnikov",
+        "Triangular",
+        "Uniform",
+        "Triweight"
+    ),
+    asymmetricCriterion = c(
+        "Timeliness",
+        "FrequencyResponse",
+        "Accuracy",
+        "Smoothness"
+    ),
+    density = c("uniform", "rw"),
+    passband = 2 * pi / 12
+) {
+    kernel <- match.arg(
+        tolower(kernel)[1],
+        choices = c(
+            "biweight",
+            "henderson",
+            "epanechnikov",
+            "triangular",
+            "uniform",
+            "triweight"
+        )
     )
-  Vectorize(function(x) {
-    .jcall(jfun, "D", "applyAsDouble", x)
-  })
+    asymmetricCriterion <- switch(
+        tolower(asymmetricCriterion[1]),
+        timeliness = "Timeliness",
+        frequencyresponse = "FrequencyResponse",
+        accuracy = "Accuracy",
+        smoothness = "Smoothness",
+        undefined = "Undefined"
+    )
+    density <- match.arg(density)
+    jfun <-
+        .jcall(
+            "jdplus/filters/base/r/RKHSFilters",
+            "Ljava/util/function/DoubleUnaryOperator;",
+            "optimalCriteria",
+            as.integer(horizon),
+            as.integer(leads),
+            as.integer(degree),
+            kernel,
+            asymmetricCriterion,
+            density == "rw",
+            passband
+        )
+    Vectorize(function(x) {
+        .jcall(jfun, "D", "applyAsDouble", x)
+    })
 }
 #' Optimal Bandwith of Reproducing Kernel Hilbert Space (RKHS) Filters
 #'
@@ -110,60 +173,110 @@ rkhs_optimization_fun <- function(horizon = 6, leads = 0,  degree = 2,
 #' rkhs_optimal_bw(asymmetricCriterion = "Timeliness")
 #' rkhs_optimal_bw(asymmetricCriterion = "Timeliness", optimal.minBandwidth = 6.2)
 #' @export
-rkhs_optimal_bw <- function(horizon = 6,  degree = 2,
-                           kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "Triweight"),
-                           asymmetricCriterion = c("Timeliness", "FrequencyResponse", "Accuracy", "Smoothness"),
-                           density = c("uniform", "rw"),
-                           passband = 2*pi/12,
-                           optimal.minBandwidth = horizon,
-                           optimal.maxBandwidth = 3*horizon) {
-
-  kernel <- match.arg(tolower(kernel)[1],
-                      choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
-                                  "triweight"))
-  asymmetricCriterion <- switch(tolower(asymmetricCriterion[1]),
-                               timeliness = "Timeliness",
-                               frequencyresponse = "FrequencyResponse",
-                               accuracy = "Accuracy",
-                               smoothness = "Smoothness",
-                               undefined = "Undefined")
-  density <- match.arg(density)
-  optimalBw <-
-    .jcall(
-      "jdplus/filters/base/r/RKHSFilters",
-      "[D",
-      "optimalBandwidth",
-      as.integer(horizon), as.integer(degree), kernel,
-      asymmetricCriterion, density=="rw", passband, optimal.minBandwidth, optimal.maxBandwidth
+rkhs_optimal_bw <- function(
+    horizon = 6,
+    degree = 2,
+    kernel = c(
+        "Biweight",
+        "Henderson",
+        "Epanechnikov",
+        "Triangular",
+        "Uniform",
+        "Triweight"
+    ),
+    asymmetricCriterion = c(
+        "Timeliness",
+        "FrequencyResponse",
+        "Accuracy",
+        "Smoothness"
+    ),
+    density = c("uniform", "rw"),
+    passband = 2 * pi / 12,
+    optimal.minBandwidth = horizon,
+    optimal.maxBandwidth = 3 * horizon
+) {
+    kernel <- match.arg(
+        tolower(kernel)[1],
+        choices = c(
+            "biweight",
+            "henderson",
+            "epanechnikov",
+            "triangular",
+            "uniform",
+            "triweight"
+        )
     )
-  names(optimalBw) <- sprintf("q=%i", 0:(horizon-1))
-  optimalBw
+    asymmetricCriterion <- switch(
+        tolower(asymmetricCriterion[1]),
+        timeliness = "Timeliness",
+        frequencyresponse = "FrequencyResponse",
+        accuracy = "Accuracy",
+        smoothness = "Smoothness",
+        undefined = "Undefined"
+    )
+    density <- match.arg(density)
+    optimalBw <-
+        .jcall(
+            "jdplus/filters/base/r/RKHSFilters",
+            "[D",
+            "optimalBandwidth",
+            as.integer(horizon),
+            as.integer(degree),
+            kernel,
+            asymmetricCriterion,
+            density == "rw",
+            passband,
+            optimal.minBandwidth,
+            optimal.maxBandwidth
+        )
+    names(optimalBw) <- sprintf("q=%i", 0:(horizon - 1))
+    optimalBw
 }
 #' Get RKHS kernel function
 #' @inheritParams rkhs_filter
 #' @export
-rkhs_kernel <- function(kernel = c("Biweight", "Henderson", "Epanechnikov", "Triangular", "Uniform", "Triweight"),
-                        degree = 2, horizon = 6) {
-
-  kernel <- match.arg(tolower(kernel)[1],
-                   choices = c("biweight", "henderson", "epanechnikov", "triangular", "uniform",
-                               "triweight"))
-  kernel <- switch(tolower(kernel),
-    "biweight" = "BiWeight",
-    "triweight" ="TriWeight",
-    "uniform" = "Uniform",
-    "triangular" = "Triangular",
-    "epanechnikov" = "Epanechnikov",
-    "henderson" = "Henderson"
-  )
-  jfun <-
-    .jcall(
-      "jdplus/filters/base/r/RKHSFilters",
-      "Ljava/util/function/DoubleUnaryOperator;",
-      "kernel",
-      kernel, as.integer(degree), as.integer(horizon)
+rkhs_kernel <- function(
+    kernel = c(
+        "Biweight",
+        "Henderson",
+        "Epanechnikov",
+        "Triangular",
+        "Uniform",
+        "Triweight"
+    ),
+    degree = 2,
+    horizon = 6
+) {
+    kernel <- match.arg(
+        tolower(kernel)[1],
+        choices = c(
+            "biweight",
+            "henderson",
+            "epanechnikov",
+            "triangular",
+            "uniform",
+            "triweight"
+        )
     )
-  Vectorize(function(x) {
-    .jcall(jfun, "D", "applyAsDouble", x)
-  })
+    kernel <- switch(
+        tolower(kernel),
+        "biweight" = "BiWeight",
+        "triweight" = "TriWeight",
+        "uniform" = "Uniform",
+        "triangular" = "Triangular",
+        "epanechnikov" = "Epanechnikov",
+        "henderson" = "Henderson"
+    )
+    jfun <-
+        .jcall(
+            "jdplus/filters/base/r/RKHSFilters",
+            "Ljava/util/function/DoubleUnaryOperator;",
+            "kernel",
+            kernel,
+            as.integer(degree),
+            as.integer(horizon)
+        )
+    Vectorize(function(x) {
+        .jcall(jfun, "D", "applyAsDouble", x)
+    })
 }

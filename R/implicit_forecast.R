@@ -40,7 +40,7 @@
 #' @importFrom graphics plot
 #' @export
 implicit_forecasts <- function(x, coefs) {
-  UseMethod("implicit_forecasts", x)
+    UseMethod("implicit_forecasts", x)
 }
 
 #' @importFrom stats frequency
@@ -51,28 +51,39 @@ implicit_forecasts <- function(x, coefs) {
 #' @importFrom utils tail
 #' @export
 implicit_forecasts.default <- function(x, coefs) {
-  if (!inherits(coefs, "finite_filters")) {
-    coefs <- finite_filters(coefs)
-  }
-  jffilters <- .finite_filters2jd(coefs)
+    if (!inherits(coefs, "finite_filters")) {
+        coefs <- finite_filters(coefs)
+    }
+    jffilters <- .finite_filters2jd(coefs)
 
-  jx <- .r2jd_doubleseq(utils::tail(x,abs(lower_bound(coefs@sfilter))+1))
-  prev <- .jcall("jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
-         "[D","implicitForecasts",
-         jffilters$jsymf,
-         jffilters$jrasym,
-         jx)
-  if (stats::is.ts(x))
-    prev <- stats::ts(prev,
-       frequency = stats::frequency(x),
-       start = stats::time(x)[length(stats::time(x))] + stats::deltat(x))
+    jx <- .r2jd_doubleseq(utils::tail(x, abs(lower_bound(coefs@sfilter)) + 1))
+    prev <- .jcall(
+        "jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
+        "[D",
+        "implicitForecasts",
+        jffilters$jsymf,
+        jffilters$jrasym,
+        jx
+    )
+    if (stats::is.ts(x))
+        prev <- stats::ts(
+            prev,
+            frequency = stats::frequency(x),
+            start = stats::time(x)[length(stats::time(x))] + stats::deltat(x)
+        )
 
-  prev
+    prev
 }
 
 #' @export
 implicit_forecasts.matrix <- function(x, coefs) {
-  result <- do.call(cbind, lapply(seq_len(ncol(x)), function(i) implicit_forecasts(x[,i], coefs = coefs)))
-  colnames(result) <- colnames(x)
-  result
+    result <- do.call(
+        cbind,
+        lapply(
+            seq_len(ncol(x)),
+            function(i) implicit_forecasts(x[, i], coefs = coefs)
+        )
+    )
+    colnames(result) <- colnames(x)
+    result
 }

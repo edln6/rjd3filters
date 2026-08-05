@@ -67,38 +67,47 @@
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 #' @export
 mmsre_filter <- function(
-    ref_filter, q, U, Z = NULL, delta = NULL,
+    ref_filter,
+    q,
+    U,
+    Z = NULL,
+    delta = NULL,
     kernel = NULL,
-    tweight = 0, passband = pi/12) {
-  jref <- .jcast(.ma2jd(ref_filter), "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter")
-  if (is.null(delta))
-    delta <- numeric()
+    tweight = 0,
+    passband = pi / 12
+) {
+    jref <- .jcast(
+        .ma2jd(ref_filter),
+        "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+    )
+    if (is.null(delta)) delta <- numeric()
 
-  jkernel <- .r2jd_kernel(kernel, abs(.jcall(jref, "I", "getLowerBound")))
-  jf <- .jcall(
-    "jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
-    "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
-    "mmsreFilter",
-    jref,
-    as.integer(q),
-    .r2jd_fast_matrix(U),
-    .r2jd_fast_matrix(Z),
-    .jarray(delta),
-    jkernel,
-    as.numeric(tweight),
-    as.numeric(passband)
-  )
-  return(.jd2ma(jf))
+    jkernel <- .r2jd_kernel(kernel, abs(.jcall(jref, "I", "getLowerBound")))
+    jf <- .jcall(
+        "jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
+        "Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;",
+        "mmsreFilter",
+        jref,
+        as.integer(q),
+        .r2jd_fast_matrix(U),
+        .r2jd_fast_matrix(Z),
+        .jarray(delta),
+        jkernel,
+        as.numeric(tweight),
+        as.numeric(passband)
+    )
+    return(.jd2ma(jf))
 }
 
 #' @importFrom rjd3toolkit .r2jd_matrix
 .r2jd_fast_matrix <- function(s) {
-  if (is.null(s))
-    return(.jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"))
+    if (is.null(s))
+        return(.jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"))
 
-  .jcall(
-    "jdplus/toolkit/base/core/math/matrices/FastMatrix",
-    "Ljdplus/toolkit/base/core/math/matrices/FastMatrix;",
-    "of",
-    rjd3toolkit::.r2jd_matrix(s))
+    .jcall(
+        "jdplus/toolkit/base/core/math/matrices/FastMatrix",
+        "Ljdplus/toolkit/base/core/math/matrices/FastMatrix;",
+        "of",
+        rjd3toolkit::.r2jd_matrix(s)
+    )
 }

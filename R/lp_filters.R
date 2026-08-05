@@ -26,38 +26,78 @@
 #' @importFrom graphics lines
 #' @importFrom graphics plot
 #' @export
-localpolynomials<-function(
-        x,
-        horizon = 6,
-        degree = 3,
-        kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
-        endpoints = c("LC", "QL", "CQ", "CC", "DAF"),
-        ic = 3.5,
-        tweight = 0, passband = pi/12) {
-    if (2*horizon < degree)
-        stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
+localpolynomials <- function(
+    x,
+    horizon = 6,
+    degree = 3,
+    kernel = c(
+        "Henderson",
+        "Uniform",
+        "Biweight",
+        "Trapezoidal",
+        "Triweight",
+        "Tricube",
+        "Gaussian",
+        "Triangular",
+        "Parabolic"
+    ),
+    endpoints = c("LC", "QL", "CQ", "CC", "DAF"),
+    ic = 3.5,
+    tweight = 0,
+    passband = pi / 12
+) {
+    if (2 * horizon < degree)
+        stop(
+            "You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter."
+        )
 
     d <- 2 / (sqrt(pi) * ic)
-    kernel <- match.arg(tolower(kernel),
-                        choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
-                                    "tricube", "gaussian", "triangular", "parabolic"))
-    kernel <- switch(kernel,
-                     henderson = "Henderson",
-                     uniform = "Uniform",
-                     biweight = "Biweight",
-                     trapezoidal = "Trapezoidal",
-                     triweight = "Triweight",
-                     tricube = "Tricube",
-                     gaussian = "Gaussian",
-                     triangular = "Triangular",
-                     parabolic = "Parabolic"
+    kernel <- match.arg(
+        tolower(kernel),
+        choices = c(
+            "henderson",
+            "uniform",
+            "biweight",
+            "trapezoidal",
+            "triweight",
+            "tricube",
+            "gaussian",
+            "triangular",
+            "parabolic"
+        )
+    )
+    kernel <- switch(
+        kernel,
+        henderson = "Henderson",
+        uniform = "Uniform",
+        biweight = "Biweight",
+        trapezoidal = "Trapezoidal",
+        triweight = "Triweight",
+        tricube = "Tricube",
+        gaussian = "Gaussian",
+        triangular = "Triangular",
+        parabolic = "Parabolic"
     )
     endpoints <- match.arg(endpoints)
-    result <- .jcall("jdplus/filters/base/r/LocalPolynomialFilters", "[D", "filter",
-                     as.numeric(x), as.integer(horizon), as.integer(degree), kernel, endpoints, d,
-                     tweight, passband)
+    result <- .jcall(
+        "jdplus/filters/base/r/LocalPolynomialFilters",
+        "[D",
+        "filter",
+        as.numeric(x),
+        as.integer(horizon),
+        as.integer(degree),
+        kernel,
+        endpoints,
+        d,
+        tweight,
+        passband
+    )
     if (stats::is.ts(x))
-        result <- stats::ts(result,start = stats::start(x), frequency = stats::frequency(x))
+        result <- stats::ts(
+            result,
+            start = stats::start(x),
+            frequency = stats::frequency(x)
+        )
     result
 }
 
@@ -80,40 +120,74 @@ localpolynomials<-function(
 #' @references Proietti, Tommaso and Alessandra Luati (2008). “Real time estimation in local polynomial regression, with application to trend-cycle analysis”.
 #' @export
 lp_filter <- function(
-        horizon = 6, degree = 3,
-        kernel = c("Henderson", "Uniform", "Biweight", "Trapezoidal", "Triweight", "Tricube", "Gaussian", "Triangular", "Parabolic"),
-        endpoints = c("LC", "QL", "CQ", "CC", "DAF", "CN"),
-        ic = 3.5,
-        tweight = 0, passband = pi/12) {
-    if (2*horizon < degree)
-        stop("You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter.")
+    horizon = 6,
+    degree = 3,
+    kernel = c(
+        "Henderson",
+        "Uniform",
+        "Biweight",
+        "Trapezoidal",
+        "Triweight",
+        "Tricube",
+        "Gaussian",
+        "Triangular",
+        "Parabolic"
+    ),
+    endpoints = c("LC", "QL", "CQ", "CC", "DAF", "CN"),
+    ic = 3.5,
+    tweight = 0,
+    passband = pi / 12
+) {
+    if (2 * horizon < degree)
+        stop(
+            "You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter."
+        )
 
     d <- 2 / (sqrt(pi) * ic)
-    kernel <- match.arg(tolower(kernel),
-                        choices = c("henderson", "uniform", "biweight", "trapezoidal", "triweight",
-                                    "tricube", "gaussian", "triangular", "parabolic"))
-    kernel <- switch(kernel,
-                     henderson = "Henderson",
-                     uniform = "Uniform",
-                     biweight = "Biweight",
-                     trapezoidal = "Trapezoidal",
-                     triweight = "Triweight",
-                     tricube = "Tricube",
-                     gaussian = "Gaussian",
-                     triangular = "Triangular",
-                     parabolic = "Parabolic"
+    kernel <- match.arg(
+        tolower(kernel),
+        choices = c(
+            "henderson",
+            "uniform",
+            "biweight",
+            "trapezoidal",
+            "triweight",
+            "tricube",
+            "gaussian",
+            "triangular",
+            "parabolic"
+        )
+    )
+    kernel <- switch(
+        kernel,
+        henderson = "Henderson",
+        uniform = "Uniform",
+        biweight = "Biweight",
+        trapezoidal = "Trapezoidal",
+        triweight = "Triweight",
+        tricube = "Tricube",
+        gaussian = "Gaussian",
+        triangular = "Triangular",
+        parabolic = "Parabolic"
     )
     endpoints <- match.arg(endpoints)
-    jprops <-.jcall("jdplus/filters/base/r/LocalPolynomialFilters",
-                    "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
-                    "filters", as.integer(horizon),
-                    as.integer(degree), kernel, endpoints, d,
-                    tweight, passband)
+    jprops <- .jcall(
+        "jdplus/filters/base/r/LocalPolynomialFilters",
+        "Ljdplus/toolkit/base/core/math/linearfilters/ISymmetricFiltering;",
+        "filters",
+        as.integer(horizon),
+        as.integer(degree),
+        kernel,
+        endpoints,
+        d,
+        tweight,
+        passband
+    )
 
     return(.jd2r_finitefilters(jprops))
 }
 coefficients_names <- function(lb, ub) {
-    x <- sprintf("t%+i", seq(lb,ub))
+    x <- sprintf("t%+i", seq(lb, ub))
     x <- sub("+0", "", x, fixed = TRUE)
     x
 }

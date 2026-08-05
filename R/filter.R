@@ -50,61 +50,65 @@
 #' @importFrom graphics plot
 #' @export
 filter <- function(x, coefs, remove_missing = TRUE) {
-  UseMethod("filter", x)
+    UseMethod("filter", x)
 }
 #' @export
 filter.default <- function(x, coefs, remove_missing = TRUE) {
-  if (is.moving_average(coefs)) {
-    filter_ma(x, coefs)
-  } else {
-    ff_ma(x, coefs = coefs, remove_missing = remove_missing)
-  }
+    if (is.moving_average(coefs)) {
+        filter_ma(x, coefs)
+    } else {
+        ff_ma(x, coefs = coefs, remove_missing = remove_missing)
+    }
 }
 #' @export
 filter.matrix <- function(x, coefs, remove_missing = TRUE) {
-  result <- x
-  for (i in seq_len(ncol(x))) {
-    result[, i] <- filter(x[,i], coefs = coefs, remove_missing = remove_missing)
-  }
-  result
+    result <- x
+    for (i in seq_len(ncol(x))) {
+        result[, i] <- filter(
+            x[, i],
+            coefs = coefs,
+            remove_missing = remove_missing
+        )
+    }
+    result
 }
 
 #' @importFrom stats frequency
 #' @importFrom stats is.ts
 #' @importFrom stats start
 filter_ma <- function(x, coefs) {
-  # if (!is.moving_average(coefs)) {
-  #   coefs <- moving_average(coefs, -abs(lags))
-  # }
-  lb <- lower_bound(coefs)
-  ub <- upper_bound(coefs)
+    # if (!is.moving_average(coefs)) {
+    #   coefs <- moving_average(coefs, -abs(lags))
+    # }
+    lb <- lower_bound(coefs)
+    ub <- upper_bound(coefs)
 
-  if (length(x) < length(coefs))
-    return(x * NA)
+    if (length(x) < length(coefs)) return(x * NA)
 
-  jx <- .jcall(
-    "jdplus/toolkit/base/core/data/DataBlock",
-    "Ljdplus/toolkit/base/core/data/DataBlock;",
-    "of",
-    as.numeric(x)
+    jx <- .jcall(
+        "jdplus/toolkit/base/core/data/DataBlock",
+        "Ljdplus/toolkit/base/core/data/DataBlock;",
+        "of",
+        as.numeric(x)
     )
-  out <- .jcall(
-    "jdplus/toolkit/base/core/data/DataBlock",
-    "Ljdplus/toolkit/base/core/data/DataBlock;",
-    "of",
-    .jarray(as.numeric(rep(NA, length(x) - length(coefs)+1)))
-  )
-  jfilter <- .ma2jd(coefs)
-  .jcall(jfilter, "V", "apply",
-    jx, out)
-  result <- .jcall(out, "[D", "toArray")
-  result <- c(rep(NA, abs(min(lb, 0))),
-              result,
-              rep(NA, abs(max(ub, 0))))
+    out <- .jcall(
+        "jdplus/toolkit/base/core/data/DataBlock",
+        "Ljdplus/toolkit/base/core/data/DataBlock;",
+        "of",
+        .jarray(as.numeric(rep(NA, length(x) - length(coefs) + 1)))
+    )
+    jfilter <- .ma2jd(coefs)
+    .jcall(jfilter, "V", "apply", jx, out)
+    result <- .jcall(out, "[D", "toArray")
+    result <- c(rep(NA, abs(min(lb, 0))), result, rep(NA, abs(max(ub, 0))))
 
-  if (stats::is.ts(x))
-    result <- stats::ts(result,start = stats::start(x), frequency = stats::frequency(x))
-  result
+    if (stats::is.ts(x))
+        result <- stats::ts(
+            result,
+            start = stats::start(x),
+            frequency = stats::frequency(x)
+        )
+    result
 }
 
 #' @importFrom stats frequency
@@ -112,77 +116,107 @@ filter_ma <- function(x, coefs) {
 #' @importFrom stats is.ts
 #' @importFrom stats start
 ff_ma <- function(x, coefs, remove_missing = TRUE) {
-  if (!inherits(coefs, "finite_filters")) {
-    coefs <- finite_filters(coefs)
-  }
-  jffilters <- .finite_filters2jd(coefs)
+    if (!inherits(coefs, "finite_filters")) {
+        coefs <- finite_filters(coefs)
+    }
+    jffilters <- .finite_filters2jd(coefs)
 
-  if (remove_missing) {
-    data_clean <- remove_bound_NA(x)
-    x2 <- data_clean$data
-  } else {
-    x2 <- x
-  }
+    if (remove_missing) {
+        data_clean <- remove_bound_NA(x)
+        x2 <- data_clean$data
+    } else {
+        x2 <- x
+    }
 
-  jx <- .r2jd_doubleseq(x2)
+    jx <- .r2jd_doubleseq(x2)
 
-  result <- .jcall("jdplus/toolkit/base/core/math/linearfilters/FilterUtility",
-                   "Ljdplus/toolkit/base/api/data/DoubleSeq;", "filter",
-                   jx,
-                   jffilters$jsymf,
-                   jffilters$jlasym,
-                   jffilters$jrasym
-  )
+    result <- .jcall(
+        "jdplus/toolkit/base/core/math/linearfilters/FilterUtility",
+        "Ljdplus/toolkit/base/api/data/DoubleSeq;",
+        "filter",
+        jx,
+        jffilters$jsymf,
+        jffilters$jlasym,
+        jffilters$jrasym
+    )
 
-  result <- .jcall(result, "[D", "toArray")
+    result <- .jcall(result, "[D", "toArray")
 
-  if (remove_missing) {
-    result <- c(rep(NA, data_clean$leading), result,
-               rep(NA, data_clean$trailing))
-  }
-  if (stats::is.ts(x))
-    result <- stats::ts(result,start = stats::start(x), frequency = stats::frequency(x))
-  result
+    if (remove_missing) {
+        result <- c(
+            rep(NA, data_clean$leading),
+            result,
+            rep(NA, data_clean$trailing)
+        )
+    }
+    if (stats::is.ts(x))
+        result <- stats::ts(
+            result,
+            start = stats::start(x),
+            frequency = stats::frequency(x)
+        )
+    result
 }
 
 .r2jd_doubleseq <- function(x) {
-  .jcall("jdplus/toolkit/base/api/data/DoubleSeq",
-         "Ljdplus/toolkit/base/api/data/DoubleSeq;",
-         "of", as.numeric(x))
+    .jcall(
+        "jdplus/toolkit/base/api/data/DoubleSeq",
+        "Ljdplus/toolkit/base/api/data/DoubleSeq;",
+        "of",
+        as.numeric(x)
+    )
 }
 
 .finite_filters2jd <- function(ff) {
-  jsymf <- .ma2jd(ff@sfilter)
-  rfilters <- ff@rfilters
-  lfilters <- ff@lfilters
-  if (length(rfilters) < upper_bound(ff@sfilter)) {
-    # last points as NA
-    rfilters <- c(rfilters,
-                  rep(list(moving_average(NA, lags = 0)), upper_bound(ff@sfilter) - length(rfilters)))
-  }
-  if (length(lfilters) < -lower_bound(ff@sfilter)) {
-    # first points as NA
-    lfilters <- c(rep(list(moving_average(NA, lags = 0)), -lower_bound(ff@sfilter) - length(lfilters)),
-                  lfilters)
-  }
-  jrasym <- lapply(rfilters, .ma2jd)
-  jlasym <- rev(lapply(lfilters, .ma2jd))
+    jsymf <- .ma2jd(ff@sfilter)
+    rfilters <- ff@rfilters
+    lfilters <- ff@lfilters
+    if (length(rfilters) < upper_bound(ff@sfilter)) {
+        # last points as NA
+        rfilters <- c(
+            rfilters,
+            rep(
+                list(moving_average(NA, lags = 0)),
+                upper_bound(ff@sfilter) - length(rfilters)
+            )
+        )
+    }
+    if (length(lfilters) < -lower_bound(ff@sfilter)) {
+        # first points as NA
+        lfilters <- c(
+            rep(
+                list(moving_average(NA, lags = 0)),
+                -lower_bound(ff@sfilter) - length(lfilters)
+            ),
+            lfilters
+        )
+    }
+    jrasym <- lapply(rfilters, .ma2jd)
+    jlasym <- rev(lapply(lfilters, .ma2jd))
 
-  jsymf <- .jcast(jsymf,
-                  "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter")
-  if (length(jrasym) == 0) {
-    jrasym <- .jnull("[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;")
-  } else {
-    jrasym <- .jarray(jrasym,
-                      "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter")
-  }
-  if (length(jlasym) == 0) {
-    jlasym <- .jnull("[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;")
-  } else {
-    jlasym <- .jarray(jlasym,
-                      "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter")
-  }
-  list(jsymf = jsymf,
-       jrasym = jrasym,
-       jlasym = jlasym)
+    jsymf <- .jcast(
+        jsymf,
+        "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+    )
+    if (length(jrasym) == 0) {
+        jrasym <- .jnull(
+            "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;"
+        )
+    } else {
+        jrasym <- .jarray(
+            jrasym,
+            "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+        )
+    }
+    if (length(jlasym) == 0) {
+        jlasym <- .jnull(
+            "[Ljdplus/toolkit/base/core/math/linearfilters/IFiniteFilter;"
+        )
+    } else {
+        jlasym <- .jarray(
+            jlasym,
+            "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
+        )
+    }
+    list(jsymf = jsymf, jrasym = jrasym, jlasym = jlasym)
 }
