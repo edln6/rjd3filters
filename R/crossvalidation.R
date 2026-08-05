@@ -383,6 +383,6 @@ confint_filter <- function(
     sup <- filtered +
         confidence_quantiles[, 2] * sqrt(estimated_variance) * corr_f
     res <- stats::ts.union(filtered, inf, sup)
-    colnames(res) <- c("filtered", sprintf("%.1f%%", c * 100))
+    colnames(res) <- c("filtered", sprintf("%.1f%%", confidence_bounds * 100))
     res
 }
