@@ -35,7 +35,7 @@ Imports:
     rjd3jars (>= 0.0.5),
     rjd3toolkit (>= 3.7.1)
 SystemRequirements: Java (>= 21)
-License: file LICENSE
+License: EUPL
 LazyData: TRUE
 URL: https://github.com/rjdverse/rjd3filters, https://rjdverse.github.io/rjd3filters/
 BugReports: https://github.com/rjdverse/rjd3filters/issues
