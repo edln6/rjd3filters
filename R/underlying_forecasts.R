@@ -17,7 +17,7 @@
 #' @inheritParams implicit_forecasts
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' x <- retailsa$AllOtherGenMerchandiseStores
-#' \dontrun{
+#'
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' f_ql <- underlying_forecasts(x, ql)
@@ -29,7 +29,6 @@
 #'       col = "red", lty = 2)
 #' graphics::lines(stats::ts(c(utils::tail(x,1), f_lc), frequency = stats::frequency(x), start = stats::end(x)),
 #'       col = "blue", lty = 2)
-#'}
 #' @importFrom stats frequency
 #' @importFrom stats ts
 #' @importFrom stats end
