@@ -31,6 +31,8 @@ finite_filters <- function(
 ) {
     UseMethod("finite_filters", sfilter)
 }
+
+#' @importFrom methods new
 #' @export
 finite_filters.moving_average <- function(
     sfilter,
@@ -51,7 +53,7 @@ finite_filters.moving_average <- function(
     } else if (is.null(lfilters) && is.null(rfilters)) {
         rfilters <- lfilters <- list()
     }
-    res <- new(
+    res <- methods::new(
         "finite_filters",
         sfilter = sfilter,
         lfilters = lfilters,
@@ -605,7 +607,7 @@ to_seasonal.finite_filters <- function(x, s) {
 #' @param x a [finite_filters()] object.
 #' @param n integer specifying the number of imputed periods.
 #' By default all the missing moving averages are imputed.
-#' @param nperiod integer specifying how to imput missing date.
+#' @param nperiod integer specifying how to impute missing date.
 #'   - `nperiod = 1` means imputation using last filtered data
 #'     (1 period backward),
 #'   - `nperiod = 12` with monthly data means imputation using last year

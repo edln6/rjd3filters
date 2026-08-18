@@ -187,7 +187,7 @@ fst.finite_filters <- function(
 #' @param aweights `moving_average` object or weights of the asymmetric filter
 #'   (from -n to m).
 #' @param density hypothesis on the spectral density: \code{"uniform"}
-#'   (= white woise, the default) or  \code{"rw"} (= random walk).
+#'   (= white noise, the default) or  \code{"rw"} (= random walk).
 #' @param passband passband threshold.
 #' @param ... other unused arguments.
 #'

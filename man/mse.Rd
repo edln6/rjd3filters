@@ -14,7 +14,7 @@ mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 (from 0 to n or -n to n).}
 
 \item{density}{hypothesis on the spectral density: \code{"uniform"}
-(= white woise, the default) or  \code{"rw"} (= random walk).}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 

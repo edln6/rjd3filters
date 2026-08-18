@@ -43,7 +43,6 @@ Suggests:
     knitr,
     rmarkdown,
     spelling
-VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Config/roxygen2/version: 8.1.0

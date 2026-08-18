@@ -30,18 +30,18 @@ rkhs_filter(
 bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 
 \item{density}{hypothesis on the spectral density: \code{"uniform"}
-(= white woise, the default) or  \code{"rw"} (= random walk).}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 
-\item{optimalbw}{boolean indicating if the bandwith should be choosen by
+\item{optimalbw}{boolean indicating if the bandwidth should be choosen by
 optimisation (between \code{optimal.minBandwidth} and
 \code{optimal.minBandwidth} using the criteria \code{asymmetricCriterion}).
-If \code{optimalbw = FALSE} then the bandwith specified in
+If \code{optimalbw = FALSE} then the bandwidth specified in
 \code{bandwidth} will be  used.}
 
 \item{optimal.minBandwidth, optimal.maxBandwidth}{the range used for the
-optimal bandwith selection.}
+optimal bandwidth selection.}
 
 \item{bandwidth}{the bandwidth to use if \code{optimalbw = FALSE}.}
 }

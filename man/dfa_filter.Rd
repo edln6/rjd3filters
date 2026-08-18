@@ -21,7 +21,7 @@ dfa_filter(
 \item{degree}{degree of polynomial.}
 
 \item{density}{hypothesis on the spectral density: \code{"uniform"}
-(= white woise, the default) or  \code{"rw"} (= random walk).}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{targetfilter}{the weights of the symmetric target filters (by default the Henderson filter).}
 
@@ -44,7 +44,9 @@ The three criteria are:
 }
 \examples{
 \dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+\donttest{
 dfa_filter(horizon = 6, degree = 0)
 dfa_filter(horizon = 6, degree = 2)
+}
 \dontshow{\}) # examplesIf}
 }

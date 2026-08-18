@@ -95,7 +95,11 @@ importFrom(graphics,
   matplot,
   plot
 )
-importFrom(methods,is)
+importFrom(methods,
+  is,
+  new,
+  show
+)
 importFrom(rJava,
   .jarray,
   .jcall,

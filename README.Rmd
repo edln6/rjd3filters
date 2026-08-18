@@ -105,7 +105,7 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
        col= c("black", "orange", "lightblue", "red"), lty = 1)
 ```
 
-The last estimates can also be analysed with the `implicit_forecasts` function that retreive the implicit forecasts corresponding to the asymmetric filters (i.e., the forecasts needed to have the same end-points estimates but using the symmetric filter).
+The last estimates can also be analysed with the `implicit_forecasts` function that retrieve the implicit forecasts corresponding to the asymmetric filters (i.e., the forecasts needed to have the same end-points estimates but using the symmetric filter).
 
 ```{r plot-forecast}
 f_musgrave <- implicit_forecasts(y, musgrave)

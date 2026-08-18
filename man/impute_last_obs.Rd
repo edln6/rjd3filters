@@ -12,7 +12,7 @@ impute_last_obs(x, n, nperiod = 1, backward = TRUE, forward = TRUE)
 \item{n}{integer specifying the number of imputed periods.
 By default all the missing moving averages are imputed.}
 
-\item{nperiod}{integer specifying how to imput missing date.
+\item{nperiod}{integer specifying how to impute missing date.
 \itemize{
 \item \code{nperiod = 1} means imputation using last filtered data
 (1 period backward),

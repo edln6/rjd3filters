@@ -43,7 +43,7 @@ to_seasonal(x, s)
 
 \item{lags}{integer indicating the number of lags of the moving average.}
 
-\item{trailing_zero, leading_zero}{boolean indicating wheter to remove leading/trailing zero and NA.}
+\item{trailing_zero, leading_zero}{boolean indicating whether to remove leading/trailing zero and NA.}
 
 \item{s}{seasonal period for the \code{to_seasonal()} function.}
 

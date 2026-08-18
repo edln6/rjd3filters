@@ -2,7 +2,7 @@
 % Please edit documentation in R/RKHS.R
 \name{rkhs_optimal_bw}
 \alias{rkhs_optimal_bw}
-\title{Optimal Bandwith of Reproducing Kernel Hilbert Space (RKHS) Filters}
+\title{Optimal Bandwidth of Reproducing Kernel Hilbert Space (RKHS) Filters}
 \usage{
 rkhs_optimal_bw(
   horizon = 6,
@@ -27,12 +27,12 @@ rkhs_optimal_bw(
 bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 
 \item{density}{hypothesis on the spectral density: \code{"uniform"}
-(= white woise, the default) or  \code{"rw"} (= random walk).}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 
 \item{optimal.minBandwidth, optimal.maxBandwidth}{the range used for the
-optimal bandwith selection.}
+optimal bandwidth selection.}
 }
 \description{
 Function to export the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters

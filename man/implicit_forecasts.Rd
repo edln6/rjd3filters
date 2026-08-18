@@ -43,10 +43,23 @@ f_ql <- implicit_forecasts(x, ql)
 f_lc <- implicit_forecasts(x, lc)
 
 graphics::plot(window(x, start = 2007),
-     xlim = c(2007,2012))
-graphics::lines(stats::ts(c(utils::tail(x,1), f_ql), frequency = stats::frequency(x), start = stats::end(x)),
-      col = "red", lty = 2)
-graphics::lines(stats::ts(c(utils::tail(x,1), f_lc), frequency = stats::frequency(x), start = stats::end(x)),
-      col = "blue", lty = 2)
+               xlim = c(2007,2012))
+graphics::lines(
+    x = stats::ts(
+        c(utils::tail(x,1), f_ql),
+        frequency = stats::frequency(x),
+        start = stats::end(x)
+    ),
+    col = "red",
+    lty = 2
+)
+graphics::lines(
+    x = stats::ts(c(utils::tail(x,1), f_lc),
+                  frequency = stats::frequency(x),
+                  start = stats::end(x)
+    ),
+    col = "blue",
+    lty = 2
+)
 \dontshow{\}) # examplesIf}
 }

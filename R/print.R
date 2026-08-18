@@ -1,4 +1,5 @@
 #' @rdname moving_average
+#' @importFrom methods show
 #' @export
 setMethod(
     f = "show",
@@ -8,6 +9,8 @@ setMethod(
         invisible(object)
     }
 )
+
+#' @importFrom methods show
 #' @rdname finite_filters
 #' @export
 setMethod(

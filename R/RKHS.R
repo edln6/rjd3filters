@@ -5,13 +5,13 @@
 #' @inheritParams mse
 #' @param asymmetricCriterion the criteria used to compute the optimal
 #'   bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.
-#' @param optimalbw boolean indicating if the bandwith should be choosen by
+#' @param optimalbw boolean indicating if the bandwidth should be choosen by
 #'   optimisation (between \code{optimal.minBandwidth} and
 #'   \code{optimal.minBandwidth} using the criteria \code{asymmetricCriterion}).
-#'   If \code{optimalbw = FALSE} then the bandwith specified in
+#'   If \code{optimalbw = FALSE} then the bandwidth specified in
 #'   \code{bandwidth} will be  used.
 #' @param optimal.minBandwidth,optimal.maxBandwidth the range used for the
-#'   optimal bandwith selection.
+#'   optimal bandwidth selection.
 #' @param bandwidth the bandwidth to use if \code{optimalbw = FALSE}.
 #' @references Dagum, Estela Bee and Silvia Bianconcini (2008). “The Henderson
 #'   Smoother in Reproducing Kernel Hilbert Space”. In: Journal of Business &
@@ -95,24 +95,78 @@ rkhs_filter <- function(
 #' @inheritParams rkhs_filter
 #' @inheritParams fst_filter
 #' @examplesIf rjd3jars::check_java_version(silent = TRUE)
-#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 0,degree = 3, asymmetricCriterion = "Timeliness"),
-#'      5.5, 6*3, ylab = "Timeliness",
-#'      main = "6X0 filter")
-#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 1,degree = 3, asymmetricCriterion = "Timeliness"),
-#'      5.5, 6*3, ylab = "Timeliness",
-#'      main = "6X1 filter")
-#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 2,degree = 3, asymmetricCriterion = "Timeliness"),
-#'      5.5, 6*3, ylab = "Timeliness",
-#'      main = "6X2 filter")
-#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 3,degree = 3, asymmetricCriterion = "Timeliness"),
-#'      5.5, 6*3, ylab = "Timeliness",
-#'      main = "6X3 filter")
-#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 4,degree = 3, asymmetricCriterion = "Timeliness"),
-#'      5.5, 6*3, ylab = "Timeliness",
-#'      main = "6X4 filter")
-#' graphics::plot(rkhs_optimization_fun(horizon = 6, leads = 5,degree = 3, asymmetricCriterion = "Timeliness"),
-#'      5.5, 6*3, ylab = "Timeliness",
-#'      main = "6X5 filter")
+#' graphics::plot(
+#'     rkhs_optimization_fun(
+#'         horizon = 6,
+#'         leads = 0,
+#'         degree = 3,
+#'         asymmetricCriterion = "Timeliness"
+#'     ),
+#'     5.5,
+#'     6 * 3,
+#'     ylab = "Timeliness",
+#'     main = "6X0 filter"
+#' )
+#' graphics::plot(
+#'     rkhs_optimization_fun(
+#'         horizon = 6,
+#'         leads = 1,
+#'         degree = 3,
+#'         asymmetricCriterion = "Timeliness"
+#'     ),
+#'     5.5,
+#'     6 * 3,
+#'     ylab = "Timeliness",
+#'     main = "6X1 filter"
+#' )
+#' graphics::plot(
+#'     rkhs_optimization_fun(
+#'         horizon = 6,
+#'         leads = 2,
+#'         degree = 3,
+#'         asymmetricCriterion = "Timeliness"
+#'     ),
+#'     5.5,
+#'     6 * 3,
+#'     ylab = "Timeliness",
+#'     main = "6X2 filter"
+#' )
+#' graphics::plot(
+#'     rkhs_optimization_fun(
+#'         horizon = 6,
+#'         leads = 3,
+#'         degree = 3,
+#'         asymmetricCriterion = "Timeliness"
+#'     ),
+#'     5.5,
+#'     6 * 3,
+#'     ylab = "Timeliness",
+#'     main = "6X3 filter"
+#' )
+#' graphics::plot(
+#'     rkhs_optimization_fun(
+#'         horizon = 6,
+#'         leads = 4,
+#'         degree = 3,
+#'         asymmetricCriterion = "Timeliness"
+#'     ),
+#'     5.5,
+#'     6 * 3,
+#'     ylab = "Timeliness",
+#'     main = "6X4 filter"
+#' )
+#' graphics::plot(
+#'     rkhs_optimization_fun(
+#'         horizon = 6,
+#'         leads = 5,
+#'         degree = 3,
+#'         asymmetricCriterion = "Timeliness"
+#'     ),
+#'     5.5,
+#'     6 * 3,
+#'     ylab = "Timeliness",
+#'     main = "6X5 filter"
+#' )
 #' @export
 rkhs_optimization_fun <- function(
     horizon = 6,
@@ -172,7 +226,7 @@ rkhs_optimization_fun <- function(
         .jcall(jfun, "D", "applyAsDouble", x)
     })
 }
-#' Optimal Bandwith of Reproducing Kernel Hilbert Space (RKHS) Filters
+#' Optimal Bandwidth of Reproducing Kernel Hilbert Space (RKHS) Filters
 #'
 #' Function to export the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
 #' @inheritParams rkhs_filter

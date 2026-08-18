@@ -17,7 +17,7 @@ setClass(
 #'
 #' @param ...,drop,na.rm other parameters.
 #' @param zero_as_na boolean indicating if, when merging several moving averages (`cbind`)
-#' if trealing and leading zeros added to have a matrix form should be replaced by `NA`.
+#' if trailing and leading zeros added to have a matrix form should be replaced by `NA`.
 #'
 #' @name filters_operations
 NULL
@@ -26,7 +26,7 @@ NULL
 #'
 #' @param x vector of coefficients.
 #' @param lags integer indicating the number of lags of the moving average.
-#' @param trailing_zero,leading_zero boolean indicating wheter to remove leading/trailing zero and NA.
+#' @param trailing_zero,leading_zero boolean indicating whether to remove leading/trailing zero and NA.
 #' @param s seasonal period for the \code{to_seasonal()} function.
 #' @param object `moving_average` object.
 #'
@@ -76,6 +76,7 @@ NULL
 #' s <- y * s_mm
 #' graphics::plot(s)
 #' @importFrom stats coef
+#' @importFrom methods new
 #' @export
 moving_average <- function(
     x,
@@ -100,7 +101,7 @@ moving_average <- function(
     # upper_bound = upper_bound - (upper_bound >= 0)
 
     names(x) <- coefficients_names(lags, upper_bound)
-    res <- new(
+    res <- methods::new(
         "moving_average",
         coefficients = x,
         lower_bound = lags,
