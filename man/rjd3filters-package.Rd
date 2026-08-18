@@ -4,11 +4,11 @@
 \name{rjd3filters-package}
 \alias{rjd3filters}
 \alias{rjd3filters-package}
-\title{rjd3filters: Trend-Cycle Extraction with Linear Filters based on JDemetra+ v3.x}
+\title{rjd3filters: Trend-Cycle Extraction with Linear Filters with 'JDemetra+ 3.x'}
 \description{
 \if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
 
-This package provides functions to build and apply symmetric and asymmetric moving averages (= linear filters) for trend-cycle extraction. In particular, it implements several modern approaches for real-time estimates from the viewpoint of revisions and time delay in detecting turning points. It includes the local polynomial approach of Proietti and Luati (2008), the Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini (2008) and the Fidelity-Smoothness-Timeliness approach of Grun-Rehomme, Guggemos, and Ladiray (2018). It is based on Java libraries developped in 'JDemetra+' (\url{https://github.com/jdemetra}), time series analysis software.
+Functions to build and apply symmetric and asymmetric moving averages (= linear filters) for trend-cycle extraction. In particular, it implements several modern approaches for real-time estimates from the viewpoint of revisions and time delay in detecting turning points. It includes the local polynomial approach of Proietti and Luati (2008), the Reproducing Kernel Hilbert Space (RKHS) of Dagum and Bianconcini (2008) and the Fidelity-Smoothness-Timeliness approach of Grun-Rehomme, Guggemos, and Ladiray (2018). It is based on 'Java' libraries developped in 'JDemetra+' (\url{https://github.com/jdemetra}), time series analysis software.
 }
 \seealso{
 Useful links:
@@ -20,11 +20,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Alain Quartier-la-Tente \email{alain.quartier@yahoo.fr} (\href{https://orcid.org/0000-0001-7890-3857}{ORCID})
+\strong{Maintainer}: Alain Quartier-la-Tente \email{alain.quartier@yahoo.fr} (\href{https://orcid.org/0000-0001-7890-3857}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Alain Quartier-la-Tente \email{alain.quartier@yahoo.fr} (\href{https://orcid.org/0000-0001-7890-3857}{ORCID})
+  \item Alain Quartier-la-Tente \email{alain.quartier@yahoo.fr} (\href{https://orcid.org/0000-0001-7890-3857}{ORCID}) [copyright holder]
   \item Jean Palate \email{palatejean@gmail.com}
 }
 
