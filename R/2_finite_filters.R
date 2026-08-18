@@ -72,7 +72,9 @@ finite_filters.list <- function(
     all_f <- lapply(sfilter, function(x) {
         moving_average(rm_trailing_zero_or_na(x), -lags)
     })
-    if (first_to_last) all_f <- rev(all_f)
+    if (first_to_last) {
+        all_f <- rev(all_f)
+    }
     sfilter <- all_f[[1]]
     rfilters <- all_f[-1]
     finite_filters(sfilter = sfilter, rfilters = rfilters)
@@ -373,7 +375,9 @@ as.matrix.finite_filters <- function(
 ) {
     sfilter_s <- rfilters_s <- lfilters_s <-
         index_s <- index_r <- index_l <- NULL
-    if (!any(sfilter, rfilters, lfilters)) return(NULL)
+    if (!any(sfilter, rfilters, lfilters)) {
+        return(NULL)
+    }
     if (sfilter) {
         sfilter_s <- list(x@sfilter)
         index_s <- length(x@rfilters)
@@ -648,10 +652,14 @@ impute_last_obs <- function(
     backward = TRUE,
     forward = TRUE
 ) {
-    if (is.moving_average(x)) x <- finite_filters(sfilter = x)
+    if (is.moving_average(x)) {
+        x <- finite_filters(sfilter = x)
+    }
     nrfilters <- length(x@rfilters)
     nlfilters <- length(x@lfilters)
-    if (missing(n)) n <- max(nrfilters, nlfilters)
+    if (missing(n)) {
+        n <- max(nrfilters, nlfilters)
+    }
     n_r <- min(upper_bound(x@sfilter) - nrfilters, n)
     n_l <- min(abs(lower_bound(x@sfilter)) - nlfilters, n)
 

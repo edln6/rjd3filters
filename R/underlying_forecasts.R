@@ -64,12 +64,13 @@ underlying_forecasts.default <- function(x, coefs) {
         jffilters$jrasym,
         jx
     )
-    if (stats::is.ts(x))
+    if (stats::is.ts(x)) {
         prev <- stats::ts(
             prev,
             frequency = stats::frequency(x),
             start = stats::time(x)[length(stats::time(x))] + stats::deltat(x)
         )
+    }
 
     prev
 }

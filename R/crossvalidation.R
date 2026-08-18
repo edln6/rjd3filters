@@ -78,7 +78,9 @@
 #' @export
 cve <- function(x, coef, ...) {
     coef <- moving_average(coef, ...)
-    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) return(NA)
+    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) {
+        return(NA)
+    }
     sc <- filter(x, coef)
     coef0 <- stats::coef(coef)["t"]
     (x - sc) / (1 - coef0)
@@ -95,7 +97,9 @@ cv <- function(x, coef, ...) {
 #' @export
 loocve <- function(x, coef, ...) {
     coef <- moving_average(coef, ...)
-    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) return(NA)
+    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) {
+        return(NA)
+    }
     sc <- filter(x, coef)
     coef0 <- stats::coef(coef)["t"]
     (sc - coef0 * x) / (1 - coef0)
@@ -106,7 +110,9 @@ loocve <- function(x, coef, ...) {
 #' @export
 rt <- function(x, coef, ...) {
     coef <- moving_average(coef, ...)
-    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) return(NA)
+    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) {
+        return(NA)
+    }
     sc <- filter(x, coef)
     coef0 <- stats::coef(coef)["t"]
     mean((x - sc)^2, na.rm = TRUE) / (1 - 2 * coef0)
@@ -118,7 +124,9 @@ rt <- function(x, coef, ...) {
 cp <- function(x, coef, var, ...) {
     mean(cve(x, coef, ...)^2, na.rm = TRUE)
     coef <- moving_average(coef, ...)
-    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) return(NA)
+    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) {
+        return(NA)
+    }
     sc <- filter(x, coef)
     coef0 <- stats::coef(coef)["t"]
     mse <- (x - sc)^2
@@ -149,7 +157,9 @@ cp <- function(x, coef, var, ...) {
 #' @export
 var_estimator <- function(x, coef, ...) {
     coef <- moving_average(coef, ...)
-    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) return(NA)
+    if (lower_bound(coef) > 0 || upper_bound(coef) < 0) {
+        return(NA)
+    }
     sc <- filter(x, coef)
     coef0 <- stats::coefficients(coef)["t"]
     sigma2 <- mean((x - sc)^2, na.rm = TRUE)
@@ -173,7 +183,9 @@ df_var <- function(n, coef, exact_df = FALSE) {
     f <- upper_bound(coef)
     df_num <- (n - (p + f)) * (1 - 2 * coef0 + sum(value_coef^2))
     names(df_num) <- NULL
-    if (!exact_df) return(df_num) # Approximation of the degrees of freedom
+    if (!exact_df) {
+        return(df_num)
+    } # Approximation of the degrees of freedom
 
     # Otherwise we compute the exact df more time consuming
     value_coef <- -value_coef
@@ -326,7 +338,7 @@ confint_filter <- function(
         rfilters <- coef@rfilters
         for (i in seq_along(lfilters)) {
             corr_f[i] <- sqrt(sum(stats::coefficients(lfilters[[i]])^2))
-            if (!gaussian_distribution)
+            if (!gaussian_distribution) {
                 confidence_quantiles[i, ] <- stats::qt(
                     confidence_bounds,
                     df = df_var(
@@ -335,11 +347,12 @@ confint_filter <- function(
                         exact_df = exact_df
                     )
                 )
+            }
         }
         for (i in seq_along(rfilters)) {
             corr_f[length(corr_f) - length(rfilters) + i] <-
                 sqrt(sum(stats::coefficients(rfilters[[i]])^2))
-            if (!gaussian_distribution)
+            if (!gaussian_distribution) {
                 confidence_quantiles[
                     length(time(confidence_quantiles)) - length(rfilters) + i,
                 ] <-
@@ -351,6 +364,7 @@ confint_filter <- function(
                             exact_df = exact_df
                         )
                     )
+            }
         }
     }
 

@@ -51,7 +51,9 @@ plot_coef.default <- function(
     xlab = "",
     ylab = "coefficient"
 ) {
-    if (zero_as_na) x <- apply(x, 2, trailingzero_as_na)
+    if (zero_as_na) {
+        x <- apply(x, 2, trailingzero_as_na)
+    }
     col_to_plot <- sprintf("q=%i", q)
     col_to_plot <- col_to_plot[col_to_plot %in% colnames(x)]
     horizon <- (nrow(x) - 1) / 2
@@ -86,7 +88,7 @@ plot_coef.default <- function(
         add = add,
         ...
     )
-    if (legend)
+    if (legend) {
         legend(
             legend.pos,
             col_to_plot,
@@ -94,12 +96,14 @@ plot_coef.default <- function(
             lty = seq_along(col_to_plot),
             lwd = 2
         )
-    if (!add)
+    }
+    if (!add) {
         graphics::axis(
             1,
             at = seq(-horizon, horizon, by = 1),
             labels = rownames(x)
         )
+    }
 }
 
 #' @rdname plot_filters
@@ -127,12 +131,13 @@ plot_coef.moving_average <- function(
         add = add,
         ...
     )
-    if (!add)
+    if (!add) {
         graphics::axis(
             1,
             at = seq(lower_bound(x), upper_bound(x), by = 1),
             labels = names(x_plot)
         )
+    }
 }
 
 #' @rdname plot_filters
@@ -263,7 +268,7 @@ plot_gain.finite_filters <- function(
         ...
     )
 
-    if (legend)
+    if (legend) {
         legend(
             legend.pos,
             col_to_plot,
@@ -271,6 +276,7 @@ plot_gain.finite_filters <- function(
             lty = seq_along(col_to_plot),
             lwd = 2
         )
+    }
     if (!add) {
         x_lab_at <- seq(xlim[1] / pi, xlim[2] / pi, length.out = nxlab)
         graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
@@ -393,7 +399,7 @@ plot_phase.finite_filters <- function(
         ...
     )
 
-    if (legend)
+    if (legend) {
         legend(
             legend.pos,
             col_to_plot,
@@ -401,6 +407,7 @@ plot_phase.finite_filters <- function(
             lty = seq_along(col_to_plot),
             lwd = 2
         )
+    }
     if (!add) {
         x_lab_at <- seq(xlim[1] / pi, xlim[2] / pi, length.out = nxlab)
         graphics::axis(1, at = x_lab_at * pi, labels = xlabel(x_lab_at))
@@ -443,7 +450,9 @@ trailingzero_as_na <- function(x) {
     # x
 }
 rm_leading_zero_or_na <- function(x) {
-    if (identical(x, 0)) return(x)
+    if (identical(x, 0)) {
+        return(x)
+    }
     i <- 1
     remove_i <- NULL
     while ((is.na(x[i]) || (x[i] == 0)) && i <= length(x)) {
@@ -457,7 +466,9 @@ rm_leading_zero_or_na <- function(x) {
     }
 }
 rm_trailing_zero_or_na <- function(x) {
-    if (identical(x, 0)) return(x)
+    if (identical(x, 0)) {
+        return(x)
+    }
     i <- length(x)
     remove_i <- NULL
     while ((is.na(x[i]) || (x[i] == 0)) && i > 0) {
@@ -471,7 +482,9 @@ rm_trailing_zero_or_na <- function(x) {
     }
 }
 rm_trailing_zero <- function(x) {
-    if (identical(x, 0)) return(x)
+    if (identical(x, 0)) {
+        return(x)
+    }
     i <- length(x)
     remove_i <- NULL
     while (isTRUE(all.equal(x[i], 0)) && i > 0) {
@@ -485,7 +498,9 @@ rm_trailing_zero <- function(x) {
     }
 }
 remove_bound_NA <- function(x) {
-    if (all(is.na(x))) x
+    if (all(is.na(x))) {
+        x
+    }
     i <- length(x)
     j <- 1
     remove_i_last <- remove_i_first <- NULL

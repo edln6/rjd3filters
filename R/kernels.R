@@ -55,8 +55,9 @@ get_kernel <- function(
     horizon,
     sd_gauss = 0.25
 ) {
-    if (is.null(kernel) || kernel[1] == "")
+    if (is.null(kernel) || kernel[1] == "") {
         return(.jnull("java/util/function/IntToDoubleFunction"))
+    }
 
     kernel <- match.arg(
         tolower(kernel)[1],
@@ -73,7 +74,9 @@ get_kernel <- function(
             "gaussian"
         )
     )
-    if (kernel == "parabolic") kernel <- "epanechnikov"
+    if (kernel == "parabolic") {
+        kernel <- "epanechnikov"
+    }
     h <- as.integer(horizon)
     if (kernel == "gaussian") {
         jkernel <- .jcall(

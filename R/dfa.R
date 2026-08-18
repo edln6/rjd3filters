@@ -31,8 +31,9 @@ dfa_filter <- function(
     timeliness.weight = 1 / 3
 ) {
     density <- match.arg(density)
-    if (length(targetfilter) != 2 * horizon + 1)
+    if (length(targetfilter) != 2 * horizon + 1) {
         stop("The symmetric targetfilter must be of length 2*horizon+1")
+    }
     if (is.moving_average(targetfilter)) {
         if (lower_bound(targetfilter) < 0) {
             # we asume targetfilter were specify from [-n to n] instead of [0,n]

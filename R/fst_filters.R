@@ -153,7 +153,9 @@ fst.finite_filters <- function(
     lfilters = FALSE,
     ...
 ) {
-    if (!any(sfilter, rfilters, lfilters)) return(NULL)
+    if (!any(sfilter, rfilters, lfilters)) {
+        return(NULL)
+    }
 
     sfilter_s <- rfilters_s <- lfilters_s <-
         index_s <- index_r <- index_l <- NULL
@@ -221,7 +223,9 @@ mse.default <- function(
     passband = pi / 6,
     ...
 ) {
-    if (is.moving_average(aweights)) aweights <- stats::coef(aweights)
+    if (is.moving_average(aweights)) {
+        aweights <- stats::coef(aweights)
+    }
 
     if (is.moving_average(sweights)) {
         if (lower_bound(sweights) < 0) {
@@ -264,7 +268,9 @@ mse.finite_filters <- function(
     lfilters = FALSE,
     ...
 ) {
-    if (!any(sfilter, rfilters, lfilters)) return(NULL)
+    if (!any(sfilter, rfilters, lfilters)) {
+        return(NULL)
+    }
 
     sfilter_s <- rfilters_s <- lfilters_s <-
         index_s <- index_r <- index_l <- NULL

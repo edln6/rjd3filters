@@ -168,7 +168,9 @@ get_properties_function.finite_filters <- function(
 #' @importFrom stats coef
 #' @export
 diagnostic_matrix <- function(x, lags, passband = pi / 6, sweights, ...) {
-    if (!is.moving_average(x)) x <- moving_average(x, lags = lags)
+    if (!is.moving_average(x)) {
+        x <- moving_average(x, lags = lags)
+    }
 
     results <- c(
         sum(x) - 1,

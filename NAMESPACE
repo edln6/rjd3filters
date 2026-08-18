@@ -89,33 +89,43 @@ exportMethods("[<-")
 exportMethods("^")
 exportMethods(show)
 importFrom(MASS,fractions)
-importFrom(graphics,axis)
-importFrom(graphics,lines)
-importFrom(graphics,matplot)
-importFrom(graphics,plot)
+importFrom(graphics,
+  axis,
+  lines,
+  matplot,
+  plot
+)
 importFrom(methods,is)
-importFrom(rJava,.jarray)
-importFrom(rJava,.jcall)
-importFrom(rJava,.jcast)
-importFrom(rJava,.jnull)
-importFrom(rJava,.jpackage)
-importFrom(rJava,J)
-importFrom(rJava,is.jnull)
-importFrom(rjd3jars,check_java_version)
-importFrom(rjd3jars,reload_dictionaries)
-importFrom(rjd3toolkit,.jd2r_matrix)
-importFrom(rjd3toolkit,.r2jd_matrix)
-importFrom(stats,arima)
-importFrom(stats,coef)
-importFrom(stats,coefficients)
-importFrom(stats,deltat)
-importFrom(stats,end)
-importFrom(stats,frequency)
-importFrom(stats,is.ts)
-importFrom(stats,qnorm)
-importFrom(stats,qt)
-importFrom(stats,start)
-importFrom(stats,time)
-importFrom(stats,ts)
-importFrom(stats,ts.union)
+importFrom(rJava,
+  .jarray,
+  .jcall,
+  .jcast,
+  .jnull,
+  .jpackage,
+  J,
+  is.jnull
+)
+importFrom(rjd3jars,
+  check_java_version,
+  reload_dictionaries
+)
+importFrom(rjd3toolkit,
+  .jd2r_matrix,
+  .r2jd_matrix
+)
+importFrom(stats,
+  arima,
+  coef,
+  coefficients,
+  deltat,
+  end,
+  frequency,
+  is.ts,
+  qnorm,
+  qt,
+  start,
+  time,
+  ts,
+  ts.union
+)
 importFrom(utils,tail)

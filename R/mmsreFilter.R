@@ -80,7 +80,9 @@ mmsre_filter <- function(
         .ma2jd(ref_filter),
         "jdplus/toolkit/base/core/math/linearfilters/IFiniteFilter"
     )
-    if (is.null(delta)) delta <- numeric()
+    if (is.null(delta)) {
+        delta <- numeric()
+    }
 
     jkernel <- .r2jd_kernel(kernel, abs(.jcall(jref, "I", "getLowerBound")))
     jf <- .jcall(
@@ -101,8 +103,9 @@ mmsre_filter <- function(
 
 #' @importFrom rjd3toolkit .r2jd_matrix
 .r2jd_fast_matrix <- function(s) {
-    if (is.null(s))
+    if (is.null(s)) {
         return(.jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"))
+    }
 
     .jcall(
         "jdplus/toolkit/base/core/math/matrices/FastMatrix",

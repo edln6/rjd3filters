@@ -92,7 +92,9 @@ filter_ma <- function(x, coefs) {
     lb <- lower_bound(coefs)
     ub <- upper_bound(coefs)
 
-    if (length(x) < length(coefs)) return(x * NA)
+    if (length(x) < length(coefs)) {
+        return(x * NA)
+    }
 
     jx <- .jcall(
         "jdplus/toolkit/base/core/data/DataBlock",
@@ -111,12 +113,13 @@ filter_ma <- function(x, coefs) {
     result <- .jcall(out, "[D", "toArray")
     result <- c(rep(NA, abs(min(lb, 0))), result, rep(NA, abs(max(ub, 0))))
 
-    if (stats::is.ts(x))
+    if (stats::is.ts(x)) {
         result <- stats::ts(
             result,
             start = stats::start(x),
             frequency = stats::frequency(x)
         )
+    }
     result
 }
 
@@ -158,12 +161,13 @@ ff_ma <- function(x, coefs, remove_missing = TRUE) {
             rep(NA, data_clean$trailing)
         )
     }
-    if (stats::is.ts(x))
+    if (stats::is.ts(x)) {
         result <- stats::ts(
             result,
             start = stats::start(x),
             frequency = stats::frequency(x)
         )
+    }
     result
 }
 

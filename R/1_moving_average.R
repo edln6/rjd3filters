@@ -83,9 +83,13 @@ moving_average <- function(
     trailing_zero = FALSE,
     leading_zero = FALSE
 ) {
-    if (inherits(x, "moving_average")) return(x)
+    if (inherits(x, "moving_average")) {
+        return(x)
+    }
     x <- as.numeric(x)
-    if (trailing_zero) x <- rm_trailing_zero_or_na(x)
+    if (trailing_zero) {
+        x <- rm_trailing_zero_or_na(x)
+    }
     if (leading_zero) {
         new_x <- rm_leading_zero_or_na(x)
         lags <- lags - (length(new_x) - length(x))
@@ -228,8 +232,9 @@ setMethod("[", signature(x = "moving_average", i = "numeric"), function(x, i) {
     coefs <- stats::coef(x)
     indices <- seq_along(coefs)[i]
     coefs[-indices] <- 0
-    if (all(coefs == 0))
+    if (all(coefs == 0)) {
         return(moving_average(0, lags = lower_bound(x) + indices - 1))
+    }
 
     moving_average(
         coefs,

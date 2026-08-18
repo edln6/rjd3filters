@@ -46,10 +46,11 @@ localpolynomials <- function(
     tweight = 0,
     passband = pi / 12
 ) {
-    if (2 * horizon < degree)
+    if (2 * horizon < degree) {
         stop(
             "You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter."
         )
+    }
 
     d <- 2 / (sqrt(pi) * ic)
     kernel <- match.arg(
@@ -92,12 +93,13 @@ localpolynomials <- function(
         tweight,
         passband
     )
-    if (stats::is.ts(x))
+    if (stats::is.ts(x)) {
         result <- stats::ts(
             result,
             start = stats::start(x),
             frequency = stats::frequency(x)
         )
+    }
     result
 }
 
@@ -138,10 +140,11 @@ lp_filter <- function(
     tweight = 0,
     passband = pi / 12
 ) {
-    if (2 * horizon < degree)
+    if (2 * horizon < degree) {
         stop(
             "You need more observation (2 * horizon + 1) than variables (degree + 1) to estimate the filter."
         )
+    }
 
     d <- 2 / (sqrt(pi) * ic)
     kernel <- match.arg(
