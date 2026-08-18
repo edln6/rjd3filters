@@ -39,8 +39,10 @@ URL: https://github.com/rjdverse/rjd3filters, https://rjdverse.github.io/rjd3fil
 BugReports: https://github.com/rjdverse/rjd3filters/issues
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    spelling
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Config/roxygen2/version: 8.1.0
+Language: en-US

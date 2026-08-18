@@ -11,9 +11,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 * New method `underlying_forecasts()`.
-
 * New JARS related to version [3.7.1](https://github.com/jdemetra/jdplus-main/releases/tag/v3.7.1) of JDemetra+.
-
 
 ### Changed
 
