@@ -7,11 +7,14 @@
 mse(aweights, sweights, density = c("uniform", "rw"), passband = pi/6, ...)
 }
 \arguments{
-\item{aweights}{\code{moving_average} object or weights of the asymmetric filter (from -n to m).}
+\item{aweights}{\code{moving_average} object or weights of the asymmetric filter
+(from -n to m).}
 
-\item{sweights}{\code{moving_average} object or weights of the symmetric filter (from 0 to n or -n to n).}
+\item{sweights}{\code{moving_average} object or weights of the symmetric filter
+(from 0 to n or -n to n).}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 
@@ -24,15 +27,17 @@ The criteria
 Accuracy/smoothness/timeliness criteria through spectral decomposition
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 filter <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 sweights <- filter[, "q=6"]
 aweights <- filter[, "q=0"]
 mse(aweights, sweights)
 # Or to compute directly the criteria on all asymmetric filters:
 mse(filter)
+\dontshow{\}) # examplesIf}
 }
 \references{
-Wildi, Marc and McElroy, Tucker (2019). “The trilemma between accuracy, timeliness and smoothness in real-time signal extraction”. In: International Journal of Forecasting 35.3, pp. 1072–1084.
+Wildi, Marc and McElroy, Tucker (2019). “The trilemma between
+accuracy, timeliness and smoothness in real-time signal extraction”. In:
+International Journal of Forecasting 35.3, pp. 1072–1084.
 }

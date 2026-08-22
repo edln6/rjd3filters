@@ -2,7 +2,7 @@
 % Please edit documentation in R/RKHS.R
 \name{rkhs_optimal_bw}
 \alias{rkhs_optimal_bw}
-\title{Optimal Bandwith of Reproducing Kernel Hilbert Space (RKHS) Filters}
+\title{Optimal Bandwidth of Reproducing Kernel Hilbert Space (RKHS) Filters}
 \usage{
 rkhs_optimal_bw(
   horizon = 6,
@@ -23,20 +23,23 @@ rkhs_optimal_bw(
 
 \item{kernel}{kernel uses.}
 
-\item{asymmetricCriterion}{the criteria used to compute the optimal bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
+\item{asymmetricCriterion}{the criteria used to compute the optimal
+bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 
-\item{optimal.minBandwidth, optimal.maxBandwidth}{the range used for the optimal bandwith selection.}
+\item{optimal.minBandwidth, optimal.maxBandwidth}{the range used for the
+optimal bandwidth selection.}
 }
 \description{
 Function to export the optimal bandwidths used in Reproducing Kernel Hilbert Space (RKHS) filters
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness")
 rkhs_optimal_bw(asymmetricCriterion = "Timeliness", optimal.minBandwidth = 6.2)
+\dontshow{\}) # examplesIf}
 }

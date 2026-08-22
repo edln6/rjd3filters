@@ -10,11 +10,11 @@
 [![Mentioned in Awesome Official
 Statistics](https://awesome.re/mentioned-badge.svg)](https://github.com/SNStatComp/awesome-official-statistics-software)
 
-[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yaml)
-[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yaml)
+[![R-CMD-check](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/R-CMD-check.yml)
+[![lint](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/lint.yml)
 
 [![GH Pages
-built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yaml)
+built](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/rjdverse/rjd3filters/actions/workflows/pkgdown.yml)
 <!-- badges: end -->
 
 rjd3filters is an R package on linear filters for real-time trend-cycle
@@ -105,7 +105,7 @@ legend("topleft", legend = c("y", "Musgrave", "FST", "RKHS"),
 <img src="man/figures/README-plot-global-1.png" alt="" style="display: block; margin: auto;" />
 
 The last estimates can also be analysed with the `implicit_forecasts`
-function that retreive the implicit forecasts corresponding to the
+function that retrieve the implicit forecasts corresponding to the
 asymmetric filters (i.e., the forecasts needed to have the same
 end-points estimates but using the symmetric filter).
 
@@ -370,12 +370,12 @@ Seasonal Adjustment*. URL:
 Proietti, Tommaso and Alessandra Luati (Dec. 2008). “Real time
 estimation in local polynomial regression, with application to
 trend-cycle analysis”. In: *Ann. Appl. Stat.* 2.4, pp. 1523–1553. URL:
-<https://doi.org/10.1214/08-AOAS195>.
+[https://doi.org/10.1214/08-AOAS195](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-2/issue-4/Real-time-estimation-in-local-polynomial-regression-with-application-to/10.1214/08-AOAS195.full).
 
 Wildi, Marc and Tucker McElroy (2019). “The trilemma between accuracy,
 timeliness and smoothness in real-time signal extraction”. In:
 *International Journal of Forecasting* 35.3, pp. 1072–1084. URL:
-[https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://EconPapers.repec.org/RePEc:eee:intfor:v:35:y:2019:i:3:p:1072-1084).
+[https://EconPapers.repec.org/RePEc:eee:intfor:v<wbr>:35:y:2019:i:3:p:1072-1084](https://econpapers.repec.org/article/eeeintfor/v_3a35_3ay_3a2019_3ai_3a3_3ap_3a1072-1084.htm).
 
 ## Package Maintenance and contributing
 
@@ -388,4 +388,4 @@ should be added or updated.
 
 The code of this project is licensed under the [European Union Public
 Licence
-(EUPL)](https://interoperable-europe.ec.europa.eu:443/collection/eupl/eupl-text-eupl-12).
+(EUPL)](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).

@@ -16,8 +16,7 @@
 #' \end{pmatrix}
 #' }
 #'
-#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
-#' @examples
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' # For example to reproduce DAF filters
 #' daf <- lp_filter(horizon = 6, endpoints = "DAF")
 #' q <- 0
@@ -28,14 +27,18 @@
 #' q0
 #' daf[, "q=0"]
 #' @export
+#' @importFrom rjd3toolkit .jd2r_matrix
 polynomial_matrix <- function(l, u = abs(l), d0 = 0, d1 = 3) {
-  .jd2r_matrix(
-    .jcall(
-      "jdplus/toolkit/base/core/math/linearfilters/LocalPolynomialFilters",
-      "Ljdplus/toolkit/base/core/math/matrices/FastMatrix;",
-      "z",
-      .jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"),
-      as.integer(l), as.integer(u),
-      as.integer(d0), as.integer(d1))
-  )
+    rjd3toolkit::.jd2r_matrix(
+        .jcall(
+            "jdplus/toolkit/base/core/math/linearfilters/LocalPolynomialFilters",
+            "Ljdplus/toolkit/base/core/math/matrices/FastMatrix;",
+            "z",
+            .jnull("jdplus/toolkit/base/core/math/matrices/FastMatrix"),
+            as.integer(l),
+            as.integer(u),
+            as.integer(d0),
+            as.integer(d1)
+        )
+    )
 }

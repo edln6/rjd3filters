@@ -19,49 +19,86 @@
 #' }
 #' Note that this is solved numerically: the solution isn't exact.
 #' @inheritParams filter
-#' @examplesIf rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version
-#' @examples
+#' @examplesIf rjd3jars::check_java_version(silent = TRUE)
 #' x <- retailsa$AllOtherGenMerchandiseStores
 #' ql <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "QL")
 #' lc <- lp_filter(horizon = 6, kernel = "Henderson", endpoints = "LC")
 #' f_ql <- implicit_forecasts(x, ql)
 #' f_lc <- implicit_forecasts(x, lc)
 #'
-#' plot(window(x, start = 2007),
-#'      xlim = c(2007,2012))
-#' lines(ts(c(tail(x,1), f_ql), frequency = frequency(x), start = end(x)),
-#'       col = "red", lty = 2)
-#' lines(ts(c(tail(x,1), f_lc), frequency = frequency(x), start = end(x)),
-#'       col = "blue", lty = 2)
-#' @importFrom stats time
+#' graphics::plot(window(x, start = 2007),
+#'                xlim = c(2007,2012))
+#' graphics::lines(
+#'     x = stats::ts(
+#'         c(utils::tail(x,1), f_ql),
+#'         frequency = stats::frequency(x),
+#'         start = stats::end(x)
+#'     ),
+#'     col = "red",
+#'     lty = 2
+#' )
+#' graphics::lines(
+#'     x = stats::ts(c(utils::tail(x,1), f_lc),
+#'                   frequency = stats::frequency(x),
+#'                   start = stats::end(x)
+#'     ),
+#'     col = "blue",
+#'     lty = 2
+#' )
+#'
+#' @importFrom stats frequency
+#' @importFrom stats ts
+#' @importFrom stats end
+#' @importFrom utils tail
+#' @importFrom graphics lines
+#' @importFrom graphics plot
 #' @export
 implicit_forecasts <- function(x, coefs) {
-  UseMethod("implicit_forecasts", x)
+    UseMethod("implicit_forecasts", x)
 }
+
+#' @importFrom stats frequency
+#' @importFrom stats ts
 #' @importFrom stats deltat
+#' @importFrom stats time
+#' @importFrom stats is.ts
+#' @importFrom utils tail
 #' @export
 implicit_forecasts.default <- function(x, coefs) {
-  if (!inherits(coefs, "finite_filters")) {
-    coefs <- finite_filters(coefs)
-  }
-  jffilters <- .finite_filters2jd(coefs)
+    if (!inherits(coefs, "finite_filters")) {
+        coefs <- finite_filters(coefs)
+    }
+    jffilters <- .finite_filters2jd(coefs)
 
-  jx <- .r2jd_doubleseq(tail(x,abs(lower_bound(coefs@sfilter))+1))
-  prev <- .jcall("jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
-         "[D","implicitForecasts",
-         jffilters$jsymf,
-         jffilters$jrasym,
-         jx)
-  if (is.ts(x))
-    prev <- ts(prev,
-       frequency = frequency(x),
-       start = time(x)[length(time(x))] + deltat(x))
+    jx <- .r2jd_doubleseq(utils::tail(x, abs(lower_bound(coefs@sfilter)) + 1))
+    prev <- .jcall(
+        "jdplus/toolkit/base/core/math/linearfilters/AsymmetricFiltersFactory",
+        "[D",
+        "implicitForecasts",
+        jffilters$jsymf,
+        jffilters$jrasym,
+        jx
+    )
+    if (stats::is.ts(x)) {
+        prev <- stats::ts(
+            prev,
+            frequency = stats::frequency(x),
+            start = stats::time(x)[length(stats::time(x))] + stats::deltat(x)
+        )
+    }
 
-  prev
+    prev
 }
+
 #' @export
 implicit_forecasts.matrix <- function(x, coefs) {
-  result <- do.call(cbind, lapply(seq_len(ncol(x)), function(i) implicit_forecasts(x[,i], coefs = coefs)))
-  colnames(result) <- colnames(x)
-  result
+    result <- do.call(
+        cbind,
+        lapply(
+            seq_len(ncol(x)),
+            function(i) implicit_forecasts(x[, i], coefs = coefs)
+        )
+    )
+    colnames(result) <- colnames(x)
+    result
 }

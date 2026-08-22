@@ -24,9 +24,11 @@ rkhs_optimization_fun(
 
 \item{kernel}{kernel uses.}
 
-\item{asymmetricCriterion}{the criteria used to compute the optimal bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
+\item{asymmetricCriterion}{the criteria used to compute the optimal
+bandwidth. If \code{"Undefined"}, \eqn{m+1} is used.}
 
-\item{density}{hypothesis on the spectral density: \code{"uniform"} (= white woise, the default) or  \code{"rw"} (= random walk).}
+\item{density}{hypothesis on the spectral density: \code{"uniform"}
+(= white noise, the default) or  \code{"rw"} (= random walk).}
 
 \item{passband}{passband threshold.}
 }
@@ -34,24 +36,78 @@ rkhs_optimization_fun(
 Export function used to compute the optimal bandwidth of Reproducing Kernel Hilbert Space (RKHS) filters
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
+graphics::plot(
+    rkhs_optimization_fun(
+        horizon = 6,
+        leads = 0,
+        degree = 3,
+        asymmetricCriterion = "Timeliness"
+    ),
+    5.5,
+    6 * 3,
+    ylab = "Timeliness",
+    main = "6X0 filter"
+)
+graphics::plot(
+    rkhs_optimization_fun(
+        horizon = 6,
+        leads = 1,
+        degree = 3,
+        asymmetricCriterion = "Timeliness"
+    ),
+    5.5,
+    6 * 3,
+    ylab = "Timeliness",
+    main = "6X1 filter"
+)
+graphics::plot(
+    rkhs_optimization_fun(
+        horizon = 6,
+        leads = 2,
+        degree = 3,
+        asymmetricCriterion = "Timeliness"
+    ),
+    5.5,
+    6 * 3,
+    ylab = "Timeliness",
+    main = "6X2 filter"
+)
+graphics::plot(
+    rkhs_optimization_fun(
+        horizon = 6,
+        leads = 3,
+        degree = 3,
+        asymmetricCriterion = "Timeliness"
+    ),
+    5.5,
+    6 * 3,
+    ylab = "Timeliness",
+    main = "6X3 filter"
+)
+graphics::plot(
+    rkhs_optimization_fun(
+        horizon = 6,
+        leads = 4,
+        degree = 3,
+        asymmetricCriterion = "Timeliness"
+    ),
+    5.5,
+    6 * 3,
+    ylab = "Timeliness",
+    main = "6X4 filter"
+)
+graphics::plot(
+    rkhs_optimization_fun(
+        horizon = 6,
+        leads = 5,
+        degree = 3,
+        asymmetricCriterion = "Timeliness"
+    ),
+    5.5,
+    6 * 3,
+    ylab = "Timeliness",
+    main = "6X5 filter"
+)
 \dontshow{\}) # examplesIf}
-plot(rkhs_optimization_fun(horizon = 6, leads = 0,degree = 3, asymmetricCriterion = "Timeliness"),
-     5.5, 6*3, ylab = "Timeliness",
-     main = "6X0 filter")
-plot(rkhs_optimization_fun(horizon = 6, leads = 1,degree = 3, asymmetricCriterion = "Timeliness"),
-     5.5, 6*3, ylab = "Timeliness",
-     main = "6X1 filter")
-plot(rkhs_optimization_fun(horizon = 6, leads = 2,degree = 3, asymmetricCriterion = "Timeliness"),
-     5.5, 6*3, ylab = "Timeliness",
-     main = "6X2 filter")
-plot(rkhs_optimization_fun(horizon = 6, leads = 3,degree = 3, asymmetricCriterion = "Timeliness"),
-     5.5, 6*3, ylab = "Timeliness",
-     main = "6X3 filter")
-plot(rkhs_optimization_fun(horizon = 6, leads = 4,degree = 3, asymmetricCriterion = "Timeliness"),
-     5.5, 6*3, ylab = "Timeliness",
-     main = "6X4 filter")
-plot(rkhs_optimization_fun(horizon = 6, leads = 5,degree = 3, asymmetricCriterion = "Timeliness"),
-     5.5, 6*3, ylab = "Timeliness",
-     main = "6X5 filter")
 }

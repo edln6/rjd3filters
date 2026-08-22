@@ -144,10 +144,10 @@ plot_phase(
 Functions to plot the coefficients, the gain and the phase functions.
 }
 \examples{
-\dontshow{if (rjd3toolkit::get_java_version() >= rjd3toolkit::minimal_java_version) withAutoprint(\{ # examplesIf}
-\dontshow{\}) # examplesIf}
+\dontshow{if (rjd3jars::check_java_version(silent = TRUE)) withAutoprint(\{ # examplesIf}
 filter <- lp_filter(6, endpoints = "DAF", kernel = "Henderson")
 plot_coef(filter, q = c(0,3), legend = TRUE)
 plot_gain(filter, q = c(0,3), legend = TRUE)
 plot_phase(filter, q = c(0,3), legend = TRUE)
+\dontshow{\}) # examplesIf}
 }
