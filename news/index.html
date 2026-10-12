@@ -36,11 +36,14 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/" class="external-link">Keep a Changelog</a>, and this project adheres to <a href="https://semver.org/spec/v2.0.0.html" class="external-link">Semantic Versioning</a>.</p>
 <div class="section level3">
-<h3 id="unreleased-2-4-0-9000"><a href="https://github.com/rjdverse/rjd3filters/compare/v2.3.0...HEAD" class="external-link">Unreleased</a><a class="anchor" aria-label="anchor" href="#unreleased-2-4-0-9000"></a></h3>
+<h3 id="unreleased-2-4-0-9000"><a href="https://github.com/rjdverse/rjd3filters/compare/v2.4.0...HEAD" class="external-link">Unreleased</a><a class="anchor" aria-label="anchor" href="#unreleased-2-4-0-9000"></a></h3>
+</div>
+<div class="section level3">
+<h3 id="id_240---2-4-0-9000">
+<a href="https://github.com/rjdverse/rjd3filters/compare/v2.3.0...v2.4.0" class="external-link">2.4.0</a> - 2026-10-10<a class="anchor" aria-label="anchor" href="#id_240---2-4-0-9000"></a></h3>
 <div class="section level4">
 <h4 id="added-2-4-0-9000">Added<a class="anchor" aria-label="anchor" href="#added-2-4-0-9000"></a></h4>
 <ul><li>New method <code><a href="../reference/underlying_forecasts.html">underlying_forecasts()</a></code>.</li>
-<li>New JARS related to version <a href="https://github.com/jdemetra/jdplus-main/releases/tag/v3.7.1" class="external-link">3.7.1</a> of JDemetra+.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="changed-2-4-0-9000">Changed<a class="anchor" aria-label="anchor" href="#changed-2-4-0-9000"></a></h4>
@@ -48,6 +51,7 @@
 <li>For polynomial methods, default I/C ratio fixed to 3.5 (as in X-11 for H-13).</li>
 <li>
 <code>implicit_forecast()</code> function renamed to <code><a href="../reference/implicit_forecasts.html">implicit_forecasts()</a></code>.</li>
+<li>New JARS related to version <a href="https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.5.2" class="external-link">2.5.2</a>.</li>
 </ul></div>
 </div>
 <div class="section level3">
@@ -84,7 +88,7 @@
 <ul><li>New functions to compute functions to compute diagnostics and goodness of fit of filtered series: cross validation (<code><a href="../reference/diagnostics-fit.html">cv()</a></code>) and cross validate estimate (<code><a href="../reference/diagnostics-fit.html">cve()</a></code>), leave-one-out cross validation estimate (<code>loocve</code>), CP statistic (<code><a href="../reference/diagnostics-fit.html">cp()</a></code>) and Rice’s T statistics (<code><a href="../reference/diagnostics-fit.html">rt()</a></code>).</li>
 <li>New function <code><a href="../reference/confint_filter.html">confint_filter()</a></code> to compute confidence intervals for filtered series.</li>
 <li>New function <code><a href="../reference/finite_filters.html">is.finite_filters()</a></code>.</li>
-<li>New parameter <code>zero_as_na</code> in <code>cbind.moving_average</code>, boolean indicating if trealing and leading zeros added to have a matrix form should be replaced by <code>NA</code>.</li>
+<li>New parameter <code>zero_as_na</code> in <code>cbind.moving_average</code>, boolean indicating if trailing and leading zeros added to have a matrix form should be replaced by <code>NA</code>.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="changed-2-4-0-9000-3">Changed<a class="anchor" aria-label="anchor" href="#changed-2-4-0-9000-3"></a></h4>
@@ -130,7 +134,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jean Palate, Alain Quartier-la-Tente.</p>
+  <p>Developed by Alain Quartier-la-Tente, Jean Palate.</p>
 </div>
 
 <div class="pkgdown-footer-right">

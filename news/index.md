@@ -8,15 +8,14 @@ The format is based on [Keep a
 Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### [Unreleased](https://github.com/rjdverse/rjd3filters/compare/v2.3.0...HEAD)
+### [Unreleased](https://github.com/rjdverse/rjd3filters/compare/v2.4.0...HEAD)
+
+### [2.4.0](https://github.com/rjdverse/rjd3filters/compare/v2.3.0...v2.4.0) - 2026-10-10
 
 #### Added
 
 - New method
   [`underlying_forecasts()`](https://rjdverse.github.io/rjd3filters/reference/underlying_forecasts.md).
-- New JARS related to version
-  [3.7.1](https://github.com/jdemetra/jdplus-main/releases/tag/v3.7.1)
-  of JDemetra+.
 
 #### Changed
 
@@ -26,6 +25,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   H-13).
 - `implicit_forecast()` function renamed to
   [`implicit_forecasts()`](https://rjdverse.github.io/rjd3filters/reference/implicit_forecasts.md).
+- New JARS related to version
+  [2.5.2](https://github.com/jdemetra/jdplus-incubator/releases/tag/v2.5.2).
 
 ### [2.3.0](https://github.com/rjdverse/rjd3filters/compare/v2.2.0...v2.3.0) - 2025-04-24
 
@@ -79,7 +80,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - New function
   [`is.finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md).
 - New parameter `zero_as_na` in `cbind.moving_average`, boolean
-  indicating if trealing and leading zeros added to have a matrix form
+  indicating if trailing and leading zeros added to have a matrix form
   should be replaced by `NA`.
 
 #### Changed

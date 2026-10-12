@@ -27,6 +27,11 @@ get_properties_function(
 
   unused other arguments.
 
+## Value
+
+A function that takes a frequency as input and returns the value of the
+selected component.
+
 ## Examples
 
 ``` r

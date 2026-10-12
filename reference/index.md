@@ -106,7 +106,7 @@
   : Operations on Filters
 - [`finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
   [`is.finite_filters()`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
-  [`show(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
+  [`to_seasonal(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/finite_filters.md)
   : Manipulating Finite Filters
 - [`get_moving_average()`](https://rjdverse.github.io/rjd3filters/reference/get_moving_average.md)
   : Get Moving Averages from ARIMA model
@@ -114,6 +114,7 @@
   : Impute Incomplete Finite Filters
 - [`moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
   [`is.moving_average()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
+  [`coef(`*`<moving_average>`*`)`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
   [`is_symmetric()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
   [`upper_bound()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
   [`lower_bound()`](https://rjdverse.github.io/rjd3filters/reference/moving_average.md)
@@ -127,8 +128,19 @@
   [`plot_gain()`](https://rjdverse.github.io/rjd3filters/reference/plot_filters.md)
   [`plot_phase()`](https://rjdverse.github.io/rjd3filters/reference/plot_filters.md)
   : Plots filters properties
+- [`print(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/print.finite_filters.md)
+  [`show(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/print.finite_filters.md)
+  [`as.matrix(`*`<finite_filters>`*`)`](https://rjdverse.github.io/rjd3filters/reference/print.finite_filters.md)
+  : Print method for Finite Filters Objects
 
 ## Data
 
 - [`retailsa`](https://rjdverse.github.io/rjd3filters/reference/retailsa.md)
   : Seasonally Adjusted Retail Sales
+
+## Wrangling Java objects
+
+Functions to easily interact between R and Java objects
+
+- [`.jd2r_finitefilters()`](https://rjdverse.github.io/rjd3filters/reference/dot-jd2r_finitefilters.md)
+  : Java Utility Function

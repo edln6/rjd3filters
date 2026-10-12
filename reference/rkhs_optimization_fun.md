@@ -1,7 +1,7 @@
 # Optimization Function of Reproducing Kernel Hilbert Space (RKHS) Filters
 
 Export function used to compute the optimal bandwidth of Reproducing
-Kernel Hilbert Space (RKHS) filters
+Kernel Hilbert Space (RKHS) filters.
 
 ## Usage
 
@@ -49,6 +49,11 @@ rkhs_optimization_fun(
 - passband:
 
   passband threshold.
+
+## Value
+
+A function that takes a bandwidth as input and returns the value of the
+optimization criterion.
 
 ## Examples
 
